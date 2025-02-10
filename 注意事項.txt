@@ -1,0 +1,7 @@
+每次修改後都要先:
+git add .
+git commit -m "描述你的更改"
+git push origin main
+
+如果 GitHub 有新的更新（例如你的組員也推送了新改動），在 git push 之前，建議先執行：
+git pull origin main
