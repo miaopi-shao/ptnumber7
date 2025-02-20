@@ -22,6 +22,10 @@ from bs4 import BeautifulSoup
 # 爬蟲功能 (追加模式)
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 
 
 
@@ -97,9 +101,79 @@ def upload_file():
 # 爬蟲功能 (requests + BeautifulSoup)
 @app.route('/scrape', methods=['GET'])
 def scrape():
-    # 取得使用者指定的爬取方式：預設使用 requests 方法
-    method = request.args.get('method', 'requests')
     
+    # 取得使用者指定的爬取方式：預設使用 requests 方法
+    method = request.args.get('method', 'requests') # 預設使用 requests 方法
+    url = "https://www.example.com"  # 目標網站
+    target_class = "some-class"  # 目標 HTML 類別
+    
+    # --- Selenium 爬蟲邏輯 ---
+    def selenium_scrape(headless=True):
+        try:
+            chrome_options = webdriver.ChromeOptions()
+            if headless:
+                chrome_options.add_argument("--headless")  # 無頭模式
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--no-sandbox")
+    
+            service = Service(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
+            driver = webdriver.Chrome(service=service, options=chrome_options)
+            driver.get(url)
+
+            # **使用 WebDriverWait 等待 JavaScript 加載**
+            try:
+                WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, target_class)))
+                
+            except Exception:
+                driver.quit()
+                return jsonify({"error": "Selenium 爬取失敗：目標內容未載入"}), 500
+
+            # 解析 HTML
+            soup = BeautifulSoup(driver.page_source, 'html.parser')
+            driver.quit()
+
+            data_element = soup.find('div', {'class': target_class})
+            if not data_element:
+                return jsonify({"error": "Selenium 爬取失敗：找不到目標內容"}), 500
+
+            return jsonify({"scraped_data": data_element.text.strip()})
+    
+        except Exception as e:
+            return jsonify({"error": f"Selenium 爬取出錯: {str(e)}"}), 500
+
+    # --- Requests 爬蟲邏輯 ---
+    if method == 'requests':
+        try:
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+            }
+            response = requests.get(url, headers=headers)
+
+            if response.status_code != 200 or not response.text:
+                 return jsonify({"error": f"requests 爬取失敗，狀態碼: {response.status_code}"}), 500
+
+            soup = BeautifulSoup(response.text, 'html.parser')
+            data_element = soup.find('div', {'class': target_class})
+            if not data_element:
+                return jsonify({"error": "requests 爬取失敗：找不到目標內容"}), 500
+
+            return jsonify({"scraped_data": data_element.text.strip()})
+
+        except Exception as e:
+            return jsonify({"error": f"requests 爬取出錯: {str(e)}"}), 500
+
+    elif method == 'selenium_headless':
+         return selenium_scrape(headless=True)
+
+    elif method == 'selenium_visible':
+        return selenium_scrape(headless=False)
+
+    else:
+        return jsonify({"error": "未知的爬取方式，請使用 'selenium_headless', 'selenium_visible' 或 'requests'"}), 400
+    
+    
+    
+"""    
     if method in ['selenium_headless', 'selenium_visible']:
         try:
             chrome_options = webdriver.ChromeOptions()
@@ -122,14 +196,70 @@ def scrape():
             return jsonify({"scraped_data": data})
         except Exception as e:
             return jsonify({"error": f"Selenium 爬取出錯: {str(e)}"}), 500
+        
+        
     elif method == 'requests':
         try:
-            response = requests.get("https://www.example.com")
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+                }
+            response = requests.get("https://www.example.com", headers=headers)
+
+            if response.status_code != 200 or not response.text.strip():
+               return jsonify({"error": f"requests 爬取失敗，狀態碼: {response.status_code}"}), 500
+
             soup = BeautifulSoup(response.text, 'html.parser')
-            data = soup.find('div', {'class': 'some-class'}).text
+            data_element = soup.find('div', {'class': 'some-class'})
+
+            if data_element:  # 確保找到了內容
+               data = data_element.text.strip()
+            else:
+                return jsonify({"error": "requests 爬取失敗：找不到目標內容"}), 500
+
             return jsonify({"scraped_data": data})
+
         except Exception as e:
             return jsonify({"error": f"requests 爬取出錯: {str(e)}"}), 500
+        
+        
+    elif method in ['selenium_headless', 'selenium_visible']:
+        try:
+            chrome_options = webdriver.ChromeOptions()
+        
+            # 設定無頭模式
+            if method == 'selenium_headless':
+                chrome_options.add_argument("--headless")
+        
+            # 減少資源占用
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--no-sandbox")
+
+            service = Service(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
+            driver = webdriver.Chrome(service=service, options=chrome_options)
+
+            driver.get("https://www.example.com")
+
+            # 等待 JavaScript 加載
+            import time
+            time.sleep(3)
+
+            page_source = driver.page_source
+            driver.quit()
+
+            soup = BeautifulSoup(page_source, 'html.parser')
+            data_element = soup.find('div', {'class': 'some-class'})
+
+            if data_element:
+                data = data_element.text.strip()
+            else:
+                return jsonify({"error": "Selenium 爬取失敗：找不到目標內容"}), 500
+
+            return jsonify({"scraped_data": data})
+
+        except Exception as e:
+            return jsonify({"error": f"Selenium 爬取出錯: {str(e)}"}), 500
+    
+    
     else:
         return jsonify({"error": "未知的爬取方式，請使用 'selenium_headless', 'selenium_visible' 或 'requests'"}), 400
     '''
@@ -151,7 +281,7 @@ def scrape():
     '''
 
 
-
+"""
 # 啟動 Flask 應用
 if __name__ == '__main__':
     app.run(debug=True)
