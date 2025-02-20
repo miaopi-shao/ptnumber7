@@ -207,6 +207,9 @@
     <!-- 深藍色底部 -->
     <div class="dark-footer">
         <p>我是中間的內容呈現區域</p>
+        <button id="startCrawler" class="register-btn" style="margin-bottom: 10px;">開始爬蟲</button>
+        <!-- 顯示爬蟲結果的區塊 -->
+        <div id="crawlerResult" style="background: #fff; color: #000; padding: 10px; margin-top: 10px; border-radius: 8px;"></div>
         <ul>
             <li>這是顏色的網址</li>
             <li><img src="D:\PTtest\images/123.png" alt="123"></li>
@@ -255,6 +258,26 @@
                 document.getElementById('registerPopup').style.display = 'none';
             })
             .catch(error => alert('註冊失敗，請稍後再試'));
+        });
+        
+        // 新增：爬蟲功能按鈕事件
+        document.getElementById('startCrawler').addEventListener('click', function() {
+            // 顯示提示資訊
+            document.getElementById('crawlerResult').innerHTML = '正在爬取中，請稍候...';
+            
+            // 使用 fetch 送出 GET 請求到 /scrape
+            fetch('/scrape')
+                .then(response => response.json())
+                .then(data => {
+                    if(data.error) {
+                        document.getElementById('crawlerResult').innerHTML = `<span style="color:red;">錯誤：${data.error}</span>`;
+                    } else {
+                        document.getElementById('crawlerResult').innerHTML = data.scraped_data;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('crawlerResult').innerHTML = `<span style="color:red;">發生錯誤：${error}</span>`;
+                });
         });
     </script>
 
