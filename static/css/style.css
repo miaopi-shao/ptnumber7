@@ -30,6 +30,7 @@ body {
     width: 100%; /*                           設置寬度填滿頁面 */ 
     position: absolute;/*                     絕對定位 (可以用fixed或absolute)*/
     top:0;/*                                  移至頁面最上方(由上往下距離為零)*/
+    z-index: 1000; /*                         確保不會被遮住 */
 }
 
 .header h1 {
@@ -42,7 +43,7 @@ body {
 
 .dark-footer {
     list-style: none;
-    padding: 20px; /* 修正錯誤的 padding 單位 */
+    padding: 5vh; /*                          20px;：適用小區塊，5vh;：適用視窗大小改變時自動調整。 */
     border-radius: 10px;
     
     width: 60%; /* 可依需求調整 */
@@ -63,15 +64,23 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); /* 讓它的中心點對齊螢幕中心 */
+    
+    position: relative; /* 讓內部的 `absolute` 定位相對於這個區塊 */
+    
+    padding-top: 60px; /* 預留空間，避免按鈕壓住內容 */
 }
 
 /* 爬蟲按鈕 */
 .register-btn{
     cursor: pointer; /*                       滑鼠移到按鈕上變成手指形狀 */
+    position: absolute;
+    top: 10px; /*                             固定在頂部 */
+    left: 50%; /*                             按鈕置中 */
+    
     font-size: 25px; /*                       設置按鈕字體大小為 50px */
     position: absolute; /*                    設置絕對定位 */
-    width: 200px;  /*                         設置按鈕寬度 */
-    height: 80px;  /*                         設置按鈕高度 */
+    width: 100px;  /*                         設置按鈕寬度 */
+    height: 60px;  /*                         設置按鈕高度 */
     padding: 5px; /*                          設置上內邊距為5px */
 }
 
@@ -124,6 +133,7 @@ body {
     width: 100%; /*                           區塊寬度填滿頁面 */
     position: fixed; /*                       設置區塊絕對定位(如absolute或fixed) */
     bottom: 0; /*                             區塊緊貼頁面底部 */
+    z-index: 1000; /*                         確保不會被遮住 */
 }
 
 .footer .members {
@@ -152,6 +162,7 @@ body {
     position: absolute; /*                    絕對定位讓區塊可以固定位置 */
     left: 5px; /*                             區塊左邊距離視窗 0px */
     margin-top: 35vh;  /*                     用 margin-top 代替固定 top，讓內容隨 header 調整 */
+    z-index: 1000; /*                         確保不會被遮住 */
     /* 改用相對定位或讓容器自然排列，而不是絕對定位  */
 }
 
@@ -191,6 +202,7 @@ body {
     width: 80%; /*                            改用百分比寬度 */
     max-width: 130px;
     height: auto;  /*                         高度自適應 */
+    z-index: 1000; /*                         確保不會被遮住 */
 }
 
 
@@ -208,6 +220,7 @@ body {
     padding: 30px 50px 30px 20px; /*          設置內邊距，上下10px，右30px 左20px */
     border: 2px solid black; /*               黑色邊框，厚度為 2px */
     width: 350px; /*                          設置彈窗寬度為 350px */ 
+    z-index: 1000; /*                         確保不會被遮住 */
 }
 
 /* 關閉彈出視窗的按鈕 */
