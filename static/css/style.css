@@ -1,0 +1,166 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Feb 21 16:23:02 2025
+
+@author: OAP-0001
+"""
+
+/* 基本的頁面設計(整個) */
+body {
+    margin: 0; /*                             移除瀏覽器預設的外邊距 */
+    padding: 0; /*                            移除瀏覽器預設的內邊距 */
+    display: flex; /*                         使用 Flexbox 進行排版 */
+    flex-direction: column; /*                排版方向為垂直 */
+    justify-content: center; /*               水平居中 */
+    align-items: center; /*                   垂直居中 */
+    height: 100vh; /*                         設置頁面高度為視窗高度 */
+    background-color: #48BC1D; /*             設置背景顏色-綠色 */
+}
+
+/* 頁面頭部樣式 */
+.header {
+    background-color: #E7F9E0; /*             頁面頭部背景顏色-白綠色 */
+    height: 20vh; /*                          設定區塊的高度為當前視窗高度的 30% */
+    display: flex; /*                         使用 Flexbox 將內容置中 */
+    justify-content: center; /*               水平居中內容 */
+    align-items: center; /*                   頂部對齊 */
+    width: 100%; /*                           設置寬度填滿頁面 */ 
+    position: absolute;/*                     絕對定位 (可以用fixed或absolute)*/
+    top:0;/*                                  移至頁面最上方(由上往下距離為零)*/
+}
+
+.header h1 {
+    color: #0066cc; /*                        設定標題文字的顏色 */
+    margin: 0; /*                             移除標題預設的外邊距 */
+}
+
+/* 登入區塊的樣式 */
+.login-box {
+    background-color: #FAE789; /*             設置背景為 #FAE789色 */
+    border: 3px solid black; /*               外邊框，3px 厚度，顏色為黑色 */
+    width: 80%; /*                            設定區塊寬度為 250px */
+    max-width: 300px; /*                      最大寬度限制 */
+    padding: 35px; /*                         設定內邊距為 35px */
+    position: absolute; /*                    絕對定位讓區塊可以固定位置 */
+    left: 0px; /*                             區塊左邊距離視窗 0px */
+    margin-top: 25vh;  /*                     用 margin-top 代替固定 top，讓內容隨 header 調整 */
+    /* 改用相對定位或讓容器自然排列，而不是絕對定位  */
+}
+
+.input-field {
+    width: 100%; /*                           寬度填滿父元素 */
+    padding: 5px; /*                          文字與邊框的距離為 5px */
+    margin: 6px 1; /*                         上下外邊距為 6px，左右為 1 */
+    font-size: 14px; /*                       字體大小為 14px */
+    border-radius: 8px; /*                    設置圓角邊框，半徑為 8px */
+}
+
+.register-btn {
+    width: 100%; /*                           按鈕寬度填滿父元素 */
+    padding: 10px; /*                         按鈕內容與邊界的距離為 10px */
+    background-color: #06529F; /*             設定按鈕背景顏色為藍色 */
+    color: white; /*                          按鈕文字顏色為白色 */
+    border: none; /*                          移除按鈕邊框 */
+    border-radius: 16px; /*                   圓角按鈕，半徑為 16px */
+    cursor: pointer; /*                       滑鼠移到按鈕上會變成手指形狀 */
+}
+
+.register-btn:hover {
+    background-color: #595B7C; /*             當滑鼠懸停時，背景色變為#595B7C的顏色 */
+}
+
+/* 註冊彈出視窗 */
+.register-popup {
+    display: none; /*                         預設不顯示彈出視窗 */
+    position: fixed; /*                       設置彈窗固定在視窗 */
+    top: 50%; /*                              垂直置中於視窗 */
+    left: 50%; /*                             水平置中於視窗 */
+    transform: translate(-50%, -50%); /*      修正置中的位置 */
+    background-color: #A1D9DC; /*             設置彈窗背景為 #A1D9DC色 */
+    padding: 30px 50px 30px 20px; /*          設置內邊距，上下10px，右30px 左20px */
+    border: 2px solid black; /*               黑色邊框，厚度為 2px */
+    width: 350px; /*                          設置彈窗寬度為 350px */ 
+}
+
+/* 關閉彈出視窗的按鈕 */
+.close-btn {
+    cursor: pointer; /*                       滑鼠移到按鈕上變成手指形狀 */
+    color: red; /*                            設置關閉按鈕顏色為紅色 */
+    font-size: 50px; /*                       設置關閉按鈕字體大小為 50px */
+    position: absolute; /*                    設置絕對定位 */
+    top: 5px; /*                              垂直置中於視窗 */
+    left: 10px; /*                            水平置中於視窗 */
+    padding: 5px; /*                          設置上內邊距為5px */
+}
+
+/* 右側資訊區塊 */
+.info-section {
+    background-color: #F8BE71; /*             設置背景顏色為 黃色 */
+    position: absolute; /*                    設置區塊絕對定位 */
+    margin-top: 25vh; /*                      區塊上方距離視窗高度的 25% */ /*並讓內容隨 header 調整*/
+    right: 0px; /*                            區塊右側距離視窗 0px */
+    border: 2px solid black; /*               設置黑色邊框 */
+    padding: 20px; /*                         內邊距設定為 20px */
+    width: 80%; /*                            改用百分比寬度 */
+    max-width: 130px;
+    height: auto;  /*                         高度自適應 */
+}
+
+/* 底部區域 */
+.footer {
+    background-color: #333366; /*             設置底部背景為 深紫藍色 */
+    height: 20%; /*                           設定區塊的高度為當前視窗高度的 20% */
+    display: flex; /*                         使用 Flexbox 將內容置中 */
+    justify-content: center; /*               水平居中內容 */
+    align-items: center;  /*                  垂直居中 */
+    font-size: 18px; /*                       設置標題的文字大小為18 */
+    color: #B9D5F3; /*                        設置底部文字顏色為#B9D5F3的白色 */
+    text-align: center; /*                    文字置中對齊 */
+    width: 100%; /*                           區塊寬度填滿頁面 */
+    position: fixed; /*                       設置區塊絕對定位(如absolute或fixed) */
+    bottom: 0; /*                             區塊緊貼頁面底部 */
+}
+
+.footer .members {
+    margin-top: 10px; /*                      設置外邊距為 10px */
+}
+
+.footer .members h3 {
+    font-size: 18px; /*                       設置字體大小為 18px */
+}
+
+.footer .members ul {
+    list-style-type: none; /*                 移除清單的預設符號 */
+    padding: 0; /*                            移除內邊距 */
+}
+
+/* 深藍色底部樣式 */
+.dark-footer {
+    list-style: none;
+    padding-left: 0; /*                       移除默认的内边距 */
+    background-color: #994D7C; /*             設置底部背景顏色為#994D7C 深粉紅色 */
+    font-size: 30px; /*                       設置標題的文字大小為30 */
+    color: white; /*                          設置文字顏色為白色 */
+    text-align: center; /*                    文字置中對齊 */
+    padding: 20px; /*                         設置內邊距為 20px */
+}
+
+/* 右側框起來的樣式 */
+.info-section {
+    border: 2px solid #0066cc; /*             設置右側資訊區塊邊框顏色為藍色 */
+}
+
+
+
+/* 媒體查詢：當螢幕寬度小於 768px 時調整佈局 */
+@media only screen and (max-width: 768px) {
+    .login-box, .info-section {
+        width: 90%;  /*                       更大比例，適合窄螢幕 */
+        margin-top: 30vh;  /*                 根據實際效果調整 */
+    }
+    .footer {
+        height: 15vh;
+        font-size: 16px;
+    }
+}
+
