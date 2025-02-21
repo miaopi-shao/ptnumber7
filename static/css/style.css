@@ -23,7 +23,7 @@ body {
 /* 頁面頭部樣式 */
 .header {
     background-color: #E7F9E0; /*             頁面頭部背景顏色-白綠色 */
-    height: 20vh; /*                          設定區塊的高度為當前視窗高度的 30% */
+    height: 20vh; /*                          設定區塊的高度為當前視窗高度的 20% */
     display: flex; /*                         使用 Flexbox 將內容置中 */
     justify-content: center; /*               水平居中內容 */
     align-items: center; /*                   頂部對齊 */
@@ -45,6 +45,8 @@ body {
     list-style: none;
     padding: 5vh; /*                          20px;：適用小區塊，5vh;：適用視窗大小改變時自動調整。 */
     border-radius: 10px;
+    margin: 10px; /*                          設定一個物件與周圍物件之間的距離20% */
+    
     
     width: 60%; /* 可依需求調整 */
     max-width: 800px;
@@ -76,6 +78,7 @@ body {
     position: absolute;
     top: 10px; /*                             固定在頂部 */
     left: 50%; /*                             按鈕置中 */
+    margin: 1px; /*                           設定一個物件與周圍物件之間的距離1% */
     
     font-size: 25px; /*                       設置按鈕字體大小為 50px */
     position: absolute; /*                    設置絕對定位 */
@@ -156,11 +159,11 @@ body {
 .login-box {
     background-color: #FAE789; /*             設置背景為 #FAE789色 */
     border: 3px solid black; /*               外邊框，3px 厚度，顏色為黑色 */
-    width: 50%; /*                            設定區塊寬度為 50% */
-    max-width: 300px; /*                      最大寬度限制為 250px  */
-    padding: 35px; /*                         設定內邊距為 35px */
+    width: 30%; /*                            設定區塊寬度為 30% */
+    max-width: 150px; /*                      最大寬度限制為 150px  */
+    padding: 15px; /*                         設定內邊距為 15px */
     position: absolute; /*                    絕對定位讓區塊可以固定位置 */
-    left: 5px; /*                             區塊左邊距離視窗 0px */
+    left: 5px; /*                             區塊左邊距離視窗 5px */
     margin-top: 35vh;  /*                     用 margin-top 代替固定 top，讓內容隨 header 調整 */
     z-index: 1000; /*                         確保不會被遮住 */
     /* 改用相對定位或讓容器自然排列，而不是絕對定位  */
@@ -175,13 +178,15 @@ body {
 }
 
 .register-btn {
-    width: 100%; /*                           按鈕寬度填滿父元素 */
-    padding: 10px; /*                         按鈕內容與邊界的距離為 10px */
+    width: 50%; /*                            按鈕寬度減半父元素 */
+    padding: 8px; /*                          按鈕內容與邊界的距離為 8px */
     background-color: #06529F; /*             設定按鈕背景顏色為藍色 */
     color: white; /*                          按鈕文字顏色為白色 */
     border: none; /*                          移除按鈕邊框 */
     border-radius: 16px; /*                   圓角按鈕，半徑為 16px */
     cursor: pointer; /*                       滑鼠移到按鈕上會變成手指形狀 */
+    text-align: center; /*                    讓按鈕內容置中 */
+    margin: 1px; /*                           設定一個物件與周圍物件之間的距離1% */
 }
 
 .register-btn:hover {
