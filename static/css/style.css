@@ -40,22 +40,30 @@ body {
 
 /*--------------------------------固定區塊分割-------------------------------- */
 
-/* 中間底部樣式 */
 .dark-footer {
     list-style: none;
-    padding-left: 0 30% 0; /*                 移除默认的内边距 */
-    background-color: #994D7C; /*             設置底部背景顏色為#994D7C 深粉紅色 */
-    font-size: 30px; /*                       設置標題的文字大小為30 */
-    color: white; /*                          設置文字顏色為白色 */
-    align-items: center; /*                   文字置中對齊 */
-    text-align: center; /*                    文字置中對齊 */
-    padding: 20px; /*                         設置內邊距為 20px */
+    padding: 20px; /* 修正錯誤的 padding 單位 */
+    border-radius: 10px;
     
+    width: 60%; /* 可依需求調整 */
+    max-width: 800px;
+    
+    background-color: #994D7C; /* 設置底部背景顏色 */
+    font-size: 30px;
+    color: white;
+    
+    /* 調整子元素內容，置中整個畫面。 */
     display: flex;
-    flex-direction: column; /*                讓子元素從上到下排列 */
-    position: relative; /*                    使父容器作為參照 */
+    flex-direction: column; /* 讓子元素從上到下排列 */
+    align-items: center; /* 讓內容水平置中 */
+    text-align: center; /* 文字置中 */
+    
+    /* 可以完美置中整個畫面，無論螢幕大小如何都在正中間。 */
+    position: absolute; /* 讓它可以自由定位 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 讓它的中心點對齊螢幕中心 */
 }
-
 
 /* 爬蟲按鈕 */
 .register-btn{
