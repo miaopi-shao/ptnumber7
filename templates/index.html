@@ -63,10 +63,11 @@
         </div>
     </div>
 
-    <!-- 深藍色底部 -->
+    <!-- 中間展示區塊 -->
     <div class="dark-footer">
         <p>我是中間的內容呈現區域</p>
         <button id="startCrawler" class="register-btn" style="margin-bottom: 10px;">開始爬蟲</button>
+        
         <!-- 顯示爬蟲結果的區塊 -->
         <div id="crawlerResult" style="background: #fff; color: #000; padding: 10px; margin-top: 10px; border-radius: 8px;"></div>
         <ul>
@@ -77,76 +78,48 @@
             <a href= https://developer.chrome.com/docs/chromedriver/downloads?hl=zh-tw target="_blank"> 請點擊這個去官網查詢</a>
             <a href= https://chromedriver.storage.googleapis.com/index.html target="_blank"> 並點擊這個去選擇版本號自行下載</a>
             <li>_______________功能分割__________________</li>
-            <li> </li>
-            <li>這是顏色的網址</li>
-            <li><img src="{{ url_for('static', filename='images/90313.jpg') }}" alt="123"></li>
-            <a href=https://www.bing.com/search?pglt=425&q=HTML+Color+Picker&cvid=10ca125bbb294230a174ecd81ebcd1b3&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIGCAEQABhAMgYIAhAAGEAyBggDEAAYQDIGCAQQABhAMgYIBRAAGEAyBggGEAAYQDIGCAcQABhAMgYICBAAGEDSAQc2MzZqMGoxqAIIsAIB&FORM=ANNTA1&PC=ACTS target="_blank"> 顏色</a>
-            <li>測試網址區域</li>
-         
+            
         </ul>
+        
         <video width="240" height="120" controls>
             <source src="{{ url_for('static', filename='video/123.mp4') }}"   type="video/mp4">
             你的瀏覽器不支持播放此影片。
-        </video>
+        </video> 
+        
+        <!-- 內部其餘區塊1 -->  
+        <div class="dark-footer-1" >
+            <li> 你好，使用者 </li>
+            <li>歡迎前往</li>
+            <li><img src="{{ url_for('static', filename='images/90313.jpg') }}" alt="123"></li>
+            <a href=https://www.bing.com/search?pglt=425&q=HTML+Color+Picker&cvid=10ca125bbb294230a174ecd81ebcd1b3&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIGCAEQABhAMgYIAhAAGEAyBggDEAAYQDIGCAQQABhAMgYIBRAAGEAyBggGEAAYQDIGCAcQABhAMgYICBAAGEDSAQc2MzZqMGoxqAIIsAIB&FORM=ANNTA1&PC=ACTS target="_blank"> 顏色查找</a>
+            <li>測試網站區域</li>
+        </div>
+        
+        <div class="dark-footer-bottom">
+        
+            <!-- 內部其餘區塊2 -->  
+            <div class="dark-footer-2" >
+                <li> </li>
+                <li>歡迎前往</li>
+                <li><img src="{{ url_for('static', filename='images/90313.jpg') }}" alt="123"></li>
+                <a href=https://www.google.com/ target="_blank"> Google</a>
+                <li>測試網站區域</li>
+            </div>
+            
+            <!-- 內部其餘區塊3 -->  
+            <div class="dark-footer-3" >
+                <li> </li>
+                <li>歡迎前往</li>
+                <li><img src="{{ url_for('static', filename='images/90313.jpg') }}" alt="123"></li>
+                <a href=https://chatgpt.com/ target="_blank"> GPT</a>
+                <li>測試網站區域</li>
+            </div>
+        </div>
+        
+        
     </div>
 
-    <script>
-        // 彈出註冊視窗
-        document.getElementById('showRegisterPopup').addEventListener('click', function() {
-            document.getElementById('registerPopup').style.display = 'block';
-        });
-
-        // 關閉註冊視窗
-        document.getElementById('closePopup').addEventListener('click', function() {
-            document.getElementById('registerPopup').style.display = 'none';
-        });
-
-        // 註冊提交表單
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const username = document.getElementById('newUsername').value;
-            const phrase = document.getElementById('newPhrase').value;
-            const keepEveryN = document.getElementById('keepEveryN').value;
-
-            fetch('/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username,
-                    phrase,
-                    keep_every_n: keepEveryN
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(`註冊成功！帳號：${data.username}, 密碼：${data.encrypted_password}`);
-                document.getElementById('registerPopup').style.display = 'none';
-            })
-            .catch(error => alert('註冊失敗，請稍後再試'));
-        });
-        
-        // 新增：爬蟲功能按鈕事件
-        document.getElementById('startCrawler').addEventListener('click', function() {
-            // 顯示提示資訊
-            document.getElementById('crawlerResult').innerHTML = '正在爬取中，請稍候...';
-            
-            // 使用 fetch 送出 GET 請求到 /scrape
-            fetch('/scrape')
-                .then(response => response.json())
-                .then(data => {
-                    if(data.error) {
-                        document.getElementById('crawlerResult').innerHTML = `<span style="color:red;">錯誤：${data.error}</span>`;
-                    } else {
-                        document.getElementById('crawlerResult').innerHTML = data.scraped_data;
-                    }
-                })
-                .catch(error => {
-                    document.getElementById('crawlerResult').innerHTML = `<span style="color:red;">發生錯誤：${error}</span>`;
-                });
-        });
-    </script>
+    <script  src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 </body>
 </html>
