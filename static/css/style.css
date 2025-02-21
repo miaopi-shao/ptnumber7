@@ -17,6 +17,7 @@ body {
     background-color: #48BC1D; /*             設置背景顏色-綠色 */
 }
 
+
 /* 頁面頭部樣式 */
 .header {
     background-color: #E7F9E0; /*             頁面頭部背景顏色-白綠色 */
@@ -33,6 +34,7 @@ body {
     color: #0066cc; /*                        設定標題文字的顏色 */
     margin: 0; /*                             移除標題預設的外邊距 */
 }
+
 
 /* 登入區塊的樣式 */
 .login-box {
@@ -69,6 +71,9 @@ body {
     background-color: #595B7C; /*             當滑鼠懸停時，背景色變為#595B7C的顏色 */
 }
 
+
+
+
 /* 註冊彈出視窗 */
 .register-popup {
     display: none; /*                         預設不顯示彈出視窗 */
@@ -93,6 +98,8 @@ body {
     padding: 5px; /*                          設置上內邊距為5px */
 }
 
+
+
 /* 右側資訊區塊 */
 .info-section {
     background-color: #F8BE71; /*             設置背景顏色為 黃色 */
@@ -105,6 +112,8 @@ body {
     max-width: 130px;
     height: auto;  /*                         高度自適應 */
 }
+
+
 
 /* 底部區域 */
 .footer {
@@ -134,6 +143,18 @@ body {
     padding: 0; /*                            移除內邊距 */
 }
 
+
+
+/* 讓圖片和影片保持響應式，適應螢幕 */
+img, video {
+    max-width: 100%;  /*                       確保圖片和影片不會超過父容器 */
+    height: auto;  /*                          讓高度自動調整，避免變形 */
+    display: block;  /*                        確保圖片不會受 inline 元素影響 */
+    margin: 0 auto;  /*                        讓圖片/影片置中 */
+}
+
+
+
 /* 深藍色底部樣式 */
 .dark-footer {
     list-style: none;
@@ -152,6 +173,9 @@ body {
 
 
 
+
+
+
 /* 媒體查詢：當螢幕寬度小於 768px 時調整佈局 */
 @media only screen and (max-width: 768px) {
     .login-box, .info-section {
@@ -164,3 +188,29 @@ body {
     }
 }
 
+
+/* 讓圖片和影片保持響應式，適應螢幕 */
+@media screen and (max-width: 768px) {
+    img, video {
+        max-width: 90%;  /*                    讓圖片/影片更窄一點，避免貼邊 */
+    }
+}
+
+
+
+
+
+/* 如果 手機螢幕更窄（例如 480px 以下） */
+@media screen and (max-width: 480px) {
+    .login-box, .info-section {
+        width: 100%; /* 讓兩個區塊滿版 */
+        margin: 10px 0;
+    }
+}
+
+/* 讓圖片和影片保持響應式，適應螢幕 */
+@media screen and (max-width: 480px) {
+    img, video {
+        max-width: 60%;  /*                    讓圖片/影片更窄一點，避免貼邊 */
+    }
+}
