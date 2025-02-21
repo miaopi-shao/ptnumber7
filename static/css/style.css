@@ -180,11 +180,11 @@ img, video {
 @media only screen and (max-width: 768px) {
     .login-box {
         width: 70%; /*                        更大比例，適合窄螢幕 */
-        margin-top: 30vh;  /*                 根據實際效果調整 */
+        margin-top: 30%;  /*                 根據實際效果調整 */
     }
     .info-section {
         width: 70%;  /*                       更大比例，適合窄螢幕 */
-        margin-top: 50vh;  /*                 根據實際效果調整 */
+        margin-top: 50%;  /*                 根據實際效果調整 */
     }
     .footer {
         height: 15vh;
@@ -212,7 +212,7 @@ img, video {
     }
     .info-section {
         width: 100%; /* 讓兩個區塊滿版 */
-        margin: 40px 0;
+        margin: 70px 0;
     }
 }
 
