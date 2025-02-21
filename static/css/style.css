@@ -42,7 +42,7 @@ body {
     max-width: 300px; /*                      最大寬度限制 */
     padding: 35px; /*                         設定內邊距為 35px */
     position: absolute; /*                    絕對定位讓區塊可以固定位置 */
-    left: 0px; /*                             區塊左邊距離視窗 0px */
+    left: 1px; /*                             區塊左邊距離視窗 0px */
     margin-top: 25vh;  /*                     用 margin-top 代替固定 top，讓內容隨 header 調整 */
     /* 改用相對定位或讓容器自然排列，而不是絕對定位  */
 }
@@ -98,7 +98,7 @@ body {
     background-color: #F8BE71; /*             設置背景顏色為 黃色 */
     position: absolute; /*                    設置區塊絕對定位 */
     margin-top: 25vh; /*                      區塊上方距離視窗高度的 25% */ /*並讓內容隨 header 調整*/
-    right: 0px; /*                            區塊右側距離視窗 0px */
+    right: 1px; /*                            區塊右側距離視窗 0px */
     border: 2px solid black; /*               設置黑色邊框 */
     padding: 20px; /*                         內邊距設定為 20px */
     width: 80%; /*                            改用百分比寬度 */
