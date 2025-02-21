@@ -44,8 +44,8 @@ body {
     max-width: 300px; /*                      最大寬度限制 */
     padding: 35px; /*                         設定內邊距為 35px */
     position: absolute; /*                    絕對定位讓區塊可以固定位置 */
-    left: 1px; /*                             區塊左邊距離視窗 0px */
-    margin-top: 25vh;  /*                     用 margin-top 代替固定 top，讓內容隨 header 調整 */
+    left: 5px; /*                             區塊左邊距離視窗 0px */
+    margin-top: 35vh;  /*                     用 margin-top 代替固定 top，讓內容隨 header 調整 */
     /* 改用相對定位或讓容器自然排列，而不是絕對定位  */
 }
 
@@ -104,8 +104,8 @@ body {
 .info-section {
     background-color: #F8BE71; /*             設置背景顏色為 黃色 */
     position: absolute; /*                    設置區塊絕對定位 */
-    margin-top: 25vh; /*                      區塊上方距離視窗高度的 25% */ /*並讓內容隨 header 調整*/
-    right: 1px; /*                            區塊右側距離視窗 0px */
+    margin-top: 35vh; /*                      區塊上方距離視窗高度的 35% */ /*並讓內容隨 header 調整*/
+    right: 5px; /*                            區塊右側距離視窗 5px */
     border: 2px solid black; /*               設置黑色邊框 */
     padding: 20px; /*                         內邊距設定為 20px */
     width: 80%; /*                            改用百分比寬度 */
@@ -178,9 +178,13 @@ img, video {
 
 /* 媒體查詢：當螢幕寬度小於 768px 時調整佈局 */
 @media only screen and (max-width: 768px) {
-    .login-box, .info-section {
-        width: 90%;  /*                       更大比例，適合窄螢幕 */
+    .login-box {
+        width: 70%; /*                        更大比例，適合窄螢幕 */
         margin-top: 30vh;  /*                 根據實際效果調整 */
+    }
+    .info-section {
+        width: 70%;  /*                       更大比例，適合窄螢幕 */
+        margin-top: 50vh;  /*                 根據實際效果調整 */
     }
     .footer {
         height: 15vh;
@@ -202,15 +206,19 @@ img, video {
 
 /* 如果 手機螢幕更窄（例如 480px 以下） */
 @media screen and (max-width: 480px) {
-    .login-box, .info-section {
+    .login-box {
         width: 100%; /* 讓兩個區塊滿版 */
         margin: 10px 0;
+    }
+    .info-section {
+        width: 100%; /* 讓兩個區塊滿版 */
+        margin: 40px 0;
     }
 }
 
 /* 讓圖片和影片保持響應式，適應螢幕 */
 @media screen and (max-width: 480px) {
     img, video {
-        max-width: 60%;  /*                    讓圖片/影片更窄一點，避免貼邊 */
+        max-width: 50%;  /*                    讓圖片/影片更窄一點，避免貼邊 */
     }
 }
