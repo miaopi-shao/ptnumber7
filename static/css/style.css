@@ -11,23 +11,6 @@ Created on Fri Feb 21 16:23:02 2025
 
 
 
-/* 未設定到的 */
-* {
-    margin: 1; /*                             外邊距為1 */
-    padding: 1; /*                            內邊距為1 */
-    display: flex; /*                         使用 Flexbox 進行排版 */
-    flex-direction: column; /*                排版方向為垂直 */
-    background-color: black; /*               設置背景顏色-黑色 */
-}
-
-
-
-
-
-
-
-
-
 /* 基本的頁面設計(整個) */
 body {
     margin: 0; /*                             移除瀏覽器預設的外邊距 */
