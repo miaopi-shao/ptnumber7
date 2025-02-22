@@ -52,19 +52,26 @@ body {
 
 /* 2. 主區域容器，採用三欄 Grid 布局 */
 .main-container {
+  
   display: grid;
   grid-template-columns: 1fr 2fr 1fr; /* 左中右欄 */
-  grid-gap: 20px;
+  
+  grid: 20px;
+  gap:  20px;
   width: 100%;
+  
   /* 預留 header 與 footer 空間 */
   margin-top: 12vh;
   margin-bottom: 22vh;
   padding: 0 20px;
 }
 
+
+
 /* 3. 左側 登入區塊 */
 .login-box {
   background-color: #FAE789;
+  left:0;/*                                 移至頁面最左側(由左至右距離為零)*/
   border: 3px solid black;
   padding: 15px;
   max-width: 150px;
@@ -83,8 +90,10 @@ body {
   background-color: #994D7C;
   font-size: 30px;
   color: white;
+  
   /* 取消絕對定位，讓它在 Grid 中自然排列 */
   position: relative;
+  
   /* 預留上方空間放置爬蟲按鈕 */
   padding-top: 70px;
 }
@@ -100,47 +109,6 @@ body {
   font-size: 25px;
   cursor: pointer;
 }
-
-
-
-/*--------------------------------固定區塊分割-------------------------------- */
-
-
-
-/* 底部區域 */
-.footer {
-    /* 區塊位置設定 */
-    position: fixed; /*                       設置區塊絕對定位(如absolute或fixed) */
-    bottom: 0; /*                             區塊緊貼頁面底部 */
-    left: 0;/*                                移至頁面最左側(由左至右距離為零)*/
-    width: 100%; /*                           區塊寬度填滿頁面 */
-    height: 20%; /*                           設定區塊的高度為當前視窗高度的 20% */
-    background-color: #333366; /*             設置底部背景為 深紫藍色 */
-    
-    
-    display: flex; /*                         使用 Flexbox 將內容置中 */
-    justify-content: center; /*               水平居中內容 */
-    align-items: center;  /*                  垂直居中 */   
-    font-size: 18px; /*                       設置標題的文字大小為18 */
-    color: #B9D5F3; /*                        設置底部文字顏色為#B9D5F3的白色 */
-    text-align: center; /*                    文字置中對齊 */
-    
-    z-index: 1000; /*                         確保不會被遮住 */
-}
-
-.footer .members {
-    margin-top: 10px; /*                      設置外邊距為 10px */
-}
-
-.footer .members h3 {
-    font-size: 18px; /*                       設置字體大小為 18px */
-}
-
-.footer .members ul {
-    list-style-type: none; /*                 移除清單的預設符號 */
-    padding: 0; /*                            移除內邊距 */
-}
-
 
 /*--------------------------------浮動視窗區塊--------------------------------- */
 
@@ -205,6 +173,47 @@ body {
 }
 
 
+
+/*--------------------------------固定區塊分割-------------------------------- */
+
+
+
+/* 底部區域 */
+.footer {
+    /* 區塊位置設定 */
+    position: fixed; /*                       設置區塊絕對定位(如absolute或fixed) */
+    bottom: 0; /*                             區塊緊貼頁面底部 */
+    left: 0;/*                                移至頁面最左側(由左至右距離為零)*/
+    width: 100%; /*                           區塊寬度填滿頁面 */
+    height: 20%; /*                           設定區塊的高度為當前視窗高度的 20% */
+    background-color: #333366; /*             設置底部背景為 深紫藍色 */
+    
+    
+    display: flex; /*                         使用 Flexbox 將內容置中 */
+    justify-content: center; /*               水平居中內容 */
+    align-items: center;  /*                  垂直居中 */   
+    font-size: 18px; /*                       設置標題的文字大小為18 */
+    color: #B9D5F3; /*                        設置底部文字顏色為#B9D5F3的白色 */
+    text-align: center; /*                    文字置中對齊 */
+    
+    z-index: 1000; /*                         確保不會被遮住 */
+}
+
+.footer .members {
+    margin-top: 10px; /*                      設置外邊距為 10px */
+}
+
+.footer .members h3 {
+    font-size: 18px; /*                       設置字體大小為 18px */
+}
+
+.footer .members ul {
+    list-style-type: none; /*                 移除清單的預設符號 */
+    padding: 0; /*                            移除內邊距 */
+}
+
+
+
 /* ------------------------------彈出視窗區塊-------------------------------- */
 
 
@@ -239,8 +248,9 @@ body {
 
 /* 讓圖片和影片保持響應式，適應螢幕 */
 img, video {
-    max-width: 100%;  /*                       確保圖片和影片不會超過父容器 */
+    max-width: 50%;  /*                        確保圖片和影片不會超過父容器 */
     height: auto;  /*                          讓高度自動調整，避免變形 */
+    width: auto;  /*                           讓高度自動調整，避免變形 */
     display: block;  /*                        確保圖片不會受 inline 元素影響 */
     margin: 0 auto;  /*                        讓圖片/影片置中 */
 }
