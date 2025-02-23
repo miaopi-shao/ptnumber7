@@ -1,148 +1,228 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Feb 21 16:23:02 2025
-
-@author: OAP-0001
-"""
 /* height=高度 ，width=寬度 */
 /* display =排版方式 ，margin=外圍編距 ，padding=內圍邊距 */
 /* left=外圍編距 ， */
 /* color =色彩 ，background-color =背景色彩 */
 
 
+@charset "UTF-8"; /* 設定 CSS 檔案的編碼為 UTF-8，避免中文亂碼 */
 
-
-/* 瀏覽器默認設置 */
+/* 瀏覽器默認設置（重置 margin、padding，讓所有元素統一處理） */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0; /* 取消所有元素的外邊距 */
+    padding: 0; /* 取消所有元素的內邊距 */
+    box-sizing: border-box; /* 讓寬度計算包含 padding 和 border，避免大小混亂 */
 }
 
-
-/* 整體頁面佈局 */
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    background-color: #f4f4f9;
+/* 整體佈局容器 */
+.container {
+    display: flex; /* 使用 Flexbox 讓內部元素彈性排列 */
+    flex-direction: column; /* 讓元素垂直排列 */
+    height: 100vh; /* 讓頁面高度填滿整個視窗 */
 }
 
-
-
-/* 頁面標題 */
-h1 {
-    text-align: center;
-    margin-top: 20px;
+/* 頁面標題區域 */
+.header {
+    text-align: center; /* 標題文字置中 */
+    padding: 20px; /* 內邊距 20px，讓標題區塊更明顯 */
+    background-color: #f4f4f9; /* 背景顏色為淡灰色 */
+    position: relative; /* 保持相對定位 */
+    z-index: 10; /* 確保標題區不會被其他內容蓋住 */
 }
-
-
 
 /* 小標題 */
 small {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    font-size: 12px;
-    color: gray;
+    display: block; /* 讓 small 變成區塊元素，換行顯示 */
+    text-align: center; /* 讓小標題內容置中 */
+    font-size: 12px; /* 設定字體大小為 12px */
+    color: gray; /* 文字顏色為灰色 */
+    margin-top: 5px; /* 與標題間距 5px */
 }
 
 
+
+
+
+/* 主要內容區域 */
+.main-content {
+    display: flex; /* 使用 Flexbox 讓左右與中央區塊水平排列 */
+    flex: 1; /* 讓該區塊撐開，佔據剩餘空間 */
+    min-height: 100vh;
+    align-items: stretch; /* 讓左右欄與中央等高 */
+    overflow-y: auto; /* 只允許垂直滾動 */
+}
+
+
+/* ------------------------------左側區塊----------------------------------- */
 
 /* 左側欄 */
 .left-column {
-    width: 20%;
-    height: 100%;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
+    width: 20%; /* 左側欄佔 20% */
+    background-color: #fff; /* 背景設為白色 */
+    padding: 20px; /* 內邊距 20px，讓內容有空間 */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 陰影效果 */
+    display: flex; /* 讓內部元素可以彈性排列 */
+    flex-direction: column; /* 內容垂直排列 */
+    justify-content: flex-start; /* 讓內容從上往下排列 */
+    align-items: stretch; /* 讓內部元素貼齊左右 */
+    justify-content: space-between; /* 讓內容上下分佈 */
+}
+
+/* 帳號登入區 */
+.login-container {
+    display: flex; /* 彈性排列 */
+    flex-direction: column; /* 內容垂直排列 */
+    gap: 10px; /* 設定內部間距 */
+}
+
+/* 登入鍵 */
+#login-btn {
+    font-size: 18px;
+    background-color: #4CAF50; /* 綠色 */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+/* 註冊鍵 */
+#register-btn {
+    font-size: 18px;
+    background-color: #008CBA; /* 藍色 */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
 }
 
 
+/* 上方部分佔 1/4 */
+.top-part {
+    flex: 1; /* 上方部分佔 1 的比例 */
+    padding: 10px; /* 可以加一些內邊距來控制內容間距 */
+}
 
-/* 右側欄 */
+/* 下方部分佔 3/4 */
+.bottom-part {
+    flex: 3; /* 下方部分佔 3 的比例 */
+    padding: 10px; /* 可以加一些內邊距來控制內容間距 */
+}
+
+/* 站內網站列表 */
+.login-container2 {
+    margin-top: 20px; /* 與上方內容保持間距 */
+    padding: 10px; /* 內邊距 */
+    border: 1px solid #ddd; /* 邊框設計 */
+    background-color: #f9f9f9; /* 淡灰色背景 */
+}
+
+
+/* ------------------------------右側區塊----------------------------------- */
+
+
+//* 右側欄 */
 .right-column {
-    width: 20%;
-    height: 100%;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    right: 0;
+    position: fixed; /* 固定在右側 */
+    width: 20%; /* 右側欄佔 20% */
+    background-color: #7DD0F7; /* 背景色 */
+    padding: 20px; /* 內邊距 20px */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* 陰影效果 */
+    display: flex; /* 讓內部元素可以彈性排列 */
+    flex-direction: column; /* 內容垂直排列 */
+    align-items: stretch; /* 讓內部元素貼齊左右 */
+    justify-content: flex-start; /* 讓內容從上往下排列 */
+    justify-content: space-between; /* 讓內容上下分佈 */
+}
+
+/* 目前時間顯示 */
+.right-column .time-display {
+    
+    text-align: center; /* 讓時間顯示置中 */
+    font-size: 16px; /* 設定字體大小 */
+    color: #333; /* 深色字體 */
+}
+
+/* 天氣概況 */
+.right-column .weather-info {
+    
+    text-align: center; /* 讓天氣資訊置中 */
+    font-size: 14px; /* 字體大小 */
+    color: #666; /* 文字顏色 */
+    margin-top: 15px; /* 與上方內容保持距離 */
+}
+
+/* 右側第二欄 - 定時爬蟲資料 */
+.right-column2 {
+    
+    margin-top: 100px; /* 與上方內容保持距離 */
+    padding: 15px; /* 內邊距 */
+    background-color: #7497A7; /* 淡灰色背景 */
+    border: 2px solid #ddd; /* 加上邊框 */
+    text-align: center; /* 讓內容置中 */
 }
 
 
+/* ------------------------------中央區塊----------------------------------- */
 
-/* 中央區 */
+
+/* 中央內容區域 */
 .center-column {
-    margin-left: 20%;
-    margin-right: 20%;
-    padding: 20px;
-    overflow: auto;
+    flex: 1; /* 讓中央內容區域自動填滿剩餘空間 */
+    padding: 20px; /* 內邊距 20px，讓內容有空間 */
+    background-color: #7DD0F7; /* 背景色 */
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow: auto; /* 若內容超過範圍，允許滾動 */
 }
 
-
-/* 搜尋區 (內部與外部搜尋) */
+/* 搜尋區 */
 .search-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+    display: flex; /* 使用 Flexbox 讓內部搜尋元件可以橫向排列 */
+    justify-content: space-between; /* 讓搜尋區塊內的元素左右分開 */
+    margin-bottom: 20px; /* 與其他元素的間距為 20px */
+    background-color: #3691E2; /* 背景色 */
 }
+
 
 
 /* 影片與圖片區 */
 .media-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
+    display: flex; /* 使用 Flexbox 讓內容可以彈性對齊 */
+    justify-content: center; /* 讓內容置中 */
+    align-items: center; /* 讓內容垂直置中 */
+    margin-bottom: 20px; /* 與其他元素的間距為 20px */
+    width: 100%; /* 確保容器填滿父元素 */
+}
+
+.media-container img, .media-container video {
+    width: 100%; /* 讓圖片與影片寬度隨父容器自動調整 */
+    height: auto; /* 根據寬度自動調整高度，保持比例 */
+    object-fit: cover; /* 讓圖片或影片適應容器大小 */
 }
 
 
-.media-container img {
-    max-width: 100%;
-    max-height: 300px;
-    object-fit: cover;
-}
 
-.media-container video {
-    max-width: 100%;
-    max-height: 300px;
-}
 
 /* 輸入區 */
 .input-container {
-    margin-top: 20px;
+    margin-top: 20px; /* 與上方元素的間距為 20px */
+    background-color: #6B2E2E; /* 背景色 */
 }
+
 
 
 
 
 /* 頁尾 */
-footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #333;
-    color: white;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+.footer {
+    text-align: center; /* 讓內容置中 */
+    padding: 10px; /* 內邊距 10px */
+    background-color: #213E5C; /* 背景顏色為深灰色 */
+    color: white; /* 文字顏色為白色 */
+    z-index: 10; /* 確保標題區不會被其他內容蓋住 */
 }
 
+/* -------------------------------註冊彈出視窗------------------------------- */
 
-/* ---------------------------帳號區域及註冊彈出視窗-------------------------- */
-
-
-/* 登入區樣式 */
-.login-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
 
 /* 註冊視窗 */
 .modal {
@@ -150,7 +230,9 @@ footer {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transform: translate(-50%, -60%);
     background-color: white;
     padding: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
@@ -159,10 +241,14 @@ footer {
 
 .modal.active {
     display: block;  /* 顯示彈出視窗 */
+    opacity: 1;
+    transform: translate(-50%, -50%);
 }
 
 .modal-overlay {
     display: none;  /* 默認隱藏 */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
     position: fixed;
     top: 0;
     left: 0;
@@ -174,6 +260,7 @@ footer {
 
 .modal-overlay.active {
     display: block;  /* 顯示背景遮罩 */
+    opacity: 1;
 }
 
 /* 註冊表單樣式 */
@@ -204,10 +291,14 @@ button {
     border: none;
     cursor: pointer;
     width: 100%;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
 }
 
 button:hover {
     background-color: #45a049;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
 }
 
 
@@ -293,4 +384,32 @@ button:hover {
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+
+/* -------------------- RWD 響應式設計 -------------------- */
+
+
+/* 📌 針對 **平板裝置**（螢幕寬度 ≤ 1024px） */
+@media screen and (max-width: 1024px) {
+    .left-column, .right-column {
+        width: 25%; /* 左右側欄變寬到 25% */
+    }
+}
+
+/* 📌 針對 **手機裝置**（螢幕寬度 ≤ 768px） */
+@media screen and (max-width: 768px) {
+    .main-content {
+        flex-direction: column; /* 變成上下排列 */
+    }
+
+    .left-column, .right-column {
+        width: 100%; /* 左右欄變成 100% 寬度 */
+        height: auto; /* 高度自動適應內容 */
+        box-shadow: none; /* 移除陰影，讓手機版更簡潔 */
+    }
+
+    .center-column {
+        width: 100%; /* 中央內容區域也設為 100% 寬度 */
+    }
 }

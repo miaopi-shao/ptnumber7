@@ -9,7 +9,7 @@ Created on Sat Feb  8 18:34:21 2025
 工具：Flask、SQLite、雲端檔案上傳（模擬）、爬蟲工具 (requests+BeautifulSoup)
 """
 
-
+"""
 from flask import Flask, render_template, request, jsonify request, redirect, url_for
 import hashlib, os
 
@@ -169,7 +169,8 @@ def scrape():
     
     
     
-"""    
+""" 
+"""   
     if method in ['selenium_headless', 'selenium_visible']:
         try:
             chrome_options = webdriver.ChromeOptions()
@@ -278,6 +279,9 @@ def scrape():
 
 
 """
+"""
 # 啟動 Flask 應用
 if __name__ == '__main__':
     app.run(debug=True)
+    
+"""    

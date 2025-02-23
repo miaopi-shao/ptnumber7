@@ -1,25 +1,62 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Feb 21 16:25:48 2025
-
-@author: OAP-0001
-"""
-
-
-
-
 // 控制彈出註冊視窗
 document.getElementById("register-btn").addEventListener("click", function() {
     document.getElementById("modal-overlay").classList.add("active");
     document.getElementById("register-modal").classList.add("active");
 });
 
-
-// 關閉註冊視窗
+// 關閉註冊視窗（點擊關閉按鈕）
 document.getElementById("close-register-modal").addEventListener("click", function() {
     document.getElementById("modal-overlay").classList.remove("active");
     document.getElementById("register-modal").classList.remove("active");
 });
+
+// 點擊背景遮罩也能關閉視窗
+document.getElementById("modal-overlay").addEventListener("click", function() {
+    document.getElementById("modal-overlay").classList.remove("active");
+    document.getElementById("register-modal").classList.remove("active");
+});
+
+
+
+
+// 右側欄-更新時間
+function updateTime() {
+    let now = new Date();
+    let formattedTime = now.toLocaleString("zh-TW", { 
+        year: "numeric", month: "2-digit", day: "2-digit",
+        hour: "2-digit", minute: "2-digit", second: "2-digit"
+    });
+    document.getElementById("time-display").innerText = formattedTime;
+}
+setInterval(updateTime, 1000);
+updateTime();
+
+// 取得天氣資訊並顯示
+function updateWeather() {
+    let selectedCity = document.getElementById("city-select").value;
+    
+    fetch(`/api/weather?city=${selectedCity}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                document.getElementById("weather-display").innerText = "無法取得天氣資訊";
+            } else {
+                document.getElementById("weather-display").innerText = 
+                    `${data.city} 天氣：${data.condition}, 溫度：${data.temperature}°C`;
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching weather:", error);
+            document.getElementById("weather-display").innerText = "載入天氣資訊時發生錯誤";
+        });
+}
+
+// 當用戶選擇不同城市時，更新天氣資訊
+document.getElementById("city-select").addEventListener("change", updateWeather);
+
+// 每 10 分鐘更新一次天氣資訊
+setInterval(updateWeather, 10 * 60 * 1000);
+updateWeather();
 
 
 
