@@ -5,7 +5,7 @@ Created on Sun Feb 23 17:01:04 2025
 @author: OAP-0001
 """
 
-# external_search.py
+# external_search.py 處理站外搜尋
 import requests
 from flask import Blueprint, request, redirect
 

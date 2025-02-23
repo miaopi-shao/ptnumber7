@@ -5,6 +5,9 @@ Created on Sun Feb 23 17:04:24 2025
 @author: OAP-0001
 """
 
+#scheduled_scrape 定時爬蟲設定
+
+
 from flask import Blueprint, jsonify
 import requests
 from bs4 import BeautifulSoup

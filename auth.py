@@ -8,7 +8,7 @@ Created on Sun Feb 23 18:25:06 2025
 # auth.py 帳號註冊用函式
 from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash
-from .models import db, User
+from models import db, User
 
 auth_bp = Blueprint('auth', __name__)
 
