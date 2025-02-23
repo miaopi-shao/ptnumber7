@@ -25,7 +25,7 @@ git push origin main
 
 
 
-每次修改後都要先:
+每次修改後都要先記得處理requirements.txt的檔案，然後:
 git add .
 git commit -m "描述你的更改"
 git push origin main
