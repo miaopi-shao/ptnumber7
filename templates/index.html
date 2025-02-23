@@ -1,106 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>綜合資料搜尋區</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
 <body>
-  <!-- 頁面頭部 -->
-  <div class="header">
-    <h1><strong><em>第七組專題</em></strong></h1>
-  </div>
-
-  <!-- 主區域容器 -->
-  <div class="main-container">
-    <!-- 左側：登入區域 -->
-    <div class="login-box">
-      <h3>帳號登錄</h3>
-      <!-- 登入表單 -->
-      <form id="loginForm">
-        <input type="text" id="username" class="input-field" placeholder="帳號" required>
-        <input type="password" id="password" class="input-field" placeholder="密碼" required>
-        <button type="button" class="register-btn" id="showRegisterPopup">新帳戶註冊</button>
-      </form>
-    </div>
-
-    <!-- 中間展示區塊 dark-footer -->
-    <div class="dark-footer">
+    <h1>綜合資料搜尋區</h1>
+    <small>第七組專題</small>
     
-      <p>我是中間的內容呈現區域</p>
-      <!-- 爬蟲按鈕 register-btn -->
-      <button id="startCrawler" class="register-btn">開始爬蟲</button>
-      
-      <!-- 其他內容 -->
-      <div id="crawlerResult" style="background: #fff; color: #000; padding: 10px; margin-top: 10px; border-radius: 8px;"></div>
-      <ul>
-        <li>爬蟲用[ChromeDriver]下載區</li>
-        <a href="https://googlechromelabs.github.io/chrome-for-testing/#stable" target="_blank">請點擊前往</a>
-        <li>注意!!!</li>
-        <li>如果是舊版Google</li>
-        <a href="https://developer.chrome.com/docs/chromedriver/downloads?hl=zh-tw" target="_blank">請點擊這個去官網查詢</a>
-        <a href="https://chromedriver.storage.googleapis.com/index.html" target="_blank">並點擊這個去選擇版本號自行下載</a>
-        <li>_______________功能分割__________________</li>
-      </ul>
-      
-      
-      <video width="240" height="120" controls>
-        <source src="{{ url_for('static', filename='video/123.mp4') }}" type="video/mp4">
-        你的瀏覽器不支持播放此影片。
-      </video>
-      
-      
-      <!-- 內部區塊 dark-footer-1 -->
-      <div class="dark-footer-1">
-        <li>你好，使用者</li>
-        <li>歡迎前往</li>
-        <li><img src="{{ url_for('static', filename='images/90313.jpg') }}" alt="123"></li>
-        <a href="https://www.bing.com/search?q=HTML+Color+Picker" target="_blank">顏色查找</a>
-        <li>測試網站區域</li>
-      </div>
-      
-      <!-- 內部區塊 dark-footer-bottom -->
-      <div class="dark-footer-bottom">
-        
-        <!-- 內部區塊 dark-footer-2 -->
-        <div class="dark-footer-2">
-          <li></li>
-          <li>歡迎前往</li>
-          <li><img src="{{ url_for('static', filename='images/90313.jpg') }}" alt="123"></li>
-          <a href="https://www.google.com/" target="_blank">Google</a>
-          <li>測試網站區域</li>
+    <!-- 左側欄 -->
+    <div class="left-column">
+        <h3>帳號登入區</h3>
+        <div class="login-container">
+            <input type="text" id="username" placeholder="使用者名稱">
+            <input type="password" id="password" placeholder="密碼">
+            <button id="login-btn">登入</button>
+            <button id="register-btn">註冊</button>
         </div>
         
-        <!-- 內部區塊 dark-footer-3 -->
-        <div class="dark-footer-3">
-          <li></li>
-          <li>歡迎前往</li>
-          <li><img src="{{ url_for('static', filename='images/90313.jpg') }}" alt="123"></li>
-          <a href="https://chatgpt.com/" target="_blank">GPT</a>
-          <li>測試網站區域</li>
+        <h3>站內網站列表</h3>
+        <div id="website-list"></div>
+    </div>
+    
+    <!-- 右側欄 -->
+    <div class="right-column">
+        <h3>時間 & 天氣概況</h3>
+        <p id="time-date"></p>
+        <p id="weather"></p>
+        
+        <h3>定時爬蟲資料</h3>
+        <div id="crawler-data"></div>
+    </div>
+    
+    <!-- 中央區 -->
+    <div class="center-column">
+        <div class="search-container">
+            <div>
+                <input type="text" id="internal-search-input" placeholder="站內搜尋">
+                <button id="internal-search-btn">搜尋</button>
+            </div>
+            <div>
+                <input type="text" id="external-search-input" placeholder="外部搜尋">
+                <button id="external-search-btn">搜尋</button>
+            </div>
         </div>
-      </div>
-      
+
+        <div class="media-container">
+            <img src="{{ url_for('static', filename='images/random-image.jpg') }}" alt="隨機圖片">
+            <video controls>
+                <source src="{{ url_for('static', filename='video/123.mp4') }}" type="video/mp4">
+            </video>
+        </div>
+        
+        <div class="input-container">
+            <input type="text" id="url-input" placeholder="輸入網站 URL">
+            <button id="scrape-btn">開始爬蟲</button>
+        </div>
     </div>
 
-    <!-- 右側：資訊區 info-section -->
-    <div class="info-section">
-      <h3>專題成員：</h3>
-      <ol>
-        <li>黃國豪</li>
-        <li>邵妙齊</li>
-        <li>JUR</li>
-        <li>RJ-捷</li>
-        <li>凱莉kelly</li>
-      </ol>
-      <h3><a href="https://www.lccnet.com.tw/lccnet/teacher/detail/2030" target="_blank">專題導師：</a></h3>
-        <a href="https://www.lccnet.com.tw/lccnet/teacher/detail/2030" target="_blank">簡志聰</a>
+    <!-- 註冊彈出視窗 -->
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="modal" id="register-modal">
+        <h2>註冊帳號</h2>
+        <form>
+            <input type="text" placeholder="用戶名">
+            <input type="email" placeholder="電子郵件">
+            <input type="password" placeholder="密碼">
+            <button type="submit">註冊</button>
+        </form>
+        <button id="close-register-modal">關閉</button>
     </div>
-  </div>
 
-  <!-- 頁面底部 footer -->
-  <div class="footer">
-    <div class="members">
-      <h3>專題結束，謝謝觀看</h3>
-      <ul>
-        <li>各位再見</li>
-      </ul>
-    </div>
-  </div>
-  
-  <!-- 其他彈出與腳本 -->
-  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!-- 頁尾 -->
+    <footer>
+        <ul>
+            <li><strong>製作成員:</strong> 頁、黃、李、紹、春</li>
+            <li><strong>指導老師:</strong> 曾</li>
+            <li><strong>指導組織:</strong> 聯成電腦</li>
+        </ul>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
+</html>

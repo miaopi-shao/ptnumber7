@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Feb 23 13:54:16 2025
+
+@author: OAP-0001
+"""
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>搜尋結果</title>
+</head>
+<body>
+    <h1>搜尋結果： "{{ query }}"</h1>
+    {% if results %}
+        <ul>
+        {% for r in results %}
+            <li>
+                <a href="{{ r['path'] }}">{{ r['title'] }}</a>
+                <p>{{ r['content'] }}</p>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>沒有找到相關內容</p>
+    {% endif %}
+    <a href="/">返回首頁</a>
+</body>
+</html>
