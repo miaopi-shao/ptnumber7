@@ -162,12 +162,7 @@ def send_email(email, temp_password):
     except Exception as e:
         print("❌ 郵件發送失敗：", e)
 
-# ... 執行測試 ...
-del os.environ["JWT_SECRET"]  # 測試完成後刪除環境變數
-del os.environ["JWT_SECRET"]
-del os.environ["EMAIL_USER"]
-del os.environ["EMAIL_PASS"]
-del os.environ["SMTP_SERVER"]
+
 
 """
 

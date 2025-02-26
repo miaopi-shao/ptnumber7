@@ -47,6 +47,7 @@ class User(db.Model, UserMixin):  # 繼承 UserMixin 提供 login_required 所�
     password = db.Column(db.String(100), nullable=False)
 
 
+
 @app.route('/')
 def home():
     return render_template('index.html')  # 假設你的首頁是 'index.html'
@@ -58,5 +59,16 @@ def load_user(user_id):
     return User.query.get(int(user_id))  # 假設你的用戶模型是 User，並且使用 ID 查詢
 
 
+
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+# ... 執行測試 ...
+import os
+del os.environ["JWT_SECRET"]  # 測試完成後刪除環境變數
+del os.environ["JWT_SECRET"]
+del os.environ["EMAIL_USER"]
+del os.environ["EMAIL_PASS"]
+del os.environ["SMTP_SERVER"]
