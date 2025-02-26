@@ -165,6 +165,20 @@ def send_email(email, temp_password):
 
 
 """
+# ... 執行測試 ...
+import os
+del os.environ["JWT_SECRET"]  # 測試完成後刪除環境變數
+del os.environ["JWT_SECRET"]
+del os.environ["EMAIL_USER"]
+del os.environ["EMAIL_PASS"]
+del os.environ["SMTP_SERVER"]
+
+
+
+
+
+
+
 
 額外準備.env檔
 
