@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>俄羅斯方塊</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tetris_game.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <!-- 標題區 -->
+    <div class="header">
+        <h1>俄羅斯方塊</h1>
+        <small>點擊開始遊戲！</small>
+    </div>
+
+    <!-- 主要內容區 -->
+    <div class="main-content">
+    
+        <!-- 左側欄（可選，如果有其他資訊） -->
+        <div class="left-column">
+            <div class="login-container2">
+                <a href="https://www.bing.com/search?q=HTML+Color+Picker" target="_blank">顏色查找</a>
+                <a href="https://www.google.com/" target="_blank">Google</a>
+                <a href="https://chatgpt.com/" target="_blank">GPT</a>
+                <a href="https://duckduckgo.com/" target="_blank">外部搜尋引擎使用型</a>
+                <a href="https://term.ptt.cc/" target="_blank">PPT登入區</a>
+                <a href="https://oaplookout.onrender.com" target="_blank">自創網站集</a>
+            </div>
+        </div>
+    
+        <!-- 中央內容區（遊戲功能放這裡） -->
+        <div class="center">
+            <!-- 遊戲畫布區域，佔據中央大部分寬度 -->
+            <div id="gameContainer">
+                <canvas id="gameCanvas" width="300" height="600"></canvas>
+            </div>
+            <!-- 控制按鈕區域 -->
+            <div class="game-controls">
+                <button onclick="startGame()">開始遊戲</button>
+            </div>
+        </div>
+    
+
+        <!-- 右側欄 -->
+        <div class="right-column">
+            <h3>時間 & 天氣概況</h3>
+            <p>現在時間：<span id="time-display"></span></p>
+            <div>
+                <label for="city-select">選擇城市：</label>
+                <select id="city-select">
+                    <option value="臺北市">臺北市</option>
+                    <option value="新北市">新北市</option>
+                    <option value="桃園市">桃園市</option>
+                    <option value="臺中市">臺中市</option>
+                    <option value="臺南市">臺南市</option>
+                    <option value="高雄市">高雄市</option>
+                    <option value="基隆市">基隆市</option>
+                    <option value="新竹市">新竹市</option>
+                    <option value="新竹縣">新竹縣</option>
+                    <option value="苗栗縣">苗栗縣</option>
+                    <option value="彰化縣">彰化縣</option>
+                    <option value="南投縣">南投縣</option>
+                    <option value="雲林縣">雲林縣</option>
+                    <option value="嘉義市">嘉義市</option>
+                    <option value="嘉義縣">嘉義縣</option>
+                    <option value="屏東縣">屏東縣</option>
+                    <option value="宜蘭縣">宜蘭縣</option>
+                    <option value="花蓮縣">花蓮縣</option>
+                    <option value="臺東縣">臺東縣</option>
+                    <option value="澎湖縣">澎湖縣</option>
+                    <option value="金門縣">金門縣</option>
+                    <option value="連江縣">連江縣</option>
+                </select>
+            </div>
+            <p id="weather-display">載入中...</p>
+        </div>
+    </div>
+    
+     <!-- 頁尾 -->
+     <footer class="footer">
+         <ul>
+             <li><strong>製作成員:</strong> 頁、黃、李、紹、春</li>
+             <li><strong>指導老師:</strong> 曾</li>
+             <li><strong>指導組織:</strong> 聯成電腦</li>
+         </ul>
+     </footer>
+</div>
+
+<script src="{{ url_for('static', filename='js/tetris.js') }}">
+
+<div>
+    {% if current_user.is_authenticated %}
+        <strong>{{ current_user.username }}</strong>  <!-- 顯示註冊名稱 -->
+    {% else %}
+        <form action="/set_nickname" method="post">
+            <input type="text" name="nickname" placeholder="輸入暱稱" required>
+            <button type="submit">確定</button>
+        </form>
+    {% endif %}
+</div>
+
+</script>
+
+</body>
+</html>
+
+
+
+
+

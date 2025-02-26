@@ -1,0 +1,16 @@
+.search-results {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f0f0f0;
+}
+
+.search-results a {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.search-results a:hover {
+    color: #007bff;
+}

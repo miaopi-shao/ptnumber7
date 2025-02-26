@@ -1,10 +1,29 @@
+// 隨機產生深色顏色
+function getRandomDarkColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    // 讓每個顏色的 R、G、B 成分較低（產生深色）
+    for (let i = 0; i < 6; i++) {
+        // 確保數值不會超過 7（產生較暗的顏色）
+        color += letters[Math.floor(Math.random() * 8)];
+    }
+    return color;
+}
+
+// 為每個 <a> 標籤設定隨機深色背景色
+document.querySelectorAll('.login-container2 a').forEach(function(link) {
+    link.style.backgroundColor = getRandomDarkColor();
+});
+
+
+
 // 控制彈出註冊視窗
 document.getElementById("register-btn").addEventListener("click", function() {
     document.getElementById("modal-overlay").classList.add("active");
     document.getElementById("register-modal").classList.add("active");
 });
 
-// 關閉註冊視窗（點擊關閉按鈕）
+// 關閉註冊視窗
 document.getElementById("close-register-modal").addEventListener("click", function() {
     document.getElementById("modal-overlay").classList.remove("active");
     document.getElementById("register-modal").classList.remove("active");
@@ -15,6 +34,39 @@ document.getElementById("modal-overlay").addEventListener("click", function() {
     document.getElementById("modal-overlay").classList.remove("active");
     document.getElementById("register-modal").classList.remove("active");
 });
+
+// 監聽表單提交
+document.getElementById("register-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // 防止表單刷新頁面
+
+    let username = document.getElementById("register-username").value;
+    let phrase = document.getElementById("register-phrase").value;
+    let email = document.getElementById("register-email").value;
+
+    fetch("/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            username: username,
+            phrase: phrase,
+            email: email
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            document.getElementById("register-error-msg").innerText = data.error;
+        } else {
+            alert("註冊成功！請使用您的帳號登入。");
+            document.getElementById("modal-overlay").classList.remove("active");
+            document.getElementById("register-modal").classList.remove("active");
+        }
+    })
+    .catch(error => console.error("錯誤:", error));
+});
+
 
 
 
@@ -101,6 +153,12 @@ document.getElementById("internal-search-btn").addEventListener("click", functio
 document.getElementById("scrape-button").addEventListener("click", function () {
     let url = document.getElementById("url-input").value;
 
+    // 驗證 URL 的基本格式
+    if (!isValidURL(url)) {
+        alert("請輸入有效的網址");
+        return;
+    }
+
     fetch("/user_scrape", {
         method: "POST",
         headers: {
@@ -123,6 +181,10 @@ document.getElementById("scrape-button").addEventListener("click", function () {
                 openFullScrapeModal(data.url);
             });
         }
+    })
+    .catch(error => {
+        console.error("請求失敗", error);
+        alert("請求失敗，請檢查控制台了解更多詳情");
     });
 });
 
@@ -187,6 +249,23 @@ function openFullScrapeModal(url) {
             modal.style.opacity = "0";
             modal.style.visibility = "hidden";
             setTimeout(() => modal.remove(), 300);
+        })
+        .catch(error => {
+            console.error("請求失敗", error);
+            alert("請求失敗，請檢查控制台了解更多詳情");
+            modal.style.opacity = "0";
+            modal.style.visibility = "hidden";
+            setTimeout(() => modal.remove(), 300);
         });
     });
+}
+
+// 簡單的 URL 驗證函數
+function isValidURL(string) {
+    try {
+        new URL(string);
+        return true;
+    } catch (e) {
+        return false;
+    }
 }

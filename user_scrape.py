@@ -11,12 +11,13 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
+# 與 app.py 連動：藍圖 (Blueprint) 註冊部分
 user_scrape_bp = Blueprint('user_scrape', __name__)
 
 def is_valid_url(url):
     """驗證網址格式"""
     pattern = re.compile(
-        r'^(https?:\/\/)?'  # http:// or https:// (可選)
+        r'^(https?:\/\/)?'  # http:// 或 https:// (可選)
         r'(([A-Za-z0-9-]+\.)+[A-Za-z]{2,6})'  # 網域名稱
         r'(:\d+)?(\/.*)?$'  # 連接埠(可選)和路徑(可選)
     )
@@ -36,6 +37,8 @@ def user_scrape():
 
     try:
         response = requests.get(url, headers=headers, timeout=5)
+        print(f"HTTP Response Status Code: {response.status_code}")  # 調試信息
+
         if response.status_code != 200 or not response.text:
             return jsonify({"error": f"爬取失敗，狀態碼: {response.status_code}"}), 500
 
@@ -44,9 +47,10 @@ def user_scrape():
         # 初步回傳部分內容
         scraped_data = {
             "title": soup.title.string if soup.title else "無標題",
-            "text": soup.get_text(strip=True)[:500],  # 只返回前500個字
-            "url": url  # 保存URL，方便後續爬取完整內容
+            "text": soup.get_text(strip=True)[:500],  # 只返回前 500 個字
+            "url": url  # 保存 URL，方便後續爬取完整內容
         }
+        print(f"Scraped Data: {scraped_data}")  # 調試信息
 
         return jsonify(scraped_data)
     
@@ -73,15 +77,16 @@ def user_scrape_full():
 
     try:
         response = requests.get(url, headers=headers, timeout=5)
+        print(f"HTTP Response Status Code: {response.status_code}")  # 調試信息
+
         if response.status_code != 200 or not response.text:
             return jsonify({"error": f"爬取失敗，狀態碼: {response.status_code}"}), 500
 
         soup = BeautifulSoup(response.text, 'html.parser')
         full_text = soup.get_text(strip=True)
 
-        # 根據用戶選擇的關鍵字篩選標題
         title = soup.title.string if soup.title else "無標題"
-        if keyword and keyword.lower() not in title.lower():
+        if keyword or keyword.lower() not in title.lower():
             return jsonify({"error": f"標題 '{title}' 不符合關鍵字篩選"}), 400
 
         return jsonify({

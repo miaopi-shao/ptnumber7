@@ -20,3 +20,9 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)  # 記錄用戶創建時間
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)  # 更新用戶資料時記錄時間
     role = db.Column(db.String(20), default="user")  # 角色：預設為普通用戶，可擴展為 "admin"、"moderator" 等
+
+
+class Score(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), nullable=False)
+    score = db.Column(db.Integer, nullable=False)

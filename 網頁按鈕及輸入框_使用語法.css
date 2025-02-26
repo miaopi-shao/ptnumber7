@@ -1,0 +1,346 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Feb 26 13:31:39 2025
+
+@author: OAP-0001
+"""
+
+/* 輸入框 + 按鈕在同一排（類似搜尋框） */
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 按鈕與輸入框之間的間距 */
+}
+
+/* 讓輸入框佔比較大比例，按鈕不變形 */
+.input-group input {
+    flex-grow: 1;
+    border-radius: 8px;
+}
+
+.input-group button {
+    flex-shrink: 0;
+    border-radius: 8px;
+}
+
+/* 確保按鈕 或 輸入框的大小固定不變 */
+button {
+    width: 200px; /* 固定寬度 */
+    height: 50px; /* 固定高度 */
+    font-size: 18px; /* 調整字體大小 */
+}
+
+input {
+    width: 250px; /* 固定寬度 */
+    height: 40px; /* 固定高度 */
+    font-size: 16px;
+}
+
+
+/* 按鈕或輸入框適應不同裝置的大小 */
+button {
+    min-width: 100px; /* 最小寬度 */
+    max-width: 300px; /* 最大寬度 */
+    width: 50%; /* 預設為父元素一半寬 */
+}
+
+input {
+    min-width: 150px;
+    max-width: 400px;
+    width: 80%; /* 預設填滿 80% */
+}
+
+/*  可用 !important 強制符合此要求 */
+
+
+/* ------------------------------按鈕樣式----------------------------------- */
+
+/* 通用按鈕樣式 */
+button {
+    background-color: #06529F; /* 按鈕背景顏色 */
+    color: white; /* 文字顏色 */
+    padding: 12px 20px; /* 內邊距 */
+    font-size: 16px; /* 文字大小 */
+    font-weight: bold; /* 文字加粗 */
+    border: none; /* 移除預設邊框 */
+    border-radius: 8px; /* 圓角 */
+    cursor: pointer; /* 滑鼠指標變成手指 */
+    transition: background 0.3s ease, transform 0.1s ease; /* 過渡動畫 */
+}
+
+/* 按鈕滑鼠懸停效果 */
+button:hover {
+    background-color: #0476D9; /* 滑鼠移過去的顏色 */
+    transform: scale(1.05); /* 稍微放大 */
+}
+
+/* 禁用狀態的按鈕 */
+button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+/* 讓小型按鈕與大型按鈕有不同尺寸 */
+.btn-small {
+    padding: 8px 14px;
+    font-size: 14px;
+}
+
+.btn-large {
+    padding: 16px 24px;
+    font-size: 18px;
+}
+
+/* 區塊級按鈕（讓按鈕填滿容器） */
+.btn-block {
+    width: 100%;
+}
+
+
+/* 讓按鈕變成圓形 */
+.btn-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* 變成圓形 */
+    text-align: center;
+    padding: 0; /* 移除內邊距 */
+}
+
+/* 讓按鈕變成圓角矩形 */
+.btn-rounded {
+    width: 200px;
+    height: 50px;
+    border-radius: 15px; /* 圓角 */
+}
+
+/* 讓按鈕變成膠囊形狀 */
+.btn-pill {
+    width: 250px;
+    height: 50px;
+    border-radius: 30px; /* 圓角變大，看起來像膠囊 */
+}
+
+
+
+/* --------------------------------輸入區----------------------------------- */
+
+
+/* 基本輸入框 & 文字輸入區 */
+input, textarea {
+    width: 100%; /* 填滿父容器 */
+    padding: 10px; /* 內邊距 */
+    font-size: 16px; /* 文字大小 */
+    border: 2px solid #ccc; /* 邊框顏色 */
+    border-radius: 6px; /* 圓角 */
+    outline: none; /* 移除預設外框 */
+    transition: border 0.3s ease; /* 過渡動畫 */
+}
+
+/* 聚焦時的效果 */
+input:focus, textarea:focus {
+    border-color: #06529F; /* 輸入時邊框變色 */
+    box-shadow: 0 0 5px rgba(6, 82, 159, 0.5); /* 添加陰影效果 */
+}
+
+/* 讓 `textarea` 不會變得太小 */
+textarea {
+    min-height: 100px;
+    resize: vertical; /* 允許上下調整大小 */
+}
+
+/* 禁用的輸入框樣式 */
+input:disabled, textarea:disabled {
+    background-color: #f2f2f2;
+    cursor: not-allowed;
+}
+
+/* 讓輸入框適應小螢幕 */
+@media screen and (max-width: 768px) {
+    input, textarea {
+        font-size: 14px; /* 小螢幕時縮小字體 */
+        padding: 8px;
+    }
+}
+
+
+
+/* 輸入框變成圓角 */
+.input-rounded {
+    width: 300px;
+    height: 40px;
+    border-radius: 10px; /* 圓角 */
+    border: 2px solid #06529F;
+    padding: 8px;
+}
+
+/* 輸入框變成膠囊形 */
+.input-pill {
+    width: 350px;
+    height: 45px;
+    border-radius: 25px; /* 讓左右變圓 */
+    border: 2px solid #28A745;
+    padding: 10px;
+}
+
+/* 讓輸入框變成全圓形 */
+.input-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* 變成圓形 */
+    text-align: center; /* 文字置中 */
+    padding: 0;
+}
+
+
+/* --------------------------------------------------------------------- */
+
+/* 按鈕與輸入框的容器 */
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 按鈕與輸入框之間的間距 */
+}
+
+/* 讓按鈕與輸入框佔比合理 */
+.input-group input {
+    flex-grow: 1; /* 讓輸入框自動延展 */
+}
+
+.input-group button {
+    flex-shrink: 0; /* 讓按鈕不會變形 */
+}
+
+/* --------------------------------------------------------------------- */
+
+/* 讓 `login-box` 內的按鈕變色 */
+.login-box button {
+    background-color: #28A745; /* 綠色 */
+}
+
+.login-box button:hover {
+    background-color: #218838;
+}
+
+/* 讓 `register-box` 內的按鈕變色 */
+.register-box button {
+    background-color: #DC3545; /* 紅色 */
+}
+
+.register-box button:hover {
+    background-color: #C82333;
+}
+
+
+/* ------------------------------不規則形狀設定方法-------------------------- */
+
+
+/* 簡單方法 */
+<button class="heart-button">💖</button>
+<button class="star-button">⭐</button>
+
+
+
+
+/* 愛心按鈕 */
+.heart-button {
+    background-color: #ff4d6d; /* 愛心顏色 */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    width: 100px;
+    height: 100px;
+    clip-path: path("M50,15 A35,35 0 1,1 15,50 Q50,90 85,50 A35,35 0 1,1 50,15 Z");
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.heart-button:hover {
+    transform: scale(1.1);
+}
+
+
+/* 星形按鈕 */
+.star-button {
+    background-color: gold;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    width: 120px;
+    height: 120px;
+    clip-path: polygon(
+        50% 0%, 61% 35%, 98% 35%, 
+        68% 57%, 79% 91%, 50% 70%, 
+        21% 91%, 32% 57%, 2% 35%, 39% 35%
+    );
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.star-button:hover {
+    transform: rotate(10deg);
+}
+
+
+
+/* 舊版愛心按鈕-愛心按鈕（用 ::before & ::after） */
+.heart-button {
+    position: relative;
+    background-color: #ff4d6d;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    width: 100px;
+    height: 90px;
+    border-radius: 50px 50px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.heart-button::before,
+.heart-button::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 90px;
+    background-color: #ff4d6d;
+    border-radius: 50px 50px 0 0;
+    top: 0;
+}
+
+.heart-button::before {
+    left: -50px;
+}
+
+.heart-button::after {
+    right: -50px;
+    transform: rotate(-90deg);
+}
+
+.heart-button:hover {
+    transform: scale(1.1);
+}
+
+
+
+/* 使用 SVG 背景做更複雜的形狀-雲朵、波浪 */
+.svg-button {
+    background: url("heart.svg") no-repeat center;
+    background-size: contain;
+    width: 100px;
+    height: 100px;
+    border: none;
+    cursor: pointer;
+}

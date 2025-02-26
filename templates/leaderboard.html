@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Leaderboard</h1>
+    <table>
+        <tr>
+            <th>排名:</th>
+            <th>參賽者:</th>
+            <th>分數:</th>
+        </tr>
+        {% for i, score in enumerate(scores) %}
+        <tr>
+            <td>{{ i + 1 }}</td>
+            <td>{{ score.username }}</td>
+            <td>{{ score.score }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
