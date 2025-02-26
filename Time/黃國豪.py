@@ -1,4 +1,4 @@
-
+a="""
 黃國豪:
 經過一些實例的框架資料架構，我覺得可以有幾個題目的大方向：
 
@@ -36,4 +36,5 @@
     https://www.youtube.com/watch?v=HclETXKWgfs&list=PL0uF99K6uCYNefMUgame3cPNYFwSut5Ev
     5.利用selenium套件，實現網頁的自動化
     https://www.youtube.com/watch?v=ximjGyZ93YQ
-
+    """
+print(a)
