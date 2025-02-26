@@ -32,12 +32,12 @@ login_manager.init_app(app)
 
 
 # 註冊 Blueprint
-app.register_blueprint(auth_bp)               #auth.py          帳號註冊用函式
 app.register_blueprint(external_search_bp)    #external_search  處理站外搜尋
 app.register_blueprint(search_bp)             #search           處理站內搜尋
 app.register_blueprint(scheduled_scrape_bp)   #scheduled_scrape 定時爬蟲設定
 app.register_blueprint(user_scrape_bp)        #user_scrape      用戶自定義爬蟲
 app.register_blueprint(weather_bp)            #weather.py       天氣資訊 API
+app.register_blueprint(auth_bp)               #auth.py          帳號註冊用函式
 app.register_blueprint(save_score_bp)         #ave_score        遊戲介面設定
 
 

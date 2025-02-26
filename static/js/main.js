@@ -16,61 +16,6 @@ document.querySelectorAll('.login-container2 a').forEach(function(link) {
 });
 
 
-
-// 控制彈出註冊視窗
-document.getElementById("register-btn").addEventListener("click", function() {
-    document.getElementById("modal-overlay").classList.add("active");
-    document.getElementById("register-modal").classList.add("active");
-});
-
-// 關閉註冊視窗
-document.getElementById("close-register-modal").addEventListener("click", function() {
-    document.getElementById("modal-overlay").classList.remove("active");
-    document.getElementById("register-modal").classList.remove("active");
-});
-
-// 點擊背景遮罩也能關閉視窗
-document.getElementById("modal-overlay").addEventListener("click", function() {
-    document.getElementById("modal-overlay").classList.remove("active");
-    document.getElementById("register-modal").classList.remove("active");
-});
-
-// 監聽表單提交
-document.getElementById("register-form").addEventListener("submit", function(event) {
-    event.preventDefault(); // 防止表單刷新頁面
-
-    let username = document.getElementById("register-username").value;
-    let phrase = document.getElementById("register-phrase").value;
-    let email = document.getElementById("register-email").value;
-
-    fetch("/register", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            username: username,
-            phrase: phrase,
-            email: email
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            document.getElementById("register-error-msg").innerText = data.error;
-        } else {
-            alert("註冊成功！請使用您的帳號登入。");
-            document.getElementById("modal-overlay").classList.remove("active");
-            document.getElementById("register-modal").classList.remove("active");
-        }
-    })
-    .catch(error => console.error("錯誤:", error));
-});
-
-
-
-
-
 // 右側欄-更新時間
 function updateTime() {
     let now = new Date();
@@ -109,10 +54,6 @@ document.getElementById("city-select").addEventListener("change", updateWeather)
 // 每 10 分鐘更新一次天氣資訊
 setInterval(updateWeather, 10 * 60 * 1000);
 updateWeather();
-
-
-
-
 
 
 
@@ -259,6 +200,62 @@ function openFullScrapeModal(url) {
         });
     });
 }
+
+
+
+
+
+// 控制彈出註冊視窗
+document.getElementById("register-btn").addEventListener("click", function() {
+    document.getElementById("modal-overlay").classList.add("active");
+    document.getElementById("register-modal").classList.add("active");
+});
+
+// 關閉註冊視窗
+document.getElementById("close-register-modal").addEventListener("click", function() {
+    document.getElementById("modal-overlay").classList.remove("active");
+    document.getElementById("register-modal").classList.remove("active");
+});
+
+// 點擊背景遮罩也能關閉視窗
+document.getElementById("modal-overlay").addEventListener("click", function() {
+    document.getElementById("modal-overlay").classList.remove("active");
+    document.getElementById("register-modal").classList.remove("active");
+});
+
+// 監聽表單提交
+document.getElementById("register-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // 防止表單刷新頁面
+
+    let username = document.getElementById("register-username").value;
+    let phrase = document.getElementById("register-phrase").value;
+    let email = document.getElementById("register-email").value;
+
+    fetch("/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            username: username,
+            phrase: phrase,
+            email: email
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            document.getElementById("register-error-msg").innerText = data.error;
+        } else {
+            alert("註冊成功！請使用您的帳號登入。");
+            document.getElementById("modal-overlay").classList.remove("active");
+            document.getElementById("register-modal").classList.remove("active");
+        }
+    })
+    .catch(error => console.error("錯誤:", error));
+});
+
+
 
 // 簡單的 URL 驗證函數
 function isValidURL(string) {
