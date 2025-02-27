@@ -372,7 +372,7 @@ textarea {
 
 
 /* 註冊視窗 */
-.modal {
+.modal1 {
     display: none;  /* 默認隱藏 */
     position: fixed;
     top: 50%;
@@ -387,14 +387,14 @@ textarea {
 }
 
 
-.modal.active {
+.modal1.active {
     display: block;  /* 顯示彈出視窗 */
     opacity: 1;
     transform: translate(-50%, -50%);
     z-index: 999; /* 確保標題區不會被其他內容蓋住 */
 }
 
-.modal-overlay {
+.modal1-overlay {
     display: none;  /* 默認隱藏 */
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
@@ -407,13 +407,13 @@ textarea {
     z-index: 999;
 }
 
-.modal-overlay.active {
+.modal1-overlay.active {
     display: block;  /* 顯示背景遮罩 */
     opacity: 1;
 }
 
 /* 註冊表單樣式 */
-.modal form input {
+.modal1 form input {
     width: 100%;
     padding: 10px;
     margin: 5px 0;
@@ -421,7 +421,7 @@ textarea {
     z-index: 999;
 }
 
-.modal form button {
+.modal1 form button {
     padding: 10px;
     border: none;
     background-color: #4CAF50;
@@ -430,12 +430,12 @@ textarea {
     z-index: 999;
 }
 
-.modal form button:hover {
+.modal1 form button:hover {
     background-color: #45a049;
 }
 
 /* 按鈕樣式 */
-.modal form input button {
+.modal1 form input button {
     padding: 10px;
     background-color: #4CAF50;
     color: white;

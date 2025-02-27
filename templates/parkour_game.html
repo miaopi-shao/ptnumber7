@@ -20,6 +20,7 @@
     
         <!-- 左側欄（可選，如果有其他資訊） -->
         <div class="left-column">
+            <button class="button_0" onclick="location.href='/'">返回首頁</button>
             <div class="login-container2">
                 <a href="https://www.bing.com/search?q=HTML+Color+Picker" target="_blank">顏色查找</a>
                 <a href="https://www.google.com/" target="_blank">Google</a>
@@ -89,6 +90,9 @@
 </div>
 
 <script src="{{ url_for('static', filename='js/parkour.js') }}">
+<script src="{{ url_for('static', filename='js/main.js') }}">
+<script src="{{ url_for('static', filename='js/auth.js') }}">
+<script src="{{ url_for('static', filename='js/scraper.js') }}">
 
 <div>
     {% if current_user.is_authenticated %}

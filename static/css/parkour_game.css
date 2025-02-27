@@ -84,6 +84,21 @@ body {
     color: #fff;
 }
 
+
+/* 按鈕樣式 */
+.button_0 {
+    margin: 15px; /* 間距 15px */
+    padding: 30px 60px;
+    font-size: 20px;
+    background-color: #F2ED51;
+    color: #060606;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+
 /* 左側欄內連結樣式 */
 .left-column .login-container2 a {
     display: block;
