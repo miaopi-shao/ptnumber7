@@ -24,3 +24,5 @@ flask-login==0.6.3
 click==8.1.8
 blinker==1.9.0
 gunicorn
+python-dotenv==1.0.1
+Flask-JWT-Extended==4.7.1
