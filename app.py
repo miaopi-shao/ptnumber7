@@ -62,6 +62,10 @@ def load_user(user_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    import os
+    # 從環境變數讀取 PORT，預設值為 10000
+    port = int(os.environ.get('PORT', 10000))
+    # 設定 host 為 0.0.0.0，讓外部可訪問
+    app.run(debug=True, host='0.0.0.0', port=port)
 
 
