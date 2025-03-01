@@ -87,93 +87,138 @@ input, textarea {
 
 /* ------------------------------左側區塊----------------------------------- */
 
-/* 左側欄 */
+/* 左側欄設定（帳號登入區） */
 .left-column {
-    width: 20%; /* 左側欄佔 20% */
-    max-width: 20%; /* 最大寬度 */
-    min-width: 30px; /* 最小寬度 */
-    background-color: #6C3082; /* 背景色 */
-    padding: 20px; /* 內邊距 20px，讓內容有空間 */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 陰影效果 */
+    width: 20%; /* 設定左側欄寬度為 20% */
+    max-width: 20%; /* 最大寬度 20%（避免過大） */
+    min-width: 30px; /* 最小寬度 30px（避免過小） */
+    background-color: #6C3082; /* 設定背景色為紫色 */
+    padding: 20px; /* 設定內邊距，讓內容不會貼邊 */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 添加陰影，讓左側欄更有層次感 */
     display: flex; /* 讓內部元素可以彈性排列 */
     flex-direction: column; /* 內容垂直排列 */
-    justify-content: flex-start; /* 讓內容從上往下排列 */
-    align-items: stretch; /* 讓內部元素貼齊左右 */
-    justify-content: space-between; /* 讓內容上下分佈 */
+    justify-content: flex-start; /* 內容從上往下排列 */
+    align-items: stretch; /* 讓內部元素填滿左右空間 */
+    justify-content: space-between; /* 內容上下均勻分佈 */
 }
 
-/* 帳號登入區 */
+/* 帳號登入區設定 */
 .login-container {
-    display: flex; /* 彈性排列 */
-    flex-direction: column; /* 內容垂直排列 */
-    gap: 10px; /* 設定內部間距 */
+    display: flex; /* 讓內部元素彈性排列 */
+    flex-direction: column; /* 讓內部元素垂直排列 */
+    gap: 10px; /* 設定輸入框與按鈕之間的間距 */
+}
+
+
+
+/* 設定帳號與密碼輸入框 */
+.input-group {
+    display: flex;
+    flex-direction: column; /* 讓輸入框和錯誤訊息垂直排列 */
+    position: relative; /* 設定相對定位，方便控制內部元素 */
 }
 
 #username, #password {
-    width: 70%; /* 填滿父容器 */
-    max-width: 250px; /* 最大寬度 */
-    min-width: 100px; /* 最小寬度 */
-    padding: 10px; /* 內邊距 */
-    font-size: 16px; /* 文字大小 */
-    border: 3px solid #ccc; /* 邊框顏色 */
-    border-radius: 25px; /* 圓角 */
-    outline: none; /* 移除預設外框 */
-    transition: border 0.3s ease; /* 過渡動畫 */
+    width: 100%; /* 讓輸入框填滿父容器 */
+    max-width: 250px; /* 設定最大寬度，避免過長 */
+    min-width: 100px; /* 設定最小寬度，避免過小 */
+    padding: 10px; /* 設定內邊距，增加可讀性 */
+    font-size: 16px; /* 設定字體大小 */
+    border: 3px solid #ccc; /* 設定邊框顏色 */
+    border-radius: 25px; /* 設定圓角，讓輸入框更美觀 */
+    outline: none; /* 移除預設的外框線 */
+    transition: border 0.3s ease; /* 設定邊框變化的過渡動畫 */
 }
 
-/* 當點擊輸入框時，變更邊框顏色 */
+/* 當使用者點擊輸入框時，變更邊框顏色 */
 #username:focus, #password:focus {
-    border: 6px solid #FFD700; /* 聚焦時變成金色 */
-    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+    border: 6px solid #FFD700; /* 聚焦時，邊框變成金色 */
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5); /* 添加陰影效果 */
 }
 
-/* 讓 `textarea` 不會變得太小 */
-textarea {
-    min-height: 100px;
-    resize: vertical; /* 允許上下調整大小 */
+/* 錯誤訊息樣式 */
+.error-message {
+    color: red; /* 設定錯誤訊息為紅色 */
+    font-size: 14px; /* 設定字體大小 */
+    min-height: 18px; /* 固定高度，避免錯誤發生時畫面跳動 */
+    margin-top: 5px; /* 設定與輸入框的間距 */
 }
 
 
-/* 登入鍵 */
+/* 讓「忘記密碼」按鈕與輸入框對齊 */
+.password-wrapper {
+    display: flex; /* 讓輸入框與「忘記密碼」按鈕排成一列 */
+    align-items: center; /* 讓輸入框與按鈕垂直對齊 */
+    justify-content: space-between; /* 讓元素之間保持間距 */
+    gap: 10px; /* 設定密碼框與按鈕之間的間距 */
+}
+
+/* 忘記密碼按鈕 */
+#forgot-password-btn {
+    background: none; /* 移除背景 */
+    border: none; /* 移除邊框 */
+    color: #007BFF; /* 設定按鈕顏色為藍色 */
+    cursor: pointer; /* 讓滑鼠移上去時變成手型 */
+    font-size: 14px; /* 設定字體大小 */
+    text-decoration: underline; /* 加上底線 */
+}
+
+/* 忘記密碼按鈕的 hover 效果 */
+#forgot-password-btn:hover {
+    color: #0056b3; /* 滑鼠移上去時顏色變深 */
+}
+
+
+
+/* 登入與註冊按鈕樣式 */
+#login-btn, #register-btn {
+    width: 100%; /* 讓按鈕填滿父容器 */
+    max-width: 250px; /* 設定最大寬度，避免過大 */
+    padding: 10px 20px; /* 設定內邊距，讓按鈕更易點擊 */
+    font-size: 18px; /* 設定字體大小 */
+    border: none; /* 移除邊框 */
+    border-radius: 8px; /* 設定圓角，讓按鈕更美觀 */
+    cursor: pointer; /* 讓滑鼠移上去時變成手型 */
+    transition: background 0.3s ease, transform 0.3s ease; /* 設定過渡動畫 */
+}
+
+/* 登入按鈕的顏色 */
 #login-btn {
-    width: 40%; /* 預設為父元素一半寬 */
-    min-width: 100px; /* 最小寬度 */
-    max-width: 300px; /* 最大寬度 */
-    background-color: #4CAF50 !important;  /* 按鈕背景顏色 */
-    color: white !important;  /* 文字顏色 */
-    padding: 10px 20px!important;  /* 內邊距 */
-    font-size: 22px; /* 文字大小 */
-    border: none !important;  /* 移除預設邊框 */
-    border-radius: 8px; /* 圓角 */
-    cursor: pointer; /* 滑鼠指標變成手指 */
-    transition: background 0.3s ease, transform 0.3s ease; /* 過渡動畫 */
+    background-color: #4CAF50 !important; /* 設定背景顏色為綠色 */
+    color: white !important; /* 設定文字顏色為白色 */
 }
 
-/* 註冊鍵 */
+/* 註冊按鈕的顏色 */
 #register-btn {
-    width: 30%; /* 預設為父元素一半寬 */
-    min-width: 100px; /* 最小寬度 */
-    max-width: 300px; /* 最大寬度 */
-    background-color: #008CBA !important; /* 按鈕背景顏色 */
-    color: white;  /* 文字顏色 */
-    padding: 10px 20px;  /* 內邊距 */
-    font-size: 22px; /* 文字大小 */
-    font-weight: bold; /* 文字加粗 */
-    border: none;  /* 移除預設邊框 */
-    border-radius: 5px;  /* 直角 */
-    cursor: pointer; /* 滑鼠指標變成手指 */
-    transition: background 0.3s ease, transform 0.1s ease; /* 過渡動畫 */
+    background-color: #008CBA !important; /* 設定背景顏色為藍色 */
+    color: white; /* 設定文字顏色為白色 */
 }
 
 
 
-/* 讓輸入框適應小螢幕 */
+
+/* 小螢幕適應調整（響應式設計） */
+
 @media screen and (max-width: 768px) {
+    .login-container {
+        align-items: center; /* 讓登入區塊在小螢幕時置中 */
+    }
+
     input, textarea {
         font-size: 14px; /* 小螢幕時縮小字體 */
-        padding: 8px;
+        padding: 8px; /* 減少內邊距 */
+    }
+
+    .password-wrapper {
+        flex-direction: column; /* 在小螢幕時讓輸入框與按鈕改為垂直排列 */
+        align-items: center; /* 置中對齊 */
+    }
+
+    #forgot-password-btn {
+        margin-top: 5px; /* 在小螢幕時增加與輸入框的間距 */
     }
 }
+
 
 
 /* 上方部分佔 1/4 */

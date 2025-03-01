@@ -19,7 +19,7 @@ os.environ["SMTP_SERVER"] = "test.smtp.com"  # 5. 設定 SMTP 伺服器
 
 # --------------------------------- 導入所需模組 --------------------------------
 
-from flask import Blueprint, request, jsonify  # 2. 與 app.py 中的 Flask 應用程式建立藍圖及處理請求
+from flask import Blueprint, request, jsonify,  redirect, url_for, render_template # 2. 與 app.py 中的 Flask 應用程式建立藍圖及處理請求
 from werkzeug.security import generate_password_hash, check_password_hash  # 3. 與 app.py 密碼加密/驗證
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, JWTManager  # 4. 與 app.py JWT 驗證
 from models import db, User  # 5. 與 models.py 資料庫及 User 模型聯繫
@@ -91,6 +91,7 @@ def login():
     username = data.get('username')  # 28. 取得使用者名稱（來自前端 `index.html`）
     phrase = data.get('phrase')  # 29. 取得使用者密碼（來自前端 `index.html`）
 
+
     if not username or not phrase:
         return jsonify({"error": "請提供使用者名稱和密碼"}), 400  # 30. 若無資料，回傳錯誤訊息（返回前端顯示錯誤）
 
@@ -98,8 +99,14 @@ def login():
     hashed_username = encode_morse(username)  # 31. 進行帳號加密（與資料庫中的帳號欄位聯繫）
     user = User.query.filter_by(username=hashed_username).first()  # 32. 查詢資料庫（與 `models.py` 中的 `User` 模型聯繫）
 
-    if not user or not check_password_hash(user.password, phrase):  # 33. 檢查密碼是否正確（與資料庫儲存的密碼聯繫）
-        return jsonify({"error": "帳號或密碼錯誤"}), 401  # 34. 帳號或密碼錯誤回應（返回給前端）
+    if not user :  # 33-1. 檢查帳號是否正確（與資料庫儲存的密碼聯繫）
+        return jsonify({"error": "帳號錯誤"}), 404  #  34-1. 帳號錯誤 -> 404 Not Found # 帳號或密碼錯誤回應（返回給前端）
+    
+    
+    if not check_password_hash(user.password, phrase):  # 33-2. 檢查密碼是否正確（與資料庫儲存的密碼聯繫）
+        return jsonify({"error": "密碼錯誤"}), 401  # 34-2. 密碼錯誤 -> 401 Unauthorized # 帳號或密碼錯誤回應（返回給前端）
+    
+    
 
     # 產生 JWT Token，預設 1 小時過期
     access_token = create_access_token(identity=user.id)  # 35. 生成 JWT Token（與後端會話及驗證聯繫）
@@ -174,6 +181,11 @@ def register():
 
 
 
+
+
+
+
+
 # --------------------------------- 密碼重設 API -------------------------------
 @auth_bp.route('/reset-password', methods=['POST'])  # 56. 密碼重設路由
 def reset_password():
@@ -214,6 +226,49 @@ def reset_password():
     return jsonify({"message": "臨時密碼已發送至您的郵箱"}), 200  # 76. 返回成功訊息
 
 # --------------------------------- 密碼重設 API -------------------------------
+
+"""
+傳統表單提交（POST 表單）的密碼重設方法[需要改整個，暫時先不動]
+
+@auth_bp.route('/reset-password', methods=['POST'])
+def reset_password():
+    email = request.form.get('email')
+    if not email:
+        flash("請提供電子郵件", "error")
+        return redirect(url_for('auth.reset_password_page'))  # 假設有個重設密碼頁面
+
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        flash("用戶不存在", "error")
+        return redirect(url_for('auth.reset_password_page'))
+
+    temp_password = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+    hashed_temp_password = generate_password_hash(temp_password)
+    user.password = hashed_temp_password
+    db.session.commit()
+
+    subject = "密碼重設通知"
+    body = f"您的臨時密碼是：{temp_password}\n請在登入後立即更換密碼。"
+    msg = MIMEText(body)
+    msg['Subject'] = subject
+    msg['From'] = EMAIL_USER
+    msg['To'] = email
+
+    try:
+        with smtplib.SMTP(SMTP_SERVER) as server:
+            server.login(EMAIL_USER, EMAIL_PASS)
+            server.sendmail(EMAIL_USER, email, msg.as_string())
+    except Exception as e:
+        flash(f"發送郵件失敗：{str(e)}", "error")
+        return redirect(url_for('auth.reset_password_page'))
+    
+    flash("臨時密碼已發送至您的郵箱", "success")
+    return redirect(url_for('auth.login'))
+
+"""
+
+
+
 
 
 """

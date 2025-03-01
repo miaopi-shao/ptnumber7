@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
     const closeBtn = document.getElementById("close-register-modal");  // 5. 取得關閉註冊視窗按鈕
     const registerForm = document.getElementById("register-form");  // 6. 取得註冊表單
     const loginForm = document.getElementById("login-form");  // 7. 取得登入表單
+    const forgotPasswordBtn = document.getElementById("forgot-password-btn");  // 7. 取得忘記帳密表單
     
     // =====  API 請求封裝（避免重複 fetch） =====
     // 8. 定義一個 API 請求的函式
@@ -29,7 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
             alert("伺服器錯誤，請稍後再試！");  // 18. 彈出錯誤提示
         }
     }
-
+    
+    
+    
+    
+    
     // =====  開啟 & 關閉 註冊視窗 =====
     // 19. 點擊註冊按鈕顯示註冊視窗
     registerBtn.addEventListener("click", () => {
@@ -73,7 +78,12 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
             closeRegisterModal();  // 41. 關閉註冊視窗
         }
     });
-
+    
+    
+    
+    
+    
+    
     // =====  登入帳號 =====
     // 42. 登入表單提交事件
     loginForm.addEventListener("submit", async (event) => {
@@ -90,11 +100,62 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
             localStorage.setItem("token", data.token);  // 49. 儲存 Token 至 localStorage
             alert("登入成功！");  // 50. 顯示登入成功訊息
             window.location.href = "/dashboard";  // 51. 轉跳到登入後的頁面（後端會使用 app.py 路由）
-        } else {  // 52. 如果登入失敗
-            alert(data?.error || "登入失敗！");  // 53. 顯示錯誤訊息
+        } else if (data?.error) {  // 登入失敗，依據錯誤訊息分別顯示
+        
+            // 假設後端回傳的 error 為物件 {username: "查無此帳號", password: "密碼錯誤"}
+            if (data.error.username) {
+                document.getElementById("username-error").innerText = data.error.username;
+            }
+            if (data.error.password) {
+                document.getElementById("password-error").innerText = data.error.password;
+            }
+            // 若回傳 error 是一般字串，可使用 alert 作為備援
+            if (typeof data.error === "string") {
+                alert(data.error);
+            }
+    }
+    });
+     
+    
+    // ===== 顯示登入者資訊 =====
+    async function fetchUserProfile() {
+        let token = localStorage.getItem("token");
+        if (!token) return;
+    
+        let data = await apiRequest("/auth/profile", "GET", null);
+        if (data?.username) {
+            document.getElementById("user-info").innerHTML = `
+                <p>歡迎，${data.username}</p>
+                <p>Email: ${data.email}</p>
+                <p>角色: ${data.role}</p>
+            `;
+        }
+    }
+    
+    // 登入成功後執行
+    if (localStorage.getItem("token")) {
+        fetchUserProfile();
+    }
+
+    
+       
+    
+    // ===== 忘記密碼功能 =====
+    forgotPasswordBtn?.addEventListener("click", async () => {
+        let email = prompt("請輸入您的電子郵件，以便重設密碼：");
+        if (!email) return; // 如果沒輸入 email，則不執行
+    
+        let data = await apiRequest("/auth/reset-password", "POST", { email });
+    
+        if (data?.message) {
+            alert(data.message); // 成功訊息（例如：臨時密碼已發送）
+        } else if (data?.error) {
+            alert("錯誤：" + data.error); // 失敗訊息（例如：用戶不存在）
         }
     });
 
+    
+    
     // =====  登出帳號 =====
     // 54. 當點擊登出按鈕時，清除 Token 並重新載入頁面
     document.getElementById("logout-btn")?.addEventListener("click", () => {
