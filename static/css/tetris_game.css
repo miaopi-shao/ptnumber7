@@ -170,7 +170,8 @@ label[for="city-select"] {
 /* 遊戲畫布容器：方便控制畫布尺寸與位置 */
 #gameContainer {
     width: 100%;
-    max-width: 800px;       /* 最大寬度限制 */
+    max-width: 960px;       /* 最大寬度限制 */
+    max-height: 1280px;      /* 最大高度限制 */
     margin-bottom: 20px;    /* 與控制按鈕間距 */
     background-color: #fff; /* 畫布容器背景色 */
     border: 2px solid #333; /* 邊框效果 */

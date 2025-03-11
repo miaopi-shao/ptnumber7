@@ -10,18 +10,22 @@ Created on Sun Feb 23 18:25:06 2025
 # ------------------------------ 創建測試用虛擬資料 ------------------------------
 import os  # 1. 用來操作環境變數
 # 設定環境變數，這裡是模擬設置，可以在 .env 文件中實際設置
-os.environ["JWT_SECRET"] = "test_jwt_secret"  # 2. 設定 JWT 秘密金鑰
-os.environ["EMAIL_USER"] = "test@example.com"  # 3. 設定郵件發送帳號
-os.environ["EMAIL_PASS"] = "test_password"  # 4. 設定郵件發送密碼
-os.environ["SMTP_SERVER"] = "test.smtp.com"  # 5. 設定 SMTP 伺服器
+# os.environ["JWT_SECRET"] = "test_jwt_secret"  # 2. 設定 JWT 秘密金鑰
+# os.environ["EMAIL_USER"] = "test@example.com"  # 3. 設定郵件發送帳號
+# os.environ["EMAIL_PASS"] = "test_password"  # 4. 設定郵件發送密碼
+# os.environ["SMTP_SERVER"] = "test.smtp.com"  # 5. 設定 SMTP 伺服器
+os.environ["JWT_SECRET"] = "aVeryStrongRandomSecretKey1234567890abcdef1234567890abcdef"  # 2. 設定 JWT 秘密金鑰
+os.environ["EMAIL_USER"] = "oaplookout@gmail.com"  # 3. 設定郵件發送帳號
+os.environ["EMAIL_PASS"] = "fidl iiiz bpda ygol"  # 4. 設定郵件發送密碼
+os.environ["SMTP_SERVER"] = "smtp.gmail.com"  # 5. 設定 SMTP 伺服器
 # ------------------------------ 創建測試用虛擬資料 ------------------------------
 
 
 # --------------------------------- 導入所需模組 --------------------------------
 
-from flask import Blueprint, request, jsonify,  redirect, url_for, render_template # 2. 與 app.py 中的 Flask 應用程式建立藍圖及處理請求
+from flask import Blueprint, request, jsonify # 2. 與 app.py 中的 Flask 應用程式建立藍圖及處理請求
 from werkzeug.security import generate_password_hash, check_password_hash  # 3. 與 app.py 密碼加密/驗證
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, JWTManager  # 4. 與 app.py JWT 驗證
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity # 4. 與 app.py JWT 驗證
 from models import db, User  # 5. 與 models.py 資料庫及 User 模型聯繫
 import hashlib  # 6. 用於密碼加密雜湊
 import random  # 7. 用於生成臨時密碼
@@ -84,7 +88,7 @@ def encode_morse(text):
 
 # -------------------------------- 登入 API ------------------------------------
 
-@auth_bp.route('/login', methods=['POST'])  # 26. 登入路由，POST 請求（這是與前端互動，從 `index.html` 來傳送資料）
+@auth_bp.route('/auth/login', methods=['POST'])  # 26. 登入路由，POST 請求（這是與前端互動，從 `index.html` 來傳送資料）
 def login():
     """ 使用者登入，成功則返回 JWT Token """
     data = request.json  # 27. 取得請求中的 JSON 資料（前端與後端 JSON 資料交換）
@@ -98,13 +102,13 @@ def login():
     # 用 SHA-256 方式加密帳號（因為我們註冊時是用 encode_morse）
     hashed_username = encode_morse(username)  # 31. 進行帳號加密（與資料庫中的帳號欄位聯繫）
     user = User.query.filter_by(username=hashed_username).first()  # 32. 查詢資料庫（與 `models.py` 中的 `User` 模型聯繫）
-
-    if not user :  # 33-1. 檢查帳號是否正確（與資料庫儲存的密碼聯繫）
-        return jsonify({"error": "帳號錯誤"}), 404  #  34-1. 帳號錯誤 -> 404 Not Found # 帳號或密碼錯誤回應（返回給前端）
-    
-    
-    if not check_password_hash(user.password, phrase):  # 33-2. 檢查密碼是否正確（與資料庫儲存的密碼聯繫）
-        return jsonify({"error": "密碼錯誤"}), 401  # 34-2. 密碼錯誤 -> 401 Unauthorized # 帳號或密碼錯誤回應（返回給前端）
+    if not user or not check_password_hash(user.password, phrase):
+        if not user :  # 33-1. 檢查帳號是否正確（與資料庫儲存的密碼聯繫）
+            return jsonify({"error": "帳號錯誤"}), 404  #  34-1. 帳號錯誤 -> 404 Not Found # 帳號或密碼錯誤回應（返回給前端）
+        
+        
+        if not check_password_hash(user.password, phrase):  # 33-2. 檢查密碼是否正確（與資料庫儲存的密碼聯繫）
+            return jsonify({"error": "密碼錯誤"}), 401  # 34-2. 密碼錯誤 -> 401 Unauthorized # 帳號或密碼錯誤回應（返回給前端）
     
     
 
@@ -122,7 +126,7 @@ def login():
 
 # ------------------------------ 取得個人資訊 API ------------------------------
 
-@auth_bp.route('/profile', methods=['GET'])  # 37. 取得個人資訊的路由
+@auth_bp.route('/auth/profile', methods=['GET'])  # 37. 取得個人資訊的路由
 @jwt_required()  # 38. 需要 JWT Token 驗證（這部分會由前端傳送 Token）
 def profile():
     """ 取得登入使用者的資訊（需要提供 JWT Token） """
@@ -143,24 +147,21 @@ def profile():
 
 
 
-
-
-
-
-
-
 # ---------------------------------- 註冊 API ----------------------------------
-@auth_bp.route('/register', methods=['POST'])  # 43. 註冊路由，POST 請求（這部分是與前端表單互動）
+@auth_bp.route('/auth/register', methods=['POST'])  # 43. 註冊路由，POST 請求（這部分是與前端表單互動）
 def register():
     """ 使用者註冊功能，帳號經摩斯密碼加密，密碼經 PBKDF2 加密 """
     data = request.json  # 44. 取得前端傳來的 JSON 資料（來自 `index.html` 的表單）
     username = data.get('username')  # 45. 取得使用者名稱（來自前端）
     phrase = data.get('phrase')  # 46. 取得使用者密碼（來自前端）
     email = data.get('email')  # 47. 取得使用者電子郵件（來自前端）
-
+    
+    
     if not username or not phrase or not email:
         return jsonify({"error": "請提供完整的使用者名稱、密碼和電子郵件"}), 400  # 48. 檢查資料是否完整（錯誤回傳給前端）
-
+    if len(phrase) < 8:
+        return jsonify({"error": "密碼長度至少 8 個字元"}), 400
+    
     hashed_username = encode_morse(username)  # 49. 進行帳號加密
     hashed_password, error = phrase_to_password(phrase)  # 50. 密碼加密（與 `models.py` 的 `User` 模型資料結合）
 
@@ -171,7 +172,7 @@ def register():
     user = User(username=hashed_username, password=hashed_password, email=email)  # 52. 創建 `User` 實例（與 `models.py` 的 `User` 類別聯繫）
     db.session.add(user)  # 53. 儲存資料到資料庫（這部分與 `models.py` 中的 `db` 聯繫）
     db.session.commit()  # 54. 提交資料庫變更
-
+    
     return jsonify({"message": "註冊成功"}), 201  # 55. 註冊成功回應（傳遞給前端）
 
 # ---------------------------------- 註冊 API ----------------------------------
@@ -180,14 +181,8 @@ def register():
 
 
 
-
-
-
-
-
-
 # --------------------------------- 密碼重設 API -------------------------------
-@auth_bp.route('/reset-password', methods=['POST'])  # 56. 密碼重設路由
+@auth_bp.route('/auth/reset-password', methods=['POST'])  # 56. 密碼重設路由
 def reset_password():
     """ 密碼重設功能，向使用者電子郵件發送臨時密碼 """
     data = request.json  # 57. 取得 JSON 資料（來自前端）
@@ -218,6 +213,7 @@ def reset_password():
 
     try:
         with smtplib.SMTP(SMTP_SERVER) as server:  # 72. 發送郵件
+            server.starttls()
             server.login(EMAIL_USER, EMAIL_PASS)  # 73. 登入 SMTP 伺服器
             server.sendmail(EMAIL_USER, email, msg.as_string())  # 74. 發送郵件
     except Exception as e:
@@ -226,6 +222,31 @@ def reset_password():
     return jsonify({"message": "臨時密碼已發送至您的郵箱"}), 200  # 76. 返回成功訊息
 
 # --------------------------------- 密碼重設 API -------------------------------
+
+
+# --------------------------------- 帳戶刪除 API -------------------------------
+
+@auth_bp.route('/auth/delete_account', methods=['POST'])  # 定義路由與 HTTP 方法
+@jwt_required()  # 僅要求用戶攜帶有效的 JWT Token
+def delete_account():
+    # 從 Token 中取得當前用戶 ID
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({"error": "找不到使用者"}), 404
+
+    # 這裡可以加入額外確認步驟，例如驗證用戶的密碼（從請求中取得）
+    password = request.json.get("password")
+    if not check_password_hash(user.password, password):
+        return jsonify({"error": "密碼驗證失敗"}), 401
+
+    # 刪除用戶並提交變更
+    db.session.delete(user)
+    db.session.commit()
+    return jsonify({"message": "帳號已成功刪除"}), 200
+
+# --------------------------------- 帳戶刪除 API -------------------------------
+
 
 """
 傳統表單提交（POST 表單）的密碼重設方法[需要改整個，暫時先不動]

@@ -169,6 +169,24 @@ input, textarea {
 }
 
 
+/* 刪除帳號按鈕樣式 */
+.danger-btn {
+    background-color: #d9534f; /* 紅色按鈕 */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+
+.danger-btn:hover {
+    background-color: #c9302c; /* 滑鼠移上去變深紅色 */
+}
+
+
 
 /* 登入與註冊按鈕樣式 */
 #login-btn, #register-btn {

@@ -6,7 +6,6 @@ Created on Sun Feb 23 17:01:04 2025
 """
 
 # external_search.py 處理站外搜尋
-import requests
 from flask import Blueprint, request, redirect
 
 external_search_bp = Blueprint('external_search', __name__)

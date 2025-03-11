@@ -6,7 +6,7 @@ Created on Wed Feb 26 15:52:56 2025
 """
 
 from flask import Blueprint, render_template, request, redirect, url_for
-from flask_login import login_required, current_user
+from flask_login import current_user
 from models import db, Score  # 假設有 Score 模型用來儲存分數
 
 save_score_bp = Blueprint('save_score', __name__)

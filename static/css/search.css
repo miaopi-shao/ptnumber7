@@ -1,16 +1,179 @@
-.search-results {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #f0f0f0;
+/* 頁面通用設置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.search-results a {
-    display: block;
-    margin-bottom: 10px;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     color: #333;
-    text-decoration: none;
 }
 
-.search-results a:hover {
-    color: #007bff;
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+/* 頁面標題區 */
+.page-header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.page-header .title {
+    font-size: 36px;
+}
+
+.page-header .subtitle {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+/* 主要內容區域 */
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+/* 搜尋結果顯示區 */
+.search-results-container {
+    width: 70%;
+}
+
+.search-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.search-again-container {
+    margin-bottom: 20px;
+}
+
+.search-again-title {
+    font-size: 18px;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-input {
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+.category-select {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+}
+
+.search-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* 搜尋結果列表 */
+.results-list {
+    list-style: none;
+    padding: 0;
+}
+
+.result-item {
+    margin-bottom: 15px;
+}
+
+.result-link {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.result-description {
+    font-size: 16px;
+    color: #666;
+}
+
+/* 沒有結果顯示 */
+.no-results-message {
+    font-size: 18px;
+    color: #f44336;
+}
+
+/* 其他連結區域 */
+.additional-links-container {
+    width: 25%;
+}
+
+.website-list {
+    list-style: none;
+    padding: 0;
+}
+
+.website-link {
+    display: block;
+    padding: 10px;
+    background-color: #f1f1f1;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.website-link:hover {
+    background-color: #ddd;
+}
+
+.game-selection-container {
+    margin-top: 20px;
+}
+
+.game-button {
+    padding: 10px;
+    margin-top: 10px;
+    width: 100%;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.game-button:hover {
+    background-color: #1976D2;
+}
+
+/* 頁面底部 */
+.page-footer {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.page-footer .footer-list {
+    list-style: none;
+    padding: 0;
+    font-size: 14px;
+}
+
+.page-footer .footer-list li {
+    margin: 5px 0;
 }

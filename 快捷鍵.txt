@@ -1,0 +1,15 @@
+快捷鍵
+
+動作                      快捷鍵
+
+註解/取消註解	          Ctrl + 1
+
+執行當前程式	          F5
+
+清空 Console 輸出	  Ctrl + L
+
+格式化程式碼	          Ctrl + Alt + I
+
+多行編輯（插入多個游標）  Ctrl + Alt + 向上/向下
+
+切換到 Console	          Ctrl + Shift + I

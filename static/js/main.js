@@ -42,6 +42,8 @@ updateWeather();
 
 
 
+
+
 // 外部搜尋 (DuckDuckGo)(沒有問題)
 document.getElementById("external-search-btn").addEventListener("click", function() {
     var query = document.getElementById("external-search-input").value;
@@ -51,22 +53,21 @@ document.getElementById("external-search-btn").addEventListener("click", functio
 });
 
 
+// 這可以處理搜尋結果的動態顯示、過濾功能等
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("main.js 加載完成");
 
-
-
-
-// 內部搜尋 (站內爬蟲資料)
-document.getElementById("internal-search-btn").addEventListener("click", function() {
-    var query = document.getElementById("internal-search-input").value;
-    if (query) {
-        fetch('/search?q=' + encodeURIComponent(query))
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => console.error('Error:', error));
-    }
+    // 右下方定時爬蟲結果區塊
+    const searchResults = document.querySelectorAll('.search-results a');
+    searchResults.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('這是定時爬蟲的搜尋結果連結');
+        });
+    });
 });
+
+
 
 
 
