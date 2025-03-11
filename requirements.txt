@@ -24,4 +24,5 @@ flask-login==0.6.3
 gunicorn
 python-dotenv==1.0.1
 Flask-JWT-Extended==4.7.1
-schedule 
+schedule
+fake-useragent
