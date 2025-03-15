@@ -1,0 +1,140 @@
+/*  檔案名稱:reset.css  */
+
+/* CSS 重置樣式（CSS Reset）-所有頁面統一使用
+   目的是把各個 HTML 元素的預設樣式清除，
+   讓不同瀏覽器之間的顯示更加一致。
+   會將大部分元素的背景、邊框、外邊距、內邊距、
+   字體大小、輪廓等屬性重置為初始值，
+   並設定一些常用元素的垂直對齊、列表樣式、區塊引用等，
+   這樣在撰寫自訂樣式時就能有一個乾淨且一致的基礎。
+*/
+
+/* 重置所有常用元素的樣式 */
+a,
+abbr,
+acronym,
+address,
+applet,
+article,
+aside,
+audio,
+b,
+blockquote,
+big,
+body,
+center,
+canvas,
+caption,
+cite,
+code,
+command,
+datalist,
+dd,
+del,
+details,
+dfn,
+dl,
+div,
+dt,
+em,
+embed,
+fieldset,
+figcaption,
+figure,
+font,
+footer,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+hgroup,
+html,
+i,
+iframe,
+img,
+ins,
+kbd,
+keygen,
+label,
+legend,
+li,
+meter,
+nav,
+object,
+ol,
+output,
+p,
+pre,
+progress,
+q,
+s,
+samp,
+section,
+small,
+span,
+source,
+strike,
+strong,
+sub,
+sup,
+table,
+tbody,
+tfoot,
+thead,
+th,
+tr,
+td,
+video,
+tt,
+u,
+ul,
+var {
+    background: transparent;
+    border: 0 none;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    vertical-align: top;
+}
+
+/* 取消有序與無序列表的預設項目符號 */
+ol,
+ul {
+    list-style: none;
+}
+
+/* 取消 blockquote 與 q 元素的預設引號 */
+blockquote,
+q {
+    quotes: none;
+}
+
+/* 表格與表格儲存格的重置 */
+table,
+table td {
+    padding: 0;
+    border: none;
+    border-collapse: collapse;
+}
+
+/* 圖片與嵌入內容垂直置頂 */
+img {
+    vertical-align: top;
+}
+
+embed {
+    vertical-align: top;
+}
+
+/* 輸入框與多行文本框的樣式重置 */
+input[type=text],
+textarea {
+    outline: none;
+    border-radius: 0;
+}

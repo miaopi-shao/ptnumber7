@@ -1,0 +1,136 @@
+/* 檔案名稱: slider.css */
+/* 這段 CSS 主要是用來設定滑動區塊中「上一頁」和「下一頁」按鈕的樣式與位置，
+   讓用戶可以透過這些按鈕導航圖片輪播。
+   具體來說：
+        定位與大小：
+            設定 top: 50%; 和 margin-top: -35px; 讓按鈕垂直居中。
+            設定 width: 12px; 和 height: 22px; 定義按鈕的尺寸。
+        
+        顯示控制：
+            display: none; 表示預設狀態下這些按鈕不顯示，可能會在特定互動（如滑鼠移入）時再顯示出來。
+    這樣的設計通常用於圖片滑動插件中，提供用戶手動切換圖片的功能。      */
+    
+
+/* slider */
+.slider-wrapper {
+    margin-top: 50px; /* 上外邊距50px */
+    position: relative; /* 相對定位 */
+    padding-bottom: 72px; /* 下內邊距72px */
+}
+.slider-wrapper .camera_thumbs {
+    padding-top: 7px; /* 上內邊距7px */
+    background: #ededed; /* 背景色：#ededed */
+    -webkit-border-radius: 4px; /* 圓角半徑4px（適用於Webkit瀏覽器） */
+    -moz-border-radius: 4px; /* 圓角半徑4px（適用於Mozilla瀏覽器） */
+    -ms-border-radius: 4px; /* 圓角半徑4px（適用於IE瀏覽器） */
+    -o-border-radius: 4px; /* 圓角半徑4px（適用於Opera瀏覽器） */
+    border-radius: 4px; /* 圓角半徑4px */
+}
+.slider-wrapper .camera_thumbs {
+    padding-right: 10px; /* 右內邊距10px */
+}
+.slider-wrapper .camera_thumbs_cont ul {
+    height: 63px; /* 高度63px */
+    white-space: nowrap; /* 禁止換行 */
+}
+.slider-wrapper .camera_thumbs_cont ul li {
+    padding: 0 10px 0px; /* 上內邊距0px，右內邊距10px，下內邊距0px，左內邊距0px */
+}
+.slider-wrapper .slider-text {
+    position: absolute; /* 絕對定位 */
+    bottom: 12px; /* 底部距離12px */
+    font-family: 'Domine', serif; /* 字體系列：'Domine', serif */
+    font-weight: bold; /* 字體粗細：粗體 */
+    font-size: 25px; /* 字體大小25px */
+    line-height: 30px; /* 行高30px */
+    color: #4c4c4c; /* 字體顏色：#4c4c4c */
+}
+.slider-wrapper .slider-text a {
+    font: 13px/33px Arial, sans-serif; /* 字體：13px大小，33px行高，Arial字體，無襯線 */
+    color: #ffb607; /* 字體顏色：#ffb607 */
+    text-decoration: underline; /* 文字裝飾：下劃線 */
+}
+.slider-wrapper .slider-text a:hover {
+    text-decoration: none; /* 滑鼠懸停時，文字裝飾：無 */
+}
+.cameraContent {
+    margin-bottom: 0px; /* 下外邊距0px */
+}
+.border-1-wrap {
+    display: inline-block; /* 行內區塊元素 */
+    position: relative; /* 相對定位 */
+    border: none; /* 無邊框 */
+}
+.slider-wrapper .camera_fakehover {
+    padding-bottom: 63px; /* 下內邊距63px */
+}
+.border-1-wrap img {
+    -webkit-box-shadow: 0 2px 3px 1px #dadad9; /* 盒陰影（適用於Webkit瀏覽器） */
+    -moz-box-shadow: 0 2px 3px 1px #dadad9; /* 盒陰影（適用於Mozilla瀏覽器） */
+    box-shadow: 0 2px 3px 1px #dadad9; /* 盒陰影 */
+    cursor: pointer; /* 游標：指針 */
+}
+.border-1-wrap > span {
+    position: absolute; /* 絕對定位 */
+    display: none; /* 不顯示 */
+    background: #ffffff; /* 背景色：#ffffff */
+}
+.border-1-wrap:hover > span,
+.cameracurrent .border-1-wrap span {
+    display: block; /* 顯示 */
+}
+.s-bord-1, .s-bord-3 {
+    height: 6px; /* 高度6px */
+    left: 0; /* 左對齊 */
+    right: 0; /* 右對齊 */
+}
+.s-bord-1 {
+    top: 0px; /* 頂部距離0px */
+}
+.s-bord-3 {
+    bottom: 3px; /* 底部距離3px */
+}
+.s-bord-2, .s-bord-4 {
+    width: 6px; /* 寬度6px */
+    top: 0; /* 頂部對齊 */
+    bottom: 3px; /* 底部距離3px */
+}
+.s-bord-2 {
+    left: 0px; /* 左對齊 */
+}
+.s-bord-4 {
+    right: 0px; /* 右對齊 */
+}
+.cameracurrent .border-1-wrap .s-bord-1 {
+    background: transparent url(../images/slider_1.png) center 0 no-repeat; /* 背景透明，圖片位於../images/s-bord-1.png，居中對齊，不重複 */
+    height: 13px; /* 高度13px */
+    top: -8px; /* 頂部距離-8px */
+    font-size: 0px; /* 字體大小0px */
+}
+.slider-wrapper .camera_thumbs_cont ul {
+    padding-top: 8px; /* 上內邊距8px */
+    padding-bottom: 12px; /* 下內邊距12px */
+    text-align: left; /* 文字左對齊 */
+}
+.slider-wrapper .camera_wrap img {
+    height: 62px; /* 高度62px */
+    -webkit-border-radius: 4px; /* 圓角半徑4px（適用於Webkit瀏覽器） */
+    -moz-border-radius: 4px; /* 圓角半徑4px（適用於Mozilla瀏覽器） */
+    -ms-border-radius: 4px; /* 圓角半徑4px（適用於IE瀏覽器） */
+    -o-border-radius: 4px; /* 圓角半徑4px（適用於Opera瀏覽器） */
+    border-radius: 4px; /* 圓角半徑4px */
+    text-align: left; /* 文字左對齊 */
+}
+.camera_wrap {
+    height: 329px; /* 高度329px */
+}
+.slider-wrapper .camera_prev,
+.slider-wrapper .camera_next {
+    top: 50%; /* 頂部距離50% */
+    margin-top: -35px; /* 上外邊距-35px */
+    bottom: auto; /* 底部自動 */
+    display: none; /* 不顯示 */
+    width: 12px; /* 寬度12px */
+    height: 22px; /*
+::contentReference[oaicite:0]{index=0}
+ 

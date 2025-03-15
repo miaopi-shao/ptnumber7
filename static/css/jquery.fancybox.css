@@ -1,0 +1,391 @@
+/*             檔案名稱: jquery.fancybox.css 用於FancyBox 插件的框架      */
+
+
+/* FancyBox - jQuery 插件
+   簡單而華麗的 lightbox 替代方案
+   範例與說明請參考: http://fancybox.net
+   Copyright (c) 2008 - 2010 Janis Skarnelis
+   本插件得到眾多開發者的貢獻支持
+   版本: 1.3.4 (11/11/2010)
+   需求: jQuery v1.3+
+   雙重授權: MIT 與 GPL
+*/
+
+/* #fancybox-loading 元素 - 載入動畫 */
+#fancybox-loading {
+	position: fixed;            /* 固定定位 */
+	top: 50%;                   /* 垂直置中 */
+	left: 50%;                  /* 水平置中 */
+	width: 40px;                /* 寬度 40px */
+	height: 40px;               /* 高度 40px */
+	margin-top: -20px;          /* 垂直偏移 -20px (置中) */
+	margin-left: -20px;         /* 水平偏移 -20px (置中) */
+	cursor: pointer;            /* 游標變成手型 */
+	overflow: hidden;           /* 隱藏溢出部分 */
+	z-index: 1104;              /* 設定較高的層級 */
+	display: none;              /* 預設不顯示 */
+}
+
+/* #fancybox-loading 裡面的 div - 載入動畫的背景圖片 */
+#fancybox-loading div {
+	position: absolute;         /* 絕對定位 */
+	top: 0;
+	left: 0;
+	width: 40px;                /* 寬度 40px */
+	height: 480px;              /* 高度 480px，利用背景圖片滾動效果 */
+	background-image: url('../images/fancybox_img/fancybox.png');  /* 背景圖片來源 */
+}
+
+/* #fancybox-overlay - 覆蓋層 */
+#fancybox-overlay {
+	position: absolute;         /* 絕對定位 */
+	top: 0;
+	left: 0;
+	width: 100%;                /* 撐滿寬度 */
+	background: #0f0f0f !important;  /* 背景色黑色，強制使用 !important */
+	z-index: 1100;              /* 層級 1100 */
+	display: none;              /* 預設不顯示 */
+}
+
+/* #fancybox-tmp - 臨時容器 */
+#fancybox-tmp {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	overflow: auto;             /* 自動滾動 */
+	display: none;
+}
+
+/* #fancybox-wrap - 外層容器 */
+#fancybox-wrap {
+	position: absolute;         /* 絕對定位 */
+	top: 0;
+	left: 0;
+	padding: 20px;             /* 內邊距 20px */
+	z-index: 1101;              /* 層級 1101 */
+	outline: none;
+	display: none;
+}
+
+/* #fancybox-outer - 內層外框 */
+#fancybox-outer {
+	position: relative;         /* 相對定位 */
+	width: 100%;                /* 撐滿寬度 */
+	height: 100%;               /* 撐滿高度 */
+	background: #1e1e1e;        /* 背景色深灰色 */
+}
+
+/* #fancybox-content - 內容容器 */
+#fancybox-content {
+	width: 0;                   /* 初始寬度 0 */
+	height: 0;                  /* 初始高度 0 */
+	padding: 0;
+	outline: none;
+	position: relative;
+	overflow: hidden;           /* 隱藏超出內容 */
+	z-index: 1102;              /* 層級 1102 */
+	border: 0px solid #1e1e1e;   /* 邊框設置 */
+}
+
+/* #fancybox-hide-sel-frame - 隱藏選擇框 */
+#fancybox-hide-sel-frame {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	z-index: 1101;
+}
+
+/* #fancybox-close - 關閉按鈕 */
+#fancybox-close {
+	position: absolute;
+	top: -15px;                 /* 向上偏移15px */
+	right: -15px;               /* 向左偏移15px */
+	width: 30px;
+	height: 30px;
+	background: transparent url('../images/fancybox_img/fancybox.png') -40px 0px;  /* 使用背景圖片，並偏移 */
+	cursor: pointer;
+	z-index: 1103;              /* 層級 1103 */
+	display: none;              /* 預設不顯示 */
+}
+
+/* #fancybox-error - 錯誤訊息顯示 */
+#fancybox-error {
+	color: #444;
+	font: normal 12px/20px Arial;
+	padding: 14px;
+	margin: 0;
+}
+
+/* #fancybox-img - 圖片樣式 */
+#fancybox-img {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	border: none;
+	outline: none;
+	line-height: 0;
+	vertical-align: top;
+}
+
+/* #fancybox-frame - 內嵌框架 */
+#fancybox-frame {
+	width: 100%;
+	height: 100%;
+	border: none;
+	display: block;
+}
+
+/* #fancybox-left, #fancybox-right - 左右導航區域 */
+#fancybox-left, #fancybox-right {
+	position: absolute;
+	bottom: 0px;
+	height: 100%;
+	width: 35%;
+	cursor: pointer;
+	outline: none;
+	z-index: 1102;
+	display: none;
+}
+#fancybox-left {
+	left: 0px;
+}
+#fancybox-right {
+	right: 0px;
+}
+
+/* #fancybox-left-ico, #fancybox-right-ico - 左右導航圖示 */
+#fancybox-left-ico, #fancybox-right-ico {
+	position: absolute;
+	top: 50%;
+	left: -9999px;             /* 初始隱藏在螢幕外 */
+	width: 30px;
+	height: 30px;
+	margin-top: -15px;
+	cursor: pointer;
+	z-index: 1102;
+	display: block;
+}
+#fancybox-left-ico {
+	background-position: -40px -30px;  /* 設定背景偏移 */
+}
+#fancybox-right-ico {
+	background-position: -40px -60px;
+}
+
+/* 懸停效果，保持可見 */
+#fancybox-left:hover, #fancybox-right:hover {
+	visibility: visible; /* IE6 專用 */
+}
+#fancybox-left:hover span {
+	left: 20px;
+}
+#fancybox-right:hover span {
+	left: auto;
+	right: 20px;
+}
+
+/* .fancybox-bg - 背景塊，提供邊框效果 */
+.fancybox-bg {
+	position: absolute;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	width: 20px;
+	height: 20px;
+	z-index: 1001;
+}
+
+/* 各方向背景塊的位置與偏移 */
+#fancybox-bg-n {
+	top: -20px;
+	left: 0;
+	width: 100%;
+}
+#fancybox-bg-ne {
+	top: -20px;
+	right: -20px;
+	background-position: -40px -162px;
+}
+#fancybox-bg-e {
+	top: 0;
+	right: -20px;
+	height: 100%;
+	background-position: -20px 0px;
+}
+#fancybox-bg-se {
+	bottom: -20px;
+	right: -20px;
+	background-position: -40px -182px; 
+}
+#fancybox-bg-s {
+	bottom: -20px;
+	left: 0;
+	width: 100%;
+	background-position: 0px -20px;
+}
+#fancybox-bg-sw {
+	bottom: -20px;
+	left: -20px;
+	background-position: -40px -142px;
+}
+#fancybox-bg-w {
+	top: 0;
+	left: -20px;
+	height: 100%;
+}
+#fancybox-bg-nw {
+	top: -20px;
+	left: -20px;
+	background-position: -40px -122px;
+}
+
+/* #fancybox-title - 標題樣式 */
+#fancybox-title {
+	font-family: Helvetica;
+	font-size: 12px;
+	z-index: 1102;
+}
+
+/* .fancybox-title-inside - 內部標題樣式 */
+.fancybox-title-inside {
+	padding-bottom: 10px;
+	text-align: center;
+	color: #333;
+	background: #fff;
+	position: relative;
+}
+
+/* .fancybox-title-outside - 外部標題樣式 */
+.fancybox-title-outside {
+	padding-top: 10px;
+	color: #fff;
+}
+
+/* .fancybox-title-over - 懸浮標題樣式 */
+.fancybox-title-over {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	color: #FFF;
+	text-align: left;
+}
+#fancybox-title-over {
+	padding: 10px;
+	display: block;
+}
+
+/* .fancybox-title-float - 浮動標題樣式 */
+.fancybox-title-float {
+	position: absolute;
+	left: 0;
+	bottom: -20px;
+	height: 32px;
+}
+#fancybox-title-float-wrap {
+	border: none;
+	border-collapse: collapse;
+	width: auto;
+}
+#fancybox-title-float-wrap td {
+	border: none;
+	white-space: nowrap;
+}
+#fancybox-title-float-left {
+	padding: 0 0 0 15px;
+}
+#fancybox-title-float-main {
+	color: #FFF;
+	line-height: 29px;
+	font-weight: bold;
+	padding: 0 0 3px 0;
+}
+#fancybox-title-float-right {
+	padding: 0 0 0 15px;
+}
+
+
+
+
+/*---------------- 針對舊版 IE 特殊處理 -------------------*/
+
+
+
+/* IE6 特殊處理 */
+.fancybox-ie6 #fancybox-close { 
+    background: transparent; 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/fancy_close.png', sizingMethod='scale'); 
+}
+.fancybox-ie6 #fancybox-left-ico { 
+    background: transparent; 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_nav_left.png', sizingMethod='scale'); 
+}
+.fancybox-ie6 #fancybox-right-ico { 
+    background: transparent; 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_nav_right.png', sizingMethod='scale'); 
+}
+.fancybox-ie6 #fancybox-title-over { 
+    background: transparent; 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_title_over.png', sizingMethod='scale'); 
+    zoom: 1; 
+}
+.fancybox-ie6 #fancybox-title-float-left { 
+    background: transparent; 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_title_left.png', sizingMethod='scale'); 
+}
+.fancybox-ie6 #fancybox-title-float-main { 
+    background: transparent; 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_title_main.png', sizingMethod='scale'); 
+}
+.fancybox-ie6 #fancybox-title-float-right { 
+    background: transparent; 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_title_right.png', sizingMethod='scale'); 
+}
+
+/* IE6 調整：使部分元素高度隨父容器變化 */
+.fancybox-ie6 #fancybox-bg-w, .fancybox-ie6 #fancybox-bg-e, .fancybox-ie6 #fancybox-left, .fancybox-ie6 #fancybox-right, #fancybox-hide-sel-frame {
+	height: expression(this.parentNode.clientHeight + "px");
+}
+
+/* IE6 調整 #fancybox-loading */
+#fancybox-loading.fancybox-ie6 {
+	position: absolute; 
+    margin-top: 0;
+	top: expression( (-20 + (document.documentElement.clientHeight ? document.documentElement.clientHeight/2 : document.body.clientHeight/2 ) + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop )) + 'px');
+}
+#fancybox-loading.fancybox-ie6 div { 
+    background: transparent; 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_loading.png', sizingMethod='scale'); 
+}
+
+/* IE6, IE7, IE8 調整：背景塊設為透明 */
+.fancybox-ie .fancybox-bg { 
+    background: transparent !important; 
+}
+.fancybox-ie #fancybox-bg-n { 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_n.png', sizingMethod='scale'); 
+}
+.fancybox-ie #fancybox-bg-ne { 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_ne.png', sizingMethod='scale'); 
+}
+.fancybox-ie #fancybox-bg-e { 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_e.png', sizingMethod='scale'); 
+}
+.fancybox-ie #fancybox-bg-se { 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_se.png', sizingMethod='scale'); 
+}
+.fancybox-ie #fancybox-bg-s { 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_s.png', sizingMethod='scale'); 
+}
+.fancybox-ie #fancybox-bg-sw { 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_sw.png', sizingMethod='scale'); 
+}
+.fancybox-ie #fancybox-bg-w { 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_w.png', sizingMethod='scale'); 
+}
+.fancybox-ie #fancybox-bg-nw { 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_nw.png', sizingMethod='scale'); 
+}

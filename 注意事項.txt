@@ -1,7 +1,11 @@
+0-移除舊的遠端倉庫設定
+git remote remove origin
+
+
+
 1-進入你的專案資料夾
 
 cd /d/PTtest
-
 
 2-設定 Git：
 

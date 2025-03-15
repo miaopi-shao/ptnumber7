@@ -1,0 +1,104 @@
+/*    檔案名稱: accordion.css    */
+/*     手風琴頁面設計            */
+
+/* #Accordion 主容器樣式
+   設定內邊距、外邊距以及邊框 */
+#accordion {
+    padding: 0;                        /* 內邊距 0 */
+    margin: 0 0px 48px 0;               /* 上右下左外邊距，底部48px */
+    border: 1px solid #e6e6e6;          /* 外框為淺灰色實線 */
+}
+
+/* 第一個列表項目的連結，上方外邊距調整為0 */
+#accordion > ul > li:first-child > a {
+    margin-top: 0;
+}
+
+/* 每個列表項目樣式
+   設定底部內邊距及邊框 */
+#accordion > ul > li {
+    padding-bottom: 14px;              /* 底部內邊距14px */
+    border: 1px solid #e8e8e8;          /* 邊框為更淺的灰色實線 */
+}
+
+/* h5 標題內連結樣式
+   設定底部邊框、背景圖、文字格式與內邊距 */
+#accordion h5 a {
+    border-bottom: 1px solid #f0f0f0;   /* 底部邊框，淺灰色 */
+    margin: 0px 0px 0px 0px;            /* 四邊外邊距0 */
+    background: url('../images/accrod_title.png') right -191px no-repeat;  /* 背景圖片，置於右側，偏移-191px */
+    text-transform: uppercase;         /* 全部轉為大寫 */
+    color: #141414;                    /* 文字顏色深灰 */
+    font: bold 11px/16px Arial, sans-serif;  /* 字體設定：Arial，粗體，字號11px，行高16px */
+    display: block;                    /* 顯示為區塊元素 */
+    padding-top: 18px;                 /* 上內邊距18px */
+    padding-bottom: 15px;              /* 下內邊距15px */
+}
+
+/* 手風琴內容區域樣式（展開內容部分）
+   設定邊框、內邊距、背景色與寬度 */
+#accordion .ui-accordion-content {
+    border: 1px solid #e6e6e6;         /* 整體邊框 */
+    border-top: none;                  /* 上邊框移除 */
+    border-left: none;                 /* 左邊框移除 */
+    padding: 15px 0px 9px 0px;          /* 上15px、右0px、下9px、左0px的內邊距 */
+    background: #f9f9f9;                /* 背景色為淺灰白 */
+    width: 100%;                       /* 寬度100% */
+    margin-left: 0px;                  /* 左外邊距0 */
+}
+
+/* 當 h5 標題處於激活狀態時，修改其連結背景位置 */
+#accordion h5.ui-state-active a {
+    background-position: right 13px;
+}
+
+/* h5 標題連結鼠標懸停時樣式
+   改變文字顏色並移除下劃線 */
+#accordion h5 a:hover {
+    color: #e47e6b;                   /* 文字顏色變為橙紅色 */
+    text-decoration: none !important; /* 移除下劃線 */
+}
+
+/* 手風琴內容中連結的鼠標懸停效果 */
+#accordion .ui-accordion-content a:hover {
+    text-decoration: underline;       /* 加下劃線 */
+    color: #e47e6b;                   /* 文字顏色變為橙紅色 */
+}
+
+/* 手風琴內容中段落 p 的樣式
+   設定上內邊距、左內邊距及文字顏色 */
+#accordion .ui-accordion-content p {
+    padding-top: 10px;
+    padding-left: 20px;
+    color: #787878;                   /* 文字顏色中灰 */
+}
+
+/* 手風琴內容中段落內連結的樣式 */
+#accordion .ui-accordion-content p a {
+    color: #e47e6b;                   /* 連結文字顏色橙紅色 */
+    text-decoration: underline;       /* 下劃線 */
+    font-size: 13px;                  /* 字號13px */
+}
+
+/* 手風琴內容中段落內連結鼠標懸停效果 */
+#accordion .ui-accordion-content p a:hover {
+    color: #000;                      /* 懸停文字顏色變黑 */
+}
+
+/* h5 標題樣式，設定寬度為100% */
+#accordion h5 {
+    width: 100%;
+    /* border: 1px solid #e6e6e6; */  /* 此處原有邊框設定被註解掉 */
+    width: 100%;
+}
+
+/* h5 標題連結增加左側內邊距 */
+#accordion h5 a {
+    padding-left: 19px;
+}
+
+/* 當 h5 標題處於激活狀態時的背景顏色 */
+h5.ui-state-active {
+    background: #f9f9f9 !important;    /* 激活狀態下背景變為淺灰白 */
+    /* border: 1px solid #e6e6e6; */   /* 邊框設定被註解 */
+}

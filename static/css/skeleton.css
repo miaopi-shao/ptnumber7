@@ -1,0 +1,300 @@
+/*---------------------------------------------------------------------
+ 檔案名稱: skeleton.css
+ Skeleton V1.1 - 由 Dave Gamache 於 2011 年創建
+ 官方網站: www.getskeleton.com
+ 授權方式: MIT License
+ 說明: 這是一個輕量級的 960 網格系統，用於快速構建響應式網頁布局。
+---------------------------------------------------------------------*/
+
+/*-----------------------------------------------------
+ Table of Contents
+-------------------------------------------------------
+  #Base 960 Grid          - 基礎 960 網格系統（桌面版）
+  #Tablet (Portrait)      - 平板直向版調整
+  #Mobile (Portrait)      - 手機直向版調整
+  #Mobile (Landscape)     - 手機橫向版調整
+  #Clearing               - 清除浮動
+-----------------------------------------------------*/
+
+/*-----------------------------------------------------
+ #Base 960 Grid
+-----------------------------------------------------*/
+
+/* .container_12：主容器，寬度固定為 960px 並居中顯示 */
+.container_12 {
+    position: relative;
+    width: 960px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* 所有網格列類別，從 grid_1 到 grid_12 都採用左浮動並作 inline 顯示，
+   兩側間距均設定為 10px */
+.grid_1,
+.grid_2,
+.grid_3,
+.grid_4,
+.grid_5,
+.grid_6,
+.grid_7,
+.grid_8,
+.grid_9,
+.grid_10,
+.grid_11,
+.grid_12 {
+    float: left;
+    display: inline;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* 嵌套欄位的左側及右側特殊類別，移除最左邊或最右邊的外邊距 */
+.container_12 .alpha { margin-left: 0; }
+.container_12 .omega { margin-right: 0; }
+
+/* 設定各網格列的基礎寬度（不包含左右 margin）
+   例如：grid_1 寬 60px、grid_2 寬 140px，以此類推 */
+.container_12 .grid_1  { width: 60px;  }
+.container_12 .grid_2  { width: 140px; }
+.container_12 .grid_3  { width: 220px; }
+.container_12 .grid_4  { width: 300px; }
+.container_12 .grid_5  { width: 380px; }
+.container_12 .grid_6  { width: 460px; }
+.container_12 .grid_7  { width: 540px; }
+.container_12 .grid_8  { width: 620px; }
+.container_12 .grid_9  { width: 700px; }
+.container_12 .grid_10 { width: 780px; }
+.container_12 .grid_11 { width: 860px; }
+.container_12 .grid_12 { width: 940px; }
+
+/* Prefix Extra Space：在容器左側額外空間，根據數字表示跨越幾個欄位 */
+.container_12 .prefix_1 { padding-left: 80px; }
+.container_12 .prefix_2 { padding-left: 160px; }
+.container_12 .prefix_3 { padding-left: 240px; }
+.container_12 .prefix_4 { padding-left: 320px; }
+.container_12 .prefix_5 { padding-left: 400px; }
+.container_12 .prefix_6 { padding-left: 480px; }
+.container_12 .prefix_7 { padding-left: 560px; }
+.container_12 .prefix_8 { padding-left: 640px; }
+.container_12 .prefix_9 { padding-left: 720px; }
+.container_12 .prefix_10 { padding-left: 800px; }
+.container_12 .prefix_11 { padding-left: 880px; }
+
+/* Suffix Extra Space：在容器右側額外空間 */
+.container_12 .suffix_1 { padding-right: 80px; }
+.container_12 .suffix_2 { padding-right: 160px; }
+.container_12 .suffix_3 { padding-right: 240px; }
+.container_12 .suffix_4 { padding-right: 320px; }
+.container_12 .suffix_5 { padding-right: 400px; }
+.container_12 .suffix_6 { padding-right: 480px; }
+.container_12 .suffix_7 { padding-right: 560px; }
+.container_12 .suffix_8 { padding-right: 640px; }
+.container_12 .suffix_9 { padding-right: 720px; }
+.container_12 .suffix_10 { padding-right: 800px; }
+.container_12 .suffix_11 { padding-right: 880px; }
+
+/*-----------------------------------------------------
+ #Tablet (Portrait)
+-----------------------------------------------------
+ 設計寬度：768px ~ 995px
+-----------------------------------------------------*/
+@media only screen and (min-width: 768px) and (max-width: 995px) {
+    /* 修改容器寬度為 768px */
+    .container_12 { width: 768px; }
+    
+    /* 保持左右 margin 固定 */
+    .grid_1, .grid_2, .grid_3, .grid_4, .grid_5, 
+    .grid_6, .grid_7, .grid_8, .grid_9, .grid_10, 
+    .grid_11, .grid_12 { margin-left: 10px; margin-right: 10px; }
+    
+    .container_12 .alpha { margin-left: 0; }
+    .container_12 .omega { margin-right: 0; }
+    
+    /* 調整各網格列的寬度以適應 768px 布局 */
+    .container_12 .grid_1  { width: 44px; }
+    .container_12 .grid_2  { width: 108px; }
+    .container_12 .grid_3  { width: 172px; }
+    .container_12 .grid_4  { width: 236px; }
+    .container_12 .grid_5  { width: 300px; }
+    .container_12 .grid_6  { width: 364px; }
+    .container_12 .grid_7  { width: 428px; }
+    .container_12 .grid_8  { width: 492px; }
+    .container_12 .grid_9  { width: 556px; }
+    .container_12 .grid_10 { width: 620px; }
+    .container_12 .grid_11 { width: 684px; }
+    .container_12 .grid_12 { width: 748px; }
+    
+    /* 調整 Prefix 與 Suffix 空間 */
+    .container_12 .prefix_1 { padding-left: 64px; }
+    .container_12 .prefix_2 { padding-left: 128px; }
+    .container_12 .prefix_3 { padding-left: 192px; }
+    .container_12 .prefix_4 { padding-left: 256px; }
+    .container_12 .prefix_5 { padding-left: 320px; }
+    .container_12 .prefix_6 { padding-left: 384px; }
+    .container_12 .prefix_7 { padding-left: 448px; }
+    .container_12 .prefix_8 { padding-left: 512px; }
+    .container_12 .prefix_9 { padding-left: 576px; }
+    .container_12 .prefix_10 { padding-left: 640px; }
+    .container_12 .prefix_11 { padding-left: 768px; }
+    
+    .container_12 .suffix_1 { padding-right: 64px; }
+    .container_12 .suffix_2 { padding-right: 128px; }
+    .container_12 .suffix_3 { padding-right: 192px; }
+    .container_12 .suffix_4 { padding-right: 256px; }
+    .container_12 .suffix_5 { padding-right: 320px; }
+    .container_12 .suffix_6 { padding-right: 384px; }
+    .container_12 .suffix_7 { padding-right: 448px; }
+    .container_12 .suffix_8 { padding-right: 512px; }
+    .container_12 .suffix_9 { padding-right: 576px; }
+    .container_12 .suffix_10 { padding-right: 640px; }
+    .container_12 .suffix_11 { padding-right: 768px; }
+}
+
+/*-----------------------------------------------------
+ #Mobile (Portrait)
+-----------------------------------------------------
+ 設計寬度：最大 767px (單列)
+-----------------------------------------------------*/
+@media only screen and (max-width: 767px) {
+    /* 將容器寬度調整為 300px */
+    .container_12 { width: 300px; }
+    
+    /* 所有網格列不再有左右 margin */
+    .grid_1, .grid_2, .grid_3, .grid_4, .grid_5, 
+    .grid_6, .grid_7, .grid_8, .grid_9, .grid_10, 
+    .grid_11, .grid_12 { margin: 0; }
+    
+    /* 調整所有網格列的寬度為 300px */
+    .container_12 .grid_1,
+    .container_12 .grid_2,
+    .container_12 .grid_3,
+    .container_12 .grid_4,
+    .container_12 .grid_5,
+    .container_12 .grid_6,
+    .container_12 .grid_7,
+    .container_12 .grid_8,
+    .container_12 .grid_9,
+    .container_12 .grid_10,
+    .container_12 .grid_11,
+    .container_12 .grid_12 { width: 300px; }
+    
+    /* 移除 Prefix 與 Suffix 的額外空間 */
+    .container_12 .prefix_1,
+    .container_12 .prefix_2,
+    .container_12 .prefix_3,
+    .container_12 .prefix_4,
+    .container_12 .prefix_5,
+    .container_12 .prefix_6,
+    .container_12 .prefix_7,
+    .container_12 .prefix_8,
+    .container_12 .prefix_9,
+    .container_12 .prefix_10,
+    .container_12 .prefix_11 { padding-left: 0; }
+    
+    .container_12 .suffix_1,
+    .container_12 .suffix_2,
+    .container_12 .suffix_3,
+    .container_12 .suffix_4,
+    .container_12 .suffix_5,
+    .container_12 .suffix_6,
+    .container_12 .suffix_7,
+    .container_12 .suffix_8,
+    .container_12 .suffix_9,
+    .container_12 .suffix_10,
+    .container_12 .suffix_11 { padding-right: 0; }
+}
+
+/*-----------------------------------------------------
+ #Mobile (Landscape)
+-----------------------------------------------------
+ 設計寬度：介於 480px 與 767px 之間
+-----------------------------------------------------*/
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    /* 將容器寬度調整為 420px */
+    .container_12 { width: 420px; }
+    
+    /* 網格列寬度統一設為 420px */
+    .container_12 .grid_1,
+    .container_12 .grid_2,
+    .container_12 .grid_3,
+    .container_12 .grid_4,
+    .container_12 .grid_5,
+    .container_12 .grid_6,
+    .container_12 .grid_7,
+    .container_12 .grid_8,
+    .container_12 .grid_9,
+    .container_12 .grid_10,
+    .container_12 .grid_11,
+    .container_12 .grid_12 { width: 420px; }
+    
+    /* 移除 Prefix 與 Suffix 的空間 */
+    .container_12 .prefix_1,
+    .container_12 .prefix_2,
+    .container_12 .prefix_3,
+    .container_12 .prefix_4,
+    .container_12 .prefix_5,
+    .container_12 .prefix_6,
+    .container_12 .prefix_7,
+    .container_12 .prefix_8,
+    .container_12 .prefix_9,
+    .container_12 .prefix_10,
+    .container_12 .prefix_11 { padding-left: 0; }
+    
+    .container_12 .suffix_1,
+    .container_12 .suffix_2,
+    .container_12 .suffix_3,
+    .container_12 .suffix_4,
+    .container_12 .suffix_5,
+    .container_12 .suffix_6,
+    .container_12 .suffix_7,
+    .container_12 .suffix_8,
+    .container_12 .suffix_9,
+    .container_12 .suffix_10,
+    .container_12 .suffix_11 { padding-right: 0; }
+}
+
+/*-----------------------------------------------------
+ #Clearing
+-----------------------------------------------------
+ 用於清除浮動效果，確保容器自動調整高度
+-----------------------------------------------------*/
+
+/* 為 .container_12 添加 after 偽元素以清除浮動 */
+.container_12:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+/* clearfix 用於父元素，清除內部的浮動 */
+.clearfix:before,
+.clearfix:after,
+.row:before,
+.row:after {
+    content: '\0020';
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+.row:after,
+.clearfix:after {
+    clear: both;
+}
+.row,
+.clearfix {
+    zoom: 1;
+}
+
+/* 使用 <br class="clear" /> 也可達到清除浮動的效果 */
+.clear {
+    clear: both;
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}

@@ -1,0 +1,50 @@
+/* IE8瀏覽器  */
+
+body { min-width:960px;}
+.sf-menu > li > a,
+.sf-menu,
+.sf-menu > li > ul > li > a,
+.title-2,
+.bg-2, .bg-3,
+.btn-1,
+.btn-1 span,
+.shadow-block,
+.shadow-block-wrapper,
+.img-ind,
+.temp a,
+.search-block input,
+.block-1,
+.tabs li a,
+.accordion-1 h3,
+nav,
+.sf-menu,
+.sf-menu > li > a,
+.sf-menu > li > ul > li > a,
+.content img { behavior:url(js/PIE.htc); position:relative;}
+
+.box-3 a img { 
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	-ms-border-radius: 0px;
+	-o-border-radius: 0px;
+	border-radius: 0px;
+	behavior:url(js/PIE.htc); position:relative;
+}
+
+.sf-menu > li.sfHover > ul,
+.magnifier:after { behavior:url(js/PIE.htc); position:absolute; background: none;}
+
+.box-2 .img-ind {
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	-ms-border-radius: 0px;
+	-o-border-radius: 0px;
+	border-radius: 0px;
+	behavior:url(js/PIE.htc); position:relative;
+}
+
+.button1:hover {filter: alpha(opacity=50);}
+.gallery .camera_thumbs_cont ul { text-align: left;}
+.gallery .camera_thumbs_cont ul li { width: 158px;}
+.sf-menu > li { padding-left: 12px; padding-right: 12px;}
+.gallery { height: 506px;}

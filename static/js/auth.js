@@ -147,26 +147,69 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
     if (localStorage.getItem("token")) {
         fetchUserProfile();
     }
-
     
-       
-    
+        
+           
+        
     // ===== 忘記密碼功能 =====
-    forgotPasswordBtn.addEventListener("click", async () => {
-        let email = prompt("請輸入您的電子郵件，以便重設密碼：");
-        if (!email) return; // 如果沒輸入 email，則不執行
+    forgotPasswordBtn.addEventListener("click", () => {
+        // 建立彈出式小視窗內容
+        const forgotPasswordModal = document.createElement("div");
+        forgotPasswordModal.innerHTML = `
+            <div id="forgot-password-modal" class="modal">
+                <div class="modal-content">
+                    <span id="close-forgot-password-modal" class="close">&times;</span>
+                    <h2>忘記密碼</h2>
+                    <form id="forgot-password-form">
+                        <label for="forgot-username">帳號：</label>
+                        <input type="text" id="forgot-username" placeholder="輸入您的帳號" required>
+                        
+                        <label for="forgot-email">E-mail：</label>
+                        <input type="email" id="forgot-email" placeholder="輸入您的電子郵件" required>
+                        
+                        <button type="submit" class="btn">送出</button>
+                    </form>
+                    <p id="forgot-error-msg" class="error-msg"></p>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(forgotPasswordModal);
     
-        let data = await apiRequest("/auth/reset-password", "POST", { email });
+        const closeModal = () => {
+            forgotPasswordModal.remove(); // 關閉並移除彈出視窗
+        };
     
-        if (data?.message) {
-            alert(data.message); // 成功訊息（例如：臨時密碼已發送）
-        } else if (data?.error) {
-            alert("錯誤：" + data.error); // 失敗訊息（例如：用戶不存在）
-        }
+        document.getElementById("close-forgot-password-modal").addEventListener("click", closeModal);
+    
+        // 表單提交事件
+        const forgotPasswordForm = document.getElementById("forgot-password-form");
+        forgotPasswordForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const username = document.getElementById("forgot-username").value;
+            const email = document.getElementById("forgot-email").value;
+            const errorMsg = document.getElementById("forgot-error-msg");
+    
+            errorMsg.innerText = ""; // 清空錯誤訊息
+    
+            // 向後端發送忘記密碼請求
+            const data = await apiRequest("/auth/reset-password", "POST", { username, email });
+    
+            if (data?.message) {
+                alert(data.message); // 成功訊息（例如：臨時密碼已發送）
+                closeModal(); // 成功後自動關閉視窗
+            } else if (data?.error) {
+                errorMsg.innerText = data.error; // 顯示錯誤訊息
+            }
+        });
+    
+        // 點擊視窗外部關閉
+        forgotPasswordModal.addEventListener("click", (event) => {
+            if (event.target === forgotPasswordModal) closeModal();
+        });
     });
-
     
-    
+        
+        
     // =====  登出帳號 =====
     // 54. 當點擊登出按鈕時，清除 Token 並重新載入頁面
     document.getElementById("logout-btn")?.addEventListener("click", () => {

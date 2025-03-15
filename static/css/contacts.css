@@ -1,0 +1,217 @@
+/* 檔案名稱: contacts.css */
+/* 此檔案主要定義聯絡資訊區域及聯絡表單的樣式 */
+
+/* ----------------------------- 地址樣式 ----------------------------- */
+/* 為 .address 區塊內的 span 元素設定為 inline-block，並固定寬度 73px */
+.address span {
+    display: inline-block;  /* 讓 span 成為行內區塊，方便設定寬度 */
+    width: 73px;            /* 固定寬度 73px */
+}
+
+/* 對 .address 區塊內，class 為 e-mail 的 span 元素寬度自動調整 */
+.address span.e-mail {
+    width: auto;
+}
+
+/* 為 .address 區塊內的超連結設定樣式 */
+.address a {
+    text-decoration: none;  /* 移除下劃線 */
+    font-weight: normal;    /* 常規字重 */
+    color: #ffb607;         /* 設定連結文字顏色為橙色 */
+    font-weight: bold;      /* 加粗文字 */
+}
+
+/* 當滑鼠懸停於 .address 區塊內的連結時，顯示下劃線 */
+.address a:hover {
+    text-decoration: underline;
+}
+
+/* ----------------------------- 地圖樣式 ----------------------------- */
+/* .map_wrapper 作為包裹地圖的容器，設定為 block 顯示 */
+.map_wrapper {
+    display: block;
+}
+
+/* 在 .map_wrapper 內，.shadow-block 元素添加左側內邊距，並設定最小高度 */
+.map_wrapper .shadow-block {
+    padding-left: 24px;
+    min-height: 654px;
+}
+
+/* 在 .cont-form 內，.shadow-block 同樣設定最小高度為 654px */
+.cont-form .shadow-block {
+    min-height: 654px;
+}
+
+/* 在 .map_wrapper 內，.shadow-block 的直接子 div 元素設定底部內邊距 7px */
+.map_wrapper .shadow-block > div {
+    padding-bottom: 7px;
+}
+
+/* 對地址區塊的 dl 元素設定頂部外邊距和底部內邊距 */
+dl.address {
+    margin-top: 20px;
+    padding-bottom: 12px;
+}
+
+/* 對 dl.address 內的 dt 元素設定字體、字型及底部間距 */
+dl.address dt {
+    font-family: Arial;          /* 使用 Arial 字體 */
+    font-size: 13px;             /* 字體大小 13px */
+    line-height: 18px;           /* 行高 18px */
+    color: #4c4c4c;             /* 文字顏色為深灰 */
+    font-weight: bold;           /* 加粗字體 */
+    margin-bottom: 18px;         /* 底部外邊距 18px */
+}
+
+/* ----------------------------- 地圖畫布樣式 ----------------------------- */
+/* 設定地圖畫布 (#map_canvas) 寬度 100%，高度 332px，底部外邊距 23px */
+#map_canvas {
+    width: 100%;
+    height: 332px;
+    margin-bottom: 23px;
+}
+
+/* ----------------------------- 聯絡表單樣式 ----------------------------- */
+/* 在 .cont-form 內，.shadow-block 添加左右內邊距 */
+.cont-form .shadow-block {
+    padding-left: 25px;
+    padding-right: 26px;
+}
+
+/* 聯絡表單 (#contact-form) 設定相對定位與底部內邊距 */
+#contact-form {
+    position: relative;
+    padding-bottom: 10px;
+}
+
+/* 錯誤與空白訊息：在 #contact-form 內，.error 和 .empty 樣式
+   設定絕對定位、右上角位置、字體大小 11px，初始不顯示 */
+#contact-form .error, #contact-form .empty {
+    text-align: right;
+    color: red;
+    right: 10px;
+    top: 5px;
+    display: none;
+    overflow: hidden;
+    position: absolute;
+    font-size: 11px;
+}
+
+/* 成功訊息樣式：在 #contact-form 內 .success 區塊
+   設定全寬、置中、上下內邊距及邊框背景 */
+#contact-form .success {
+    width: 100%;
+    top: 0px;
+    left: 0;
+    z-index: 99;
+    text-align: center;
+    padding: 49px 0;
+    font: 13px/18px Arial, sans-serif;
+    color: #a4a4a4;
+    border: 1px solid #ededed;
+    background: #ffffff;
+    position: absolute;
+    display: none;
+    box-sizing: border-box;
+}
+
+/* 聯絡表單中 label 樣式：設定為 inline-block 並佔滿 100% 寬度，
+   同時具有最小高度 50px */
+#contact-form label {
+    display: inline-block;
+    position: relative;
+    min-height: 50px;
+    width: 100%;
+}
+
+/* 當 label 類別為 message 時，取消底部內邊距 */
+#contact-form label.message {
+    padding-bottom: 0;
+}
+
+/* 聯絡表單中 textarea 樣式：設定寬度 100%，高度 247px，禁止調整大小 */
+#contact-form textarea {
+    overflow: auto;
+    width: 100%;
+    height: 247px;
+    resize: none;
+    margin: 0;
+}
+
+/* 通用輸入框及 textarea 樣式：
+   添加邊框、背景顏色、內邊距及圓角效果 */
+#contact-form label input,
+#contact-form label textarea {
+    box-sizing: border-box;
+    border: 1px solid #ededed;
+    background: #ffffff;
+    position: relative;
+    float: left;
+    border-radius: 0;
+    color: #a4a4a4;
+    font: 13px/18px Arial, sans-serif;
+    width: 100%;
+    border-radius: 3px;
+}
+
+/* 特定針對 input 的樣式：設定高度、內邊距及移除預設外框 */
+#contact-form label input {
+    height: 36px;
+    box-shadow: none !important;
+    padding: 9px 9px 6px 12px;
+    outline: none;
+}
+
+/* 特定針對 textarea 的樣式：設定高度、內邊距及禁止調整大小 */
+#contact-form label textarea {
+    height: 365px;
+    overflow: auto;
+    padding: 9px 9px 7px 12px;
+    margin: 0;
+    resize: none;
+}
+
+/* 表單按鈕區域：文字置右 */
+.form_buttons {
+    text-align: right;
+}
+
+/* 表單按鈕連結樣式：添加左外邊距及上外邊距 */
+.form_buttons a {
+    margin-left: -1px;
+    margin-top: 23px;
+}
+
+/* ----------------------------- 響應式設計 ----------------------------- */
+/* 當螢幕寬度小於 995px 時，調整 #contact-form 的 label、input 和 textarea 寬度 */
+@media only screen and (max-width: 995px) {
+    #contact-form label {
+        display: block;
+        width: 100%;
+    }
+    #contact-form label input {
+        width: 100%;
+    }
+    #contact-form label textarea {
+        width: 100%;
+    }
+    #map_canvas {
+        width: 100%;
+    }
+}
+
+/* 當螢幕寬度小於 480px 時，調整 #map_canvas 和 textarea 的高度 */
+@media only screen and (max-width: 480px) {
+    #map_canvas {
+        height: 250px;
+    }
+    #contact-form label textarea {
+        height: 200px;
+    }
+}
+
+/* 當螢幕寬度小於 320px 時，可添加其他調整 */
+@media only screen and (max-width: 320px) {
+    /* 此處暫無特別調整 */
+}

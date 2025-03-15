@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <title>World weather news</title>
+    <meta charset="utf-8">
+    <meta name = "format-detection" content = "telephone=no" />
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/superfish.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen">
+    <link href='//fonts.googleapis.com/css?family=Domine:400,700' rel='stylesheet' type='text/css'>
+    <!-- font-awesome font -->
+    <link rel="stylesheet" href="font/font-awesome.css" type="text/css" media="screen">
+    <!--<![endif]-->
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-migrate-1.1.1.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/jquery.equalheights.js"></script>
+    <script src="js/superfish.js"></script>
+    <script src="js/jquery.mobilemenu.js"></script>
+    <script src="js/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.ui.totop.js"></script>
+     <script>
+        $(document).ready(function() {
+            $(function() {$("a.various").fancybox();});
+            $().UItoTop({ easingType: 'easeOutQuart' });
+        });
+     </script>
+     <!--[if lt IE 8]>
+       <div style=' clear: both; text-align:center; position: relative;'>
+         <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+           <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+         </a>
+      </div>
+    <![endif]-->
+    <!--[if lt IE 9]>
+   		<script src="js/html5shiv.js"></script>
+    	<link rel="stylesheet" type="text/css" media="screen" href="css/ie.css">
+    <![endif]-->
+     </head>
+     <body>
+<!--==============================header=================================-->
+<header>
+    <div class="container_12">
+        <div class="row">
+            <div class="grid_12">
+                <h1><a href="index.html">WeatherChannel</a></h1>
+                <div class="fright">
+                    <div class="clearfix">
+                        <ul class="top_menu clearfix">
+                            <li><a href="#">Sign In</a>|</li>
+                            <li><a href="#">Join</a>|</li>
+                            <li><a href="#">Settings</a></li>
+                        </ul>
+                        <div class="temp clearfix"><a href="#" class="cels">C&deg;</a><a href="#" class="far">F&deg;</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="grid_12">
+                <nav class="full-width">
+                    <ul class="sf-menu clearfix">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index-1.html">Weather guides</a>
+                            <ul>
+                                <li><a href="#">Daily Briefing</a></li>
+                                <li><a href="#">Marine</a>
+                                <li><a href="#">Climate</a>
+                                <li><a href="#">Space Weather</a>
+                                <li><a href="#">Fire Weather</a>
+                                <li><a href="#">Aviation</a>
+                                <li><a href="#">Tsunami</a>
+                                <li><a href="#">Forecast Models</a>
+                                <li><a href="#">Water</a>
+                                <li><a href="#">GIS</a>
+                                <li><a href="#">Storm Spotters</a>
+                                <li><a href="#">Facts and Figures</a>
+                           </ul>
+                        </li>
+                        <li class="current"><a href="index-2.html">World weather news</a></li>
+                        <li><a href="index-3.html">Weather charts</a></li>
+                        <li><a href="index-4.html">Footage</a></li>
+                        <li><a href="index-5.html">Contacts</a></li>
+                    </ul>
+                </nav>
+                <div class="search-block">
+                    <form id="search1" class="search" action="search.php" method="GET">
+                        <label for="s">Enter Location</label>
+                        <input id="s" type="text" name="s" value="" >
+                        <a onClick="document.getElementById('search1').submit()" class="button1"></a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--=======content================================-->
+<div class="content">
+    <div class="container_12">
+        <div class="row">
+            <div class="grid_8">
+                <div class="shadow-block-wrapper p-news">
+                    <div class="shadow-block">
+                        <h2>News</h2>
+                        <div class="box-1 clearfix">
+                            <img src="images/page-3_img-1.jpg" alt="" class="img-ind">
+                            <div>
+                                <h3>Aenean nonummy hendrerit mauris hasellus porta euismod purus</h3>
+                                <div class="short_info">
+                                    <span>By <a class="h-underline" href="#">Tariq Malik</a></span>
+                                    <span>October 4, 2013</span>
+                                </div>  
+                                <div>Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit varius mi. lobortis dignissim, pulvinar ac, lorem. <a href="#" class="btn">More</a></div>
+                            </div>
+                        </div>
+                        <div class="box-1 clearfix">
+                            <img src="images/page-3_img-2.jpg" alt="" class="img-ind">
+                            <div>
+                                <h3>Praesent justo dolor, lobortis quis, lobortis dignissim, pulvinar</h3>
+                                <div class="short_info">
+                                    <span>By <a class="h-underline" href="#">Tariq Malik</a></span>
+                                    <span>October 4, 2013</span>
+                                </div>  
+                                <div>Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit varius mi. lobortis dignissim, pulvinar ac, lorem. <a href="#" class="btn">More</a></div>
+                            </div>
+                        </div>
+                        <div class="box-1 clearfix">
+                            <img src="images/page-3_img-3.jpg" alt="" class="img-ind">
+                            <div>
+                                <h3>In pede mi, aliquet sit amet, euismod in,auctor ut, ligula</h3>
+                                <div class="short_info">
+                                    <span>By <a class="h-underline" href="#">Tariq Malik</a></span>
+                                    <span>October 4, 2013</span>
+                                </div>  
+                                <div>Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit varius mi. lobortis dignissim, pulvinar ac, lorem. <a href="#" class="btn">More</a></div>
+                            </div>
+                        </div>
+                        <div class="box-1 clearfix">
+                            <img src="images/page-3_img-4.jpg" alt="" class="img-ind">
+                            <div>
+                                <h3>Vestibulum sed ante.<br> Donec sagittis euismod purus ibulum </h3>
+                                <div class="short_info">
+                                    <span>By <a class="h-underline" href="#">Tariq Malik</a></span>
+                                    <span>October 4, 2013</span>
+                                </div>  
+                                <div>Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit varius mi. lobortis dignissim, pulvinar ac, lorem. <a href="#" class="btn">More</a></div>
+                            </div>
+                        </div>
+                        <div class="box-1 clearfix">
+                            <img src="images/page-3_img-5.jpg" alt="" class="img-ind">
+                            <div>
+                                <h3>Vestibulum sed ante.<br>Donec sagittis euismod purus ibulum </h3>
+                                <div class="short_info">
+                                    <span>By <a class="h-underline" href="#">Tariq Malik</a></span>
+                                    <span>October 4, 2013</span>
+                                </div>  
+                                <div>Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit varius mi. lobortis dignissim, pulvinar ac, lorem. <a href="#" class="btn">More</a></div>
+                            </div>
+                        </div>
+                        <div class="box-1 clearfix">
+                            <img src="images/page-3_img-6.jpg" alt="" class="img-ind">
+                            <div>
+                                <h3>Vestibulum sed ante. <br>Donec sagittis euismod purus ibulum </h3>
+                                <div class="short_info">
+                                    <span>By <a class="h-underline" href="#">Tariq Malik</a></span>
+                                    <span>October 4, 2013</span>
+                                </div>  
+                                <div>Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit varius mi. lobortis dignissim, pulvinar ac, lorem. <a href="#" class="btn">More</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid_4">
+                <h2>Most Discussed</h2>
+                <div class="bg-4 p5">
+                    <ul class="list-1">
+                        <li><a href="#">Lorem ipsum dolor</a></li>
+                        <li><a href="#">Praesent vestibulum molestie porta fusce suscipit varius miursu</a></li>
+                        <li><a href="#">Nulla facilisienean nec eroestibulum ante ipsum primis</a></li>
+                        <li><a href="#">Etiam cursus leo vel metusenean</a></li>
+                        <li><a href="#">In faucibus orci luctus etltrices posuere cubilia Curae</a></li>
+                        <li><a href="#">Suspendisse sollicitudin velit sed leot pharetra augue nec </a></li>
+                        <li><a href="#">Nam elit agna,endrerit sit amet</a></li>
+                        <li><a href="#">Tincidunt ac, viverra sed, nulla onec porta diam eu massa</a></li>
+                    </ul>
+                </div>
+                <h2>Today's Top Videos</h2>
+                <div class="b-video">
+                    <div class="box-3">
+                        <a class="various iframe" href="http://www.youtube.com/embed/2kodXWejuy0?rel=0"><img src="images/page-3_img-7.jpg" alt="" class="wrapper"></a>
+                        <h3><a class="a-hov" href="#">Aenean nonummy hendrerit mauris phasellus <span>porta</span></a></h3>
+                    </div>
+                    <div class="box-3">
+                        <a class="various iframe" href="http://www.youtube.com/embed/2kodXWejuy0?rel=0"><img src="images/page-3_img-8.jpg" alt="" class="wrapper"></a>
+                        <h3><a class="a-hov" href="#">Ultrices posuere cubilia curae aug Suspendisse sollicitudin velit sed leou pharetra <span>augue </span></a></h3>
+                    </div>
+                    <div class="box-3">
+                        <a class="various iframe" href="http://www.youtube.com/embed/2kodXWejuy0?rel=0"><img src="images/page-3_img-9.jpg" alt="" class="wrapper"></a>
+                        <h3><a class="a-hov" href="#">Vestibulum ante ipsum primis inmo faucibus orci luctus <span>et</span></a></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--=======footer=================================-->
+
+<footer>
+    <div class="container_12 border-bot">
+        <div class="row">
+            <div class="grid_2 w1">
+                <h6>Local Weather</h6>
+                <ul class="list-2">
+                    <li><a href="#">My Favorites</a></li>
+                    <li><a href="#">History Data</a></li>
+                    <li><a href="#">Weather Stations</a></li>
+                </ul>
+            </div>
+            <div class="grid_2 w1">
+                <h6>Maps &amp; Radar</h6>
+                <ul class="list-2">
+                    <li><a href="#">Radar</a></li>
+                    <li><a href="#">Satellite</a></li>
+                </ul>
+            </div>
+            <div class="grid_2 w1">
+                <h6>Severe Weather</h6>
+                <ul class="list-2">
+                    <li><a href="#">Tropical &amp; Hurricane</a></li>
+                    <li><a href="#">Storm Reports</a></li>
+                    <li><a href="#">U.S. Severe Alerts</a></li>
+                </ul>
+            </div>
+            <div class="grid_2 w1">
+                <h6>Photos &amp; Videos</h6>
+                <ul class="list-2">
+                    <li><a href="#">Photo Galleries</a></li>
+                    <li><a href="#">World View</a></li>
+                    <li><a href="#">Webcams</a></li>
+                </ul>
+            </div>
+            <div class="grid_2 w1">
+                <h6>Blogs</h6>
+                <ul class="list-2">
+                    <li><a href="#">Meteorology Blogs</a></li>
+                    <li><a href="#">Member Blogs</a></li>
+                </ul>
+            </div>
+            <div class="grid_2 w1">
+                <h6>Climate</h6>
+                <ul class="list-2">
+                    <li><a href="#">Climate Change</a></li>
+                    <li><a href="#">Evidence</a></li>
+                    <li><a href="#">Record Extremes</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row f-last">
+            <div class="fleft">
+                WeatherChannel © 2013 &nbsp;|&nbsp;  <a class="h-underline" href="index-6.html">Privacy Policy</a> &nbsp;|&nbsp; All Rights Reseved
+            </div>
+            <div class="fright">
+                <div class="list-services">
+                    <a href="#" class="soc-1"><i class="icon-twitter-sign"></i>twitter</a>
+                    <a href="#" class="soc-2"><i class="icon-facebook-sign"></i>facebook</a>
+                    <a href="#" class="soc-3"><i class="icon-google-plus-sign"></i>Google+</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+</body>
+</html>

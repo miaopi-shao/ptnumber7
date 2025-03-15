@@ -1,0 +1,128 @@
+/* ====================================================
+   檔案名稱: search2.css
+   目的：設定搜尋頁面的樣式
+   說明：此文件定義了搜尋頁面中全局重置、
+         頁面基本樣式、搜尋結果列表、連結樣式等
+==================================================== */
+
+/* ---------------------------
+   引入 Google Fonts 字型
+--------------------------- */
+@import url(http://fonts.googleapis.com/css?family=Righteous);
+
+/* ---------------------------
+   全局重置與基本設置
+--------------------------- */
+html, body {
+    min-width: 300px;              /* 最小寬度 */
+    height: auto;                  /* 高度自動 */
+    border: none;                  /* 無邊框 */
+    padding-bottom: 0px;           /* 底部內邊距 0 */
+    outline: none;                 /* 移除輪廓 */
+    box-shadow: 0px;               /* 無陰影 */
+    background: transparent;       /* 背景透明 */
+}
+
+body {
+    overflow: hidden;              /* 隱藏滾動條 */
+    border: none;
+}
+
+/* ---------------------------
+   搜尋結果區域樣式
+--------------------------- */
+#search-results {
+    padding: 20px 10px 0px 5px;     /* 上、右、下、左邊距 */
+    overflow: hidden;
+    border: none;
+}
+
+/* 若 iframe 中的 html 有邊框，則移除 */
+#search-results iframe html {
+    border: none;
+}
+
+/* 設定 iframe 的最小寬度 */
+#search-results iframe {
+    min-width: 300px;
+}
+
+/* ---------------------------
+   搜尋結果列表 (ol.search_list)
+--------------------------- */
+ol.search_list {
+    margin-left: 15px;             /* 左邊距 */
+    list-style-type: none;         /* 移除預設項目符號 */
+    counter-reset: ol;             /* 初始化計數器 */
+    border: none;
+}
+
+/* 搜尋結果標題樣式 */
+ol.search_list h4 {
+    text-align: left;              /* 左對齊 */
+}
+
+/* 搜尋結果標題連結樣式 */
+ol.search_list h4 a {
+    text-decoration: none;         /* 無下劃線 */
+    -moz-transition: all 0.4s ease;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    font-family: 'Righteous', cursive;  /* 使用 Righteous 字型 */
+}
+ol.search_list h4 a:hover {
+    color: #ed145b;                /* 滑鼠懸停時改變顏色 */
+}
+
+/* 列表項目編號樣式 (利用 ::before 生成自動編號) */
+ol.search_list li:before {
+    content: counter(ol) ".";      /* 顯示計數器內容，例如 "1." */
+    counter-increment: ol;         /* 編號自增 */
+    float: left;
+    display: block;
+    width: 20px;
+    text-align: right;             /* 編號靠右對齊 */
+    /* 以下設定文字樣式 */
+    font-size: 15px;
+    font-family: 'Domine', serif;
+    color: #484848;
+    padding-right: 20px;           /* 右側間距 */
+    margin: 0 0 0 -30px;           /* 左側負邊距 */
+    line-height: 18px;
+    border: none;
+}
+
+/* 搜尋結果列表項目 */
+ol.search_list li {
+    padding-bottom: 20px;          /* 項目間隔 */
+    margin-left: 15px;
+    border: none;
+}
+
+/* ---------------------------
+   關鍵字高亮與搜尋相關樣式
+--------------------------- */
+span.match {
+    color: #e6532f;               /* 高亮顏色 */
+    font-size: 11px;
+    display: block;
+}
+span.search {
+    color: #e6532f;
+    border: none;
+}
+
+/* 搜尋標題 (可依需求啟用) */
+.search_title {
+    /* 可設定 margin-bottom: 10px; */
+}
+
+/* 搜尋連結樣式 */
+.search_link {
+    display: inline-block;
+    text-decoration: none;
+}
+.search_link:hover {
+    text-decoration: none;
+}

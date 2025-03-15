@@ -1,0 +1,280 @@
+/*   檔案名稱: superfish.css  頁頭的拉下菜單應用
+     說明: 使用 jquery.horizontalNav.js 的菜單樣式設定  */
+
+/*--------------------------- 基本導覽列區塊 ---------------------------*/
+nav { 
+	position: relative;                /* 相對定位，方便內部絕對定位元素的定位 */
+	z-index: 11;                       /* 設定 z-index，確保導覽列位於較前層 */
+	margin-top: 30px;                  /* 頂部外邊距 30px */
+	padding-bottom: 7px;               /* 底部內邊距 7px */
+	-webkit-box-sizing: border-box;    /* 使用 border-box 模型，包含 padding 與 border */
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-border-radius: 2px;         /* 四角圓角半徑 2px (Webkit) */
+	-moz-border-radius: 2px;            /* 四角圓角半徑 2px (Mozilla) */
+	-ms-border-radius: 2px;
+	-o-border-radius: 2px;
+	border-radius: 2px;                /* 四角圓角半徑 2px */
+	background: #e5e5e5;               /* 背景色：淺灰 */
+	-webkit-box-shadow: 1px 3px 5px 0px #b6b6b6; /* Webkit 陰影效果 */
+	-moz-box-shadow: 1px 3px 5px 0px #b6b6b6;    /* Mozilla 陰影效果 */
+	box-shadow: 1px 3px 5px 0px #b6b6b6;         /* 陰影效果 */
+}
+
+/* 主選單容器 */
+.sf-menu {
+	background: #fcfcfc;              /* 背景色：極淺灰 */
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-ms-border-radius: 2px;
+	-o-border-radius: 2px;
+	border-radius: 2px;
+	border: 1px solid #ffffff;         /* 白色邊框 */
+	padding-top: 20px;                 /* 上內邊距 20px */
+	padding-bottom: 16px;              /* 下內邊距 16px */
+}
+
+/* 隱藏次選單 */
+.sf-menu ul {
+	position: absolute;
+	top: -999px;                      /* 初始隱藏到視窗外 */
+	display: none;                    /* 不顯示 */
+	/* 注意：次選單的左偏移需根據實際需求調整 */
+}
+
+/* 主選單項 */
+.sf-menu li { 
+	padding-left: 0px; 
+	position: relative; 
+	float: left;                     /* 水平排列 */
+}
+
+/* 第一個主選單項特殊處理 */
+.sf-menu li:first-child { 
+	background: no-repeat;            /* 不重複背景圖片 */
+}
+
+/* 主選單鏈結樣式 */
+.sf-menu a {
+	display: block;                   /* 區塊顯示 */
+	font-family: 'Domine', serif;     /* 字體：Domine, serif */
+	font-weight: bold;                /* 加粗 */
+	font-size: 13px;                  /* 字體大小 13px */
+	line-height: 13px;                /* 行高 13px */
+	text-decoration: none;            /* 無下劃線 */
+}
+.sf-menu a:hover {
+	text-decoration: none;            /* 懸停時仍無下劃線 */
+}
+
+/*================================>> 1 Level <<========================================*/
+/* 第一層選單的滑鼠懸停效果 */
+li.sfHover {
+	position: relative;               /* 保持相對定位 */
+}
+
+/* 第一層選單的鏈結樣式設定 */
+.sf-menu > li > a {
+	position: relative;
+	display: inline-block;           /* 內聯區塊 */
+	padding: 8px 15px 8px 15px;        /* 四周內邊距：上下8px，左右15px */
+	text-align: center;                /* 文字置中 */
+	color: #4c4c4c;                    /* 文字顏色：深灰 */
+	font-weight: bold;
+	text-transform: uppercase;         /* 全部大寫 */
+	letter-spacing: 1px;               /* 字間距 1px */
+	-webkit-border-radius: 3px;         /* 圓角 3px */
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	margin: 0 auto;
+	letter-spacing: -1px;              /* 調整字間距 */
+    -moz-transition: color 0.3s ease-out;  /* 過渡動畫：文字顏色 */
+    -o-transition: color 0.3s ease-out;
+    -webkit-transition: color 0.3s ease-out;
+    transition: color 0.3s ease;
+}
+
+/* 主選單項的背景及間距設定 */
+.sf-menu > li {
+	display: block;
+	margin: 0 0px;
+	position: relative;
+	text-align: center;
+	background: url(../images/bg-3.gif) left center no-repeat; /* 背景圖片，左側置中 */
+	padding: 0 17px;                   /* 左右內邊距 17px */
+}
+
+/* 當選單項被選中或懸停時，鏈結改變背景及文字顏色 */
+.sf-menu > li.current > a,
+.sf-menu > li > a:hover,
+.sf-menu > li.sfHover > a {
+	background: #ffb607 url(../images/bg-2.gif) 0 0 repeat-x; /* 背景色及背景圖 */
+	color: #ffffff;                     /* 文字顏色：白色 */
+}
+.sf-menu > li > a:hover, 
+.sf-menu > li.current > a, 
+	sf-menu > li.sfHover > a,
+	sf-menu > li > span:hover, 
+	sf-menu > li.current > span, 
+	sf-menu > li.sfHover > span {
+	text-decoration: none;
+}
+
+/*================================>> 2 Level <<========================================*/
+/* 第二層選單 (子選單) */
+.sf-menu > li > ul, 
+.sf-menu > li.sfHover > ul {
+	top: 53px;                         /* 從頂部 53px 開始顯示 */
+	width: 162px;                      /* 寬度 162px */
+	z-index: 99;                        /* 較高層級 */
+	background: #4c4c4c;                /* 背景色：深灰 */
+	text-align: left;                   /* 文字靠左 */
+	padding: 25px 9px 26px;             /* 上、右、下內邊距 */
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-border-radius: 0 0 3px 3px;   /* 下方圓角 */
+	-moz-border-radius: 0 0 3px 3px;
+	-ms-border-radius: 0 0 3px 3px;
+	-o-border-radius: 0 0 3px 3px;
+	border-radius: 0 0 3px 3px;
+}
+.sf-menu > li > ul > li {
+	width: 100%;
+	height: auto;
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* 第二層選單鏈結樣式 */
+.sf-menu > li > ul > li > a {
+	display: block;
+	font-size: 12px;
+	color: #fff;
+	text-transform: capitalize;
+	padding: 6px 10px 5px;
+	line-height: 14px;
+	border: none;
+	font-family: Arial, sans-serif;
+	font-weight: normal;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+}
+
+/* 第二層選單懸停效果 */
+.sf-menu li li a:hover, 
+.sf-menu li.sfHover li.sfHover > a,
+.sf-menu li li:hover span,
+	sf-menu li.sfHover li.sfHover span { 
+	text-decoration: none;
+	color: #ffffff;
+	background-color: #737373;          /* 背景色：中灰 */
+}
+.sf-menu li li:hover, 
+.sf-menu li.sfHover li.sfHover { 
+	color: #ffffff;
+}
+
+.sf-menu > li.sfHover > span {	
+	color: #ffb607; 
+	font-weight: bold;
+}
+
+.sf-menu > li > ul .sf-sub-indicator {
+	line-height: 14px;
+}
+
+/*================================>> 3 Level <<========================================*/
+/* 第三層選單 (子選單中的子選單) */
+.sf-menu li li ul {
+	left: 0px;
+	top: 0px;
+	width: inherit;
+	z-index: 99;
+	background-color: #bfbfbf;   /* 背景色：灰色 */
+	position: relative;
+	padding-top: 0;
+	margin-top: 0;
+}
+.sf-menu li li li {
+	width: 100%;
+	background-color: #bfbfbf;
+}
+.sf-menu li li li a {
+	text-decoration: none;
+	color: #ffffff;
+	font-size: 13px;
+	text-transform: uppercase;
+	padding-left: 55px;
+	line-height: 26px;
+	height: 26px;
+}
+.sf-menu li li li:hover {
+	background: #ffffff;
+}
+.sf-menu li li li:hover a {
+	color: #c1c1c1;
+}
+.sf-menu > li > ul .sf-sub-indicator {
+	color: #ffffff;
+	line-height: 9px;
+}
+.sf-menu > li > li.sfHover > span {
+	color: #ffffff;
+}
+
+/*================================== 響應式版面設定 ===============================================*/
+/* 當螢幕寬度在 995px 以下時 */
+@media only screen and (max-width: 995px) {
+	nav { margin-bottom: 20px; }
+	.sf-menu > li { padding: 0 5px; }
+	.sf-menu > li > a { padding: 8px 11px 8px 11px; }
+}
+/* 當螢幕寬度在 795px 以下時 */
+@media only screen and (max-width: 795px) {
+	.block-3 ul li img {
+		width: 100%;
+	}
+}
+/* 當螢幕寬度在 767px 以下時 */
+@media only screen and (max-width: 767px) {
+	.sf-menu { display: none !important; } /* 隱藏選單 */
+	nav { padding-left: 10px; padding-right: 10px; }
+	nav select {
+		height: 35px;
+		font-family: Arial, sans-serif;
+		font-size: 14px;
+		line-height: 20px;
+		color: #ffffff;
+		background-color: #ffb607;
+		width: 100%;
+		outline: none;
+		padding: 5px;
+		font-weight: normal;
+		margin-top: 10px;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		-ms-border-radius: 4px;
+		-o-border-radius: 4px;
+		border-radius: 4px;
+	}
+	nav select option:first-child {
+		color: #ffffff;
+	}
+}
+
+/* 當螢幕寬度在 479px 以下時 */
+/* 目前無額外調整 */
+@media only screen and (max-width: 479px) {
+
+}
