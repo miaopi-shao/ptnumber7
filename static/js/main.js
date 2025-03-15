@@ -249,27 +249,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    // 外部搜尋 (DuckDuckGo)(沒有問題)
-    document.getElementById("external-search-btn").addEventListener("click", function() {
-        var query = document.getElementById("external-search-input").value;
+    document.getElementById("external-search-btn").addEventListener("click", function(event) {
+        event.preventDefault(); // 阻止表單的預設提交行為
+        const query = document.getElementById("external-search-input").value;
         if (query) {
             window.location.href = "https://duckduckgo.com/?q=" + encodeURIComponent(query);
         }
-    });
-    
-    
-    // 這可以處理搜尋結果的動態顯示、過濾功能等
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log("main.js 加載完成");
-    
-        // 右下方定時爬蟲結果區塊
-        const searchResults = document.querySelectorAll('.search-results a');
-        searchResults.forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('這是定時爬蟲的搜尋結果連結');
-            });
-        });
     });
 });
 
