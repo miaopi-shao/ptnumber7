@@ -132,7 +132,8 @@ def get_weather(city):
             weather_info["humidity"] = PoP["parameterName"] + "%"
             
             # 最高溫|最低溫：顯示格式 "MaxT°C|MinT°C"
-            weather_info["wind_speed"] = f'{MaxT["parameterName"]}°C|{MinT["parameterName"]}°C'
+            weather_info["max_temp"] = f'{MaxT["parameterName"]}°C'
+            weather_info["min_temp"] = f'{MinT["parameterName"]}°C'
             
             #舒適度指數:直接輸出 Ci 的 parameterName (氣象局中文描述)
             weather_info["ci"] = CI["parameterName"]

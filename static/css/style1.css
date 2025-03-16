@@ -53,6 +53,15 @@ h1, h2, h3, h4, h5, h6, .title-1 {
     font-weight: bold;
     color: #4c4c4c;
 }
+title-1 {
+    display: flex;
+    align-items: center; /* 垂直置中 */
+}
+.title-1-1 {
+    font-size: 1.5em; /* 標題字體大小（可依需求調整） */
+    margin-right: 10px; /* 增加標題與按鈕區塊之間的間距 */
+}
+
 h1 {
     line-height: 40px;
     font-size: 40px;
@@ -116,7 +125,7 @@ h6 {
     text-transform: uppercase;
     color: #a4a4a4;
     font: 11px/18px Arial, sans-serif;
-    border: 3px solid darkblue;  /* 外框設為2px寬的深藍色 */
+    border: 0.5px dashed #725050;  /* 外框設為1px寬的虛線紅灰色 */
     padding: 0px 0px;        /* 根據需求設定內邊距 */
     display: inline-block;   /* 使冒號能夠正確排版 */
 }
@@ -285,6 +294,37 @@ h6 {
     margin-top: 23px;
 }
 .btn-2:hover { text-decoration: underline; }
+
+
+
+.cels{background-color: #008B8B;}
+.far{background-color: #4169E1;}
+
+
+.cels, .far {
+    margin-left: 5px; /* 按鈕間的間距 */
+    display: inline-block;         /* 將按鈕設定為行內區塊 */
+    width: 30px;                   /* 設置按鈕的寬度 */
+    height: 30px;                  /* 高度與寬度相等，形成正方形 */
+    padding: 3px 3px;              /* 按鈕內部的間距 */
+    text-align: center;            /* 文字居中 */
+    line-height: 30px;             /* 讓文字垂直居中 */
+    font-size: 15px;               /* 字體大小 */
+    color: black;                  /* 字體顏色 */
+    border: 1px solid #4B0082;     /* 外框設為2px寬的深藍色 */
+    border-radius: 15px;            /* 圓角效果 */
+    cursor: pointer;               /* 滑鼠移上去顯示點擊手勢 */
+    text-decoration: none;         /* 去除超連結的底線 */
+}
+
+.cels:hover, .far:hover {
+    background-color: #696969; /* 滑鼠移上去改變背景色 */
+    transform: scale(1.2); /* 滑鼠移上去放大 1.2 倍 */
+}
+
+.cels:active, .far:active {
+    background-color: black; /* 按下時的背景色 (更深藍色) */
+}
 
 /* =========================================
    陰影區塊
@@ -466,6 +506,7 @@ h1 {
     border-radius: 4px;
 }
 .block-1 {
+    display: flex;
     background: #f1f1f1;
     margin-top: 26px;
     padding: 24px 0 23px 0;
@@ -474,19 +515,34 @@ h1 {
     -ms-border-radius: 4px;
     -o-border-radius: 4px;
     border-radius: 4px;
-    border: 2px solid darkblue;  /* 外框設為2px寬的深藍色 */
+    border: 3px solid #BDB76B;  /* 外框設為3px寬的卡其色 */
     background-color: #F0FFF0;
+    color: black;
+    font-weight: bold;/* 粗體 */
+    flex-wrap: wrap; /* 當視窗變小時，讓元素換行 */
+    align-items: center; /* 垂直對齊 */
+    gap: 5px; /* 設定元素之間的間距 */
+    padding: 10px;
+    max-width: 600px; /* 限制最大寬度 */
+    margin: 0 auto; /* 讓 block-1 置中 */
+    
 }
 .block-1 img {
-    float: left;
+    float: right;
     padding-top: 11px;
     padding-left: 10px;
+    max-width: 100px; /* 限制圖片最大寬度 */
+    height: auto; /* 保持圖片比例 */
+    display: block;
 }
+.city-container {flex: 1; /* 讓選單與天氣資訊區塊佔據剩餘空間 */min-width: 150px; /* 最小寬度 */ font-size: 20px;}
+
 
 /* 表格樣式 */
 .table-1 {
-    margin-top: 37px;
+    margin-top: 17px;
     width: 100%;
+    
 }
 .table-1 tr { padding-top: 30px; }
 .table-1 td {
@@ -689,9 +745,42 @@ h1 {
 }
 
 .weather1{
-    width: 33%;
-    margin-top: -22px;  /* 向上移動20px，您可以根據需要調整數值 */
+    width: 45%;
+    margin-top: -10px;  /* 向上移動20px，您可以根據需要調整數值 */
+    height: auto;
     background-color: #F1E1FF;
+    color: black !important;
+    border: 2px solid darkblue;  /* 外框設為2px寬的深藍色 */
+    margin-left:  -10px; /* 讓天氣圖片自動推到右邊 */
+    max-width: 150px; /* 圖片最大寬度 */
+    
+}
+
+#weather-display {
+    flex: 1; /* 讓它與圖片同一行 */
+    margin-bottom: 0; /* 消除底部間距 */
+    font-size: 16px;  /* 設定基礎字體大小 */
+    line-height: 1.5; /* 增加行距，讓內容更清楚 */
+    color: #333; /* 設定整體文字顏色 */
+    }
+    
+#weather-city {
+    font-size: 20px;  /* 讓「臺北市」字體更大 */
+    font-weight: bold; /* 加粗 */
+    color: #d9534f; /* 變紅色 (可自訂顏色) */
+}
+
+#weather-status,#weather-temp {
+    display: block; /* 讓它們換行顯示 */
+}
+
+.fcbaten{
+    background-color: #7497A7;
+    color: black;
+    padding: 1px;
+    display: flex;
+    align-items: center; /* 垂直置中溫度轉換按鈕 */
+    font-size: 14px;
 }
 
 /* =========================================

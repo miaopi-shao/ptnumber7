@@ -107,8 +107,36 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+
 document.addEventListener("DOMContentLoaded", () => {
-    // 取得天氣資訊並顯示
+    
+    // -----------------------------
+    // 設定溫度單位切換：攝氏與華氏
+    // -----------------------------
+    // 當使用者點擊攝氏按鈕（.cels）
+    document.getElementById('cels').addEventListener('click', function(e) {
+        e.preventDefault(); // 防止預設連結行為
+        localStorage.setItem('tempUnit', 'C'); // 儲存偏好為攝氏
+        updateWeather(); // 重新更新天氣資訊
+    });
+
+    // 當使用者點擊華氏按鈕（.far）
+    document.getElementById('far').addEventListener('click', function(e) {
+        e.preventDefault(); // 防止預設連結行為
+        localStorage.setItem('tempUnit', 'F'); // 儲存偏好為華氏
+        updateWeather(); // 重新更新天氣資訊
+    });
+
+
+    // 將攝氏轉換為華氏的函式
+    function celsiusToFahrenheit(celsius) {
+        return (celsius * 9 / 5 + 32).toFixed(1); // 保留一位小數
+    }
+
+    
+    // -----------------------------
+    // 更新天氣資訊的函式
+    // -----------------------------
     function updateWeather() {
         let selectedCity = document.getElementById("city-select").value;
     
@@ -118,19 +146,43 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (data.error) {
                     document.getElementById("weather-display").innerText = "無法取得天氣資訊";
                 } else {
+                   
+                   
+                       // 取得使用者偏好（假設預設為攝氏）
+                    let maxTemp = parseFloat(data.max_temp);
+                    let minTemp = parseFloat(data.min_temp);
+                    let tempUnit = localStorage.getItem("tempUnit") || "C";
+                    let temperature = parseFloat(data.temperature);
+                    let displayTemp;
+                    if (tempUnit === "F") {
+                         // 若使用者偏好為華氏，則轉換並附上單位
+                         //平均溫度
+                        displayTemp = celsiusToFahrenheit(temperature) + "°F";
+                        //最高及最低溫度
+                        displayRange = celsiusToFahrenheit(maxTemp) + "°F | " + celsiusToFahrenheit(minTemp) + "°F";
+                    } else {
+                         // 否則顯示攝氏
+                        displayTemp = temperature + "°C";//平均溫度
+                        displayRange = maxTemp + "°C | " + minTemp + "°C";//最高及最低溫度
+                    }
+                    
+                    // 取的前端互動代碼
                     document.getElementById("weather-display").innerHTML = 
-                        `${data.city} 天氣：${data.condition}, 溫度：${data.temperature}°C`;
+                        `${data.city} 天氣：${data.condition}, 溫度：${displayTemp}`;
                     // 更新天气详细信息
                     // 體感溫度：直接輸出氣象局中文描述 (Wx的parameterName)
-                    document.getElementById("feels-like").innerText = data.feels_like;
+                    document.getElementById("feels-like").innerText = data.feels_like|| "適合睡覺";
                     // 降雨機率，數字後面加上%
-                    document.getElementById("humidity").innerText = data.humidity;
+                    document.getElementById("humidity").innerText = data.humidity|| "100%" ;
                     // 最高溫|最低溫：顯示格式 "MaxT°C|MinT°C"
-                    document.getElementById("wind").innerText = data.wind_speed;
+                    // 前端：根據用戶偏好轉換並顯示 "MaxT°C|MinT°C" 或 "MaxT°F|MinT°F"
+                    
+                    
+                    document.getElementById("wind").innerText = displayRange;
                     
                      // 日出、日落、氣壓使用預設值 (或其他來源)
-                    document.getElementById("sunrise").innerText = data.SunRiseTime;
-                    document.getElementById("sunset").innerText = data.SunSetTime;
+                    document.getElementById("sunrise").innerText = data.SunRiseTime|| "06:31";
+                    document.getElementById("sunset").innerText = data.SunSetTime|| "19:52";
                     
                     
                     document.getElementById("barometer").innerText = `${data.barometer}" Hg`;

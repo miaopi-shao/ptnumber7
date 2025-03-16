@@ -69,9 +69,6 @@
     <!-- 載入 帳號處理 檔案 -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     
-    <!-- 載入 帳號處理 檔案 -->
-    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
-    
     <!-- 載入 通用腳本 檔案，如網站的主要邏輯或互動功能 -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
@@ -135,7 +132,9 @@
                     <!-- 網站標題 -->
                     <h1><a href="index.html">全球新聞搜尋網</a></h1>
                     <div class="fright">
+                        <!-- 帳號的欄位 -->
                         <div class="clearfix">
+                        <form id="login-form"><!-- 套版注意 -->
                         {% if current_user.is_authenticated %}
                             <!-- 登入後的顯示方式 -->
                             <div id="account-info">
@@ -147,28 +146,26 @@
                             <!-- 登入前的顯示方式：登入表單 -->
                             <ul class="top_menu clearfix">
                                 <li>
+                                    <!-- 帳號碼輸入區域 -->
                                     <div class="input-group">
-                                        <input type="text" id="username" name="username" placeholder="使用者名稱" autocomplete="new-password">
-                                        <div id="username-error" class="error-message"></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="input-group">
+                                        <!-- 帳號輸入框 -->
+                                        <div class="username-wrapper">
+                                            <input type="username" id="username" name="username" placeholder="使用者名稱" autocomplete="new-password">
+                                            <div id="username-error" class="error-message"></div>
+                                        <!-- 密碼輸入框 -->
                                         <div class="password-wrapper">
-                                            <input type="password" id="password" name="password" placeholder="慣用語密碼" autocomplete="current-password">
+                                            <input type="password" id="password" name="password" placeholder="使用者密碼" autocomplete="current-password">
                                             <button type="button" id="forgot-password-btn">忘記密碼？</button>
                                         </div>
+                                        <!-- 輸入錯誤顯示欄 -->
                                         <div id="password-error" class="error-message"></div>
                                     </div>
                                 </li>
                                 <li><button type="submit" id="login-btn">登入</button></li>
                                 <li><button type="button" id="register-btn">註冊</button></li>
                             </ul>
-                            <div class="temp clearfix">
-                                <a href="#" class="cels">C&deg;</a>
-                                <a href="#" class="far">F&deg;</a>
-                            </div>
                         {% endif %}
+                        </form>
                         </div>
                     </div>
                 </div>
@@ -297,51 +294,57 @@
             <div class="row">
                 <!-- 左側：時間與天氣資訊 -->
                 <div class="grid_5">
-                  <div class="title-1">時間與天氣</div>
+                  <div class="title-1">
+                      <div class="title-1-1">時間與天氣</div>
+                      <div class="fcbaten">溫度轉換:
+                          <a href="#" id="cels" class="cels">C&deg;</a>
+                          <a href="#" id="far" class="far">F&deg;</a>
+                      </div>
+                  </div>
                   <div class="text-2"> 
-                    <div class="timeday">現在時間:</div>
-                    <div id="time-display">
-                        <div id="hours-tens" class="digit"></div>
-                        <div id="hours-units" class="digit"></div>
-                        <div class="colon">:</div>
-                        <div id="minutes-tens" class="digit"></div>
-                        <div id="minutes-units" class="digit"></div>
-                        <div class="colon">:</div>
-                        <div id="seconds-tens" class="digit"></div>
-                        <div id="seconds-units" class="digit"></div>
-                    </div>                  
-                  </div>
+                      <div class="timeday">現在時間:</div>
+                          <div id="time-display">
+                          <div id="hours-tens" class="digit"></div>
+                          <div id="hours-units" class="digit"></div>
+                          <div class="colon">:</div>
+                          <div id="minutes-tens" class="digit"></div>
+                          <div id="minutes-units" class="digit"></div>
+                          <div class="colon">:</div>
+                          <div id="seconds-tens" class="digit"></div>
+                          <div id="seconds-units" class="digit"></div>
+                      </div>
                   <div class="block-1">
-                    <label for="city-select">選擇城市：</label>
-                    <select id="city-select">
-                      <option value="臺北市">臺北市</option>
-                      <option value="新北市">新北市</option>
-                      <option value="桃園市">桃園市</option>
-                      <option value="臺中市">臺中市</option>
-                      <option value="臺南市">臺南市</option>
-                      <option value="高雄市">高雄市</option>
-                      <option value="基隆市">基隆市</option>
-                      <option value="新竹市">新竹市</option>
-                      <option value="新竹縣">新竹縣</option>
-                      <option value="苗栗縣">苗栗縣</option>
-                      <option value="彰化縣">彰化縣</option>
-                      <option value="南投縣">南投縣</option>
-                      <option value="雲林縣">雲林縣</option>
-                      <option value="嘉義市">嘉義市</option>
-                      <option value="嘉義縣">嘉義縣</option>
-                      <option value="屏東縣">屏東縣</option>
-                      <option value="宜蘭縣">宜蘭縣</option>
-                      <option value="花蓮縣">花蓮縣</option>
-                      <option value="臺東縣">臺東縣</option>
-                      <option value="澎湖縣">澎湖縣</option>
-                      <option value="金門縣">金門縣</option>
-                      <option value="連江縣">連江縣</option>
-                    </select>
-                    <!-- 調整圖片尺寸 (此處設定寬度為50%) -->
-                    <img id="weather-image" src="{{ url_for('static', filename='images/preloader.gif') }}" alt="天氣圖片" class="weather1">
-                    <div id="weather-display">載入中...</div>
-                  </div>
-                  <!-- 顯示天氣詳細資訊的表格 -->
+                    <div class="city-container">
+                        <label for="city-select">選擇城市：</label>
+                        <select id="city-select">
+                          <option value="臺北市">臺北市</option>
+                          <option value="新北市">新北市</option>
+                          <option value="桃園市">桃園市</option>
+                          <option value="臺中市">臺中市</option>
+                          <option value="臺南市">臺南市</option>
+                          <option value="高雄市">高雄市</option>
+                          <option value="基隆市">基隆市</option>
+                          <option value="新竹市">新竹市</option>
+                          <option value="新竹縣">新竹縣</option>
+                          <option value="苗栗縣">苗栗縣</option>
+                          <option value="彰化縣">彰化縣</option>
+                          <option value="南投縣">南投縣</option>
+                          <option value="雲林縣">雲林縣</option>
+                          <option value="嘉義市">嘉義市</option>
+                          <option value="嘉義縣">嘉義縣</option>
+                          <option value="屏東縣">屏東縣</option>
+                          <option value="宜蘭縣">宜蘭縣</option>
+                          <option value="花蓮縣">花蓮縣</option>
+                          <option value="臺東縣">臺東縣</option>
+                          <option value="澎湖縣">澎湖縣</option>
+                          <option value="金門縣">金門縣</option>
+                          <option value="連江縣">連江縣</option>
+                        </select>
+                        <!-- 調整圖片尺寸 (此處設定寬度為50%) -->
+                        <img id="weather-image" src="{{ url_for('static', filename='images/preloader.gif') }}" alt="天氣圖片" class="weather1">
+                        <div id="weather-display">載入中...</div>
+                    </div>
+                    <!-- 顯示天氣詳細資訊的表格 -->
                   <table class="table-1">
                     <tr class="bg-1-2">
                       <td class="bg-1-2-1">體感溫度 (Feels like):</td>
@@ -368,7 +371,10 @@
                       <td id="barometer" class="bg-1-1-2">--" Hg</td>
                     </tr>
                   </table>
+                  </div>
+                  
                   <a href="https://www.cwa.gov.tw/V8/C/index.html" class="btn-1"><span>中央氣象局</span></a>
+                  </div>
                 </div>
                 
                 <!-- 右側：國際新聞區 -->
@@ -589,5 +595,9 @@
             </div>
         </div>
     </footer>
+    
+    
+<!-- 載入 帳號處理 檔案 -->
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
 </body>
 </html>
