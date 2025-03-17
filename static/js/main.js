@@ -1,3 +1,4 @@
+//  檔案名稱:main.sj 綜合功能匯集檔
 //避免 replaceWith()，改用 removeEventListener() + addEventListener()
 //每個 JS 檔案的程式碼封裝在 (() => {...})() 立即執行函式（IIFE）裡
 

@@ -401,10 +401,20 @@ p { padding-bottom: 18px; }
 header {
     padding-bottom: 4px;
 }
+
+/* 全球新聞搜尋網 */
 h1 {
     padding-top: 33px;
     letter-spacing: -1px;
-    float: left;
+    text-align: left;
+    margin-bottom: 0;
+}
+/* - 第七組專題 */
+.subtitle {
+    font-size: 18px;
+    text-align: left;
+    margin-bottom: 20px;
+    color: #666;
 }
 .top_menu, .temp {
     float: left;
@@ -583,90 +593,7 @@ h1 {
     gap: 10px;
 }
 
-/* 設定帳號與密碼輸入框 */
-.input-group {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
-#username, #password {
-    width: 100%;
-    max-width: 250px;
-    min-width: 100px;
-    padding: 10px;
-    font-size: 16px;
-    border: 3px solid #ccc;
-    border-radius: 25px;
-    outline: none;
-    transition: border 0.3s ease;
-}
-#username:focus, #password:focus {
-    border: 6px solid #FFD700;
-    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
-}
 
-/* 錯誤訊息 */
-.error-message {
-    color: red;
-    font-size: 14px;
-    min-height: 18px;
-    margin-top: 5px;
-}
-
-/* 讓「忘記密碼」按鈕與輸入框對齊 */
-.password-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-}
-#forgot-password-btn {
-    background: none;
-    border: none;
-    color: #007BFF;
-    cursor: pointer;
-    font-size: 14px;
-    text-decoration: underline;
-}
-#forgot-password-btn:hover {
-    color: #0056b3;
-}
-
-/* 刪除帳號按鈕 */
-.danger-btn {
-    background-color: #d9534f;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-    transition: background 0.3s ease;
-}
-.danger-btn:hover {
-    background-color: #c9302c;
-}
-
-/* 登入與註冊按鈕 */
-#login-btn, #register-btn {
-    width: 100%;
-    max-width: 250px;
-    padding: 10px 20px;
-    font-size: 18px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease;
-}
-#login-btn {
-    background-color: #4CAF50 !important;
-    color: white !important;
-}
-#register-btn {
-    background-color: #008CBA !important;
-    color: white;
-}
 
 /* =========================================
    右側區塊 (Right Column)
@@ -1300,9 +1227,7 @@ small {
 }
 
 /* ========================
-   補充：其他在 style.css 有定義但 style1.css 中缺少的部分
-   （例如若您發現 index.html 中有用到但 style1.css 中未定義的類別，
-   可依需要將其從 style.css 拷貝過來，此處僅作示範）
+   補充：其他 style1.css 中缺少的新增部分
 ======================== */
 
 /* (示範) 若 index.html 中有用到 .main-content，則可加入 */
@@ -1312,4 +1237,129 @@ small {
     min-height: 100vh;
     align-items: stretch;
     overflow-y: auto;
+}
+
+/* ========================
+   補充：其他 style1.css 中缺少的新增部分
+   帳號密碼區隔局重設  !important 強制覆蓋樣式的方式
+======================== */
+
+.h1-1{
+    display: flex; /* 啟用 Flexbox */
+    justify-content: flex-start; /* 控制水平對齊方式 */
+    align-items: flex-start; /* 垂直置中 */
+    height: auto; /* 自動調整高度 */
+    position: relative; /* 確保內部定位參考該容器 */
+    height: 100%; /* 父容器高度 */
+    gap: 20px; /* 區塊之間的間距 */
+    background-color: #8B008B; /* 找出範圍 */
+}
+
+.login-form-1{
+    flex: 0 0 33%; /* 占父容器寬度的1/3 */
+    height: 100%; /* 區塊高度為父容器高度 */
+    background-color: #f8f9fa; /* 背景顏色可視化 */
+    box-sizing: border-box; /* 包含內距與邊框 */
+    padding: 15px; /* 區塊內距 */
+    background-color: #2F4F4F; /* 找出範圍 */
+
+
+}
+
+/* 帳密區塊調整 */
+.login-area .top_menu {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start; /* 上下排列時左對齊 */
+    gap: 30px; /* 主要區塊之間的距離 */
+}
+
+/* 帳號密碼輸入區 */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* 輸入框與錯誤訊息間距 */
+    width: 100%;
+    max-width: 300px;
+}
+
+/* 輸入框樣式 */
+#username, #password {
+    width: 100%;
+    max-width: 250px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
+
+/* 註冊按鈕垂直顯示 */
+.register-wrapper {
+    display: flex;
+    margin-top: 10px; /* 按鈕向下移動 10px */
+    margin: 0 auto; /* 居中 */
+    flex-direction: column; /* 垂直排列按鈕 */
+}
+
+#register-btn {
+    width: 150px; /* 註冊按鈕寬度 */
+    max-width: 55px; /* 限制按鈕最大寬度 */
+    padding: 10px;
+    font-size: 32px;
+    background-color: #1E90FF; /* 藍色背景 */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#register-btn:hover {
+    background-color: #black!important; /* 鼠標移上時改變顏色 */
+}
+
+/* 按鈕組 */
+.button-group {
+    display: flex;
+    flex-direction: row; /* 保持登入與忘記密碼水平排列 */
+    gap: 10px; /* 增加按鈕之間的距離 */
+    margin-top: 10px;
+}
+
+/* 登入按鈕樣式 */
+#login-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#login-btn:hover {
+    background-color: #45A049;
+}
+
+/* 忘記密碼按鈕樣式 */
+#forgot-password-btn {
+    background: none;
+    border: none;
+    color: #007BFF;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#forgot-password-btn:hover {
+    color: #0056b3;
+}
+
+/* 垂直間距和整體居中 */
+.login-area {
+    margin: 20px auto;
+    text-align: center; /* 全部內容居中 */
+}
+
+.top_menu li {
+    list-style: none;
 }
