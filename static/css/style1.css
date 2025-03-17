@@ -1244,24 +1244,66 @@ small {
    帳號密碼區隔局重設  !important 強制覆蓋樣式的方式
 ======================== */
 
-.h1-1{
-    display: flex; /* 啟用 Flexbox */
-    justify-content: flex-start; /* 控制水平對齊方式 */
-    align-items: flex-start; /* 垂直置中 */
-    height: auto; /* 自動調整高度 */
-    position: relative; /* 確保內部定位參考該容器 */
-    height: 100%; /* 父容器高度 */
-    gap: 20px; /* 區塊之間的間距 */
-    background-color: #8B008B; /* 找出範圍 */
+.fright > .login-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 或根據需要調整 */
+    gap: 20px;
+    }
+
+
+/* ========================
+   Header 區塊相關樣式
+======================== */
+
+/* header-container：包含左中右區塊 */
+.header-container {
+    display: flex;                    /* 使用 Flexbox 排列 */ 
+    align-items: center;              /* 垂直置中所有子項目 */
+    width: 100%;
 }
 
+
+.left-area {
+    flex: 8; /* 左側占 3/6 */
+    text-align: left;
+}
+
+.h1-1{
+    display: flex;                  /* 啟用 Flexbox */ 
+    justify-content: flex-start;    /* 子元素從左開始排列 */
+    align-items: flex-start;        /* 垂直上對齊 */
+    position: relative;             /* 內部絕對定位參考 */ 
+    height: 100%;                    /* 高度占父容器的 88% */
+    gap: 20px;                     /* 區塊間距 20px */
+}
+
+
+/* 中間區域，預留空間，目前寫歡迎光臨 */
+.center-area {
+    flex: 1;
+    text-align: center;
+}
+
+
+/* 右側區域，登入區 */
+.right-area {
+    flex: 2;
+    text-align: right;
+}
+
+/* ========================
+   登入區塊樣式 (login-form-1 與 login-area)
+======================== */
+
 .login-form-1{
-    flex: 0 0 33%; /* 占父容器寬度的1/3 */
-    height: 100%; /* 區塊高度為父容器高度 */
-    background-color: #f8f9fa; /* 背景顏色可視化 */
-    box-sizing: border-box; /* 包含內距與邊框 */
-    padding: 15px; /* 區塊內距 */
-    background-color: #2F4F4F; /* 找出範圍 */
+    order: -1;               /* 將此元素推到左邊 */
+    flex: 0 0 55%;           /* 占父容器寬度的1/3 */
+    height: 80%;            /* 區塊高度為父容器高度 */
+    box-sizing: border-box;  /* 包含內距與邊框 */
+    padding: 1px;           /* 區塊內距 */
+    background-color: #2F4F4F; /* 背景顏色深灰色 */
+    border-radius: 20px; /* 圓角半徑 */
 
 
 }
@@ -1271,7 +1313,8 @@ small {
     display: flex;
     flex-wrap: nowrap;
     align-items: flex-start; /* 上下排列時左對齊 */
-    gap: 30px; /* 主要區塊之間的距離 */
+    gap: 15px; /* 主要區塊之間的距離 */
+    
 }
 
 /* 帳號密碼輸入區 */
@@ -1286,7 +1329,7 @@ small {
 /* 輸入框樣式 */
 #username, #password {
     width: 100%;
-    max-width: 250px;
+    max-width: 150px;
     padding: 10px;
     font-size: 16px;
     border: 2px solid #ccc;
@@ -1297,13 +1340,14 @@ small {
 .register-wrapper {
     display: flex;
     margin-top: 10px; /* 按鈕向下移動 10px */
-    margin: 0 auto; /* 居中 */
+    /* margin: 0 auto; 居中 */
     flex-direction: column; /* 垂直排列按鈕 */
 }
 
+/* 註冊按鈕樣式 */
 #register-btn {
-    width: 150px; /* 註冊按鈕寬度 */
-    max-width: 55px; /* 限制按鈕最大寬度 */
+    width: 50px; /* 註冊按鈕寬度 */
+    max-width: 65px; /* 限制按鈕最大寬度 */
     padding: 10px;
     font-size: 32px;
     background-color: #1E90FF; /* 藍色背景 */
@@ -1314,11 +1358,12 @@ small {
     transition: background-color 0.3s ease;
 }
 
+/* 鼠標移上時改變顏色 */
 #register-btn:hover {
-    background-color: #black!important; /* 鼠標移上時改變顏色 */
+    background-color: black; 
 }
 
-/* 按鈕組 */
+/* 按鈕組：登入與忘記密碼水平排列 */
 .button-group {
     display: flex;
     flex-direction: row; /* 保持登入與忘記密碼水平排列 */
@@ -1336,8 +1381,9 @@ small {
     cursor: pointer;
 }
 
+/* 鼠標移上時改變顏色 */
 #login-btn:hover {
-    background-color: #45A049;
+    background-color: black;
 }
 
 /* 忘記密碼按鈕樣式 */
@@ -1348,17 +1394,14 @@ small {
     text-decoration: underline;
     cursor: pointer;
     font-size: 14px;
+    background-color: #FFE4E1; /* 迷霧玫瑰色背景 */
 }
 
+/* 鼠標移上時改變顏色 */
 #forgot-password-btn:hover {
-    color: #0056b3;
+    color: black;
 }
 
-/* 垂直間距和整體居中 */
-.login-area {
-    margin: 20px auto;
-    text-align: center; /* 全部內容居中 */
-}
 
 .top_menu li {
     list-style: none;

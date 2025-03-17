@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <title>休息園地</title><!-- 休息園地 -->
+    <title>綜合資料搜尋區</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name = "format-detection" content = "telephone=no" />
     
     <!-- 載入網站圖標 -->
     <link rel="icon" href="{{ url_for('static', filename='images/weather/favicon.ico') }}" type="image/x-icon">
@@ -48,7 +47,6 @@
     <script src="{{ url_for('static', filename='js/superfish.js') }}"></script>
     
     <script src="{{ url_for('static', filename='js/jquery.mobilemenu.js') }}"></script>
-    
     <script src="{{ url_for('static', filename='js/touchTouch.jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/jquery.ui.totop.js') }}"></script>
     
@@ -70,137 +68,60 @@
     </div>
 </head>
 <body>
-    <!-- ============================== Header 區塊 ============================== -->
+    <!--==============================header=================================-->
     <header>
         <div class="container_12">
-            <!-- Header 第一排：網站標題與使用者資訊 -->
-            <div class="row">
-               <div class="grid_12">
-                   <!-- 最上層的header -->
-                   <div class="header-container">
-                        <!-- 網站標題 -->
-                        <div class="left-area">
-                            <div class="h1-1">
-                            <h1>
-                                <a href="index.html">全球新聞搜尋網-休息園地</a>
-                                <div class="subtitle">- 第七組專題</div>
-                            </h1>
-                            </div>
-                        </div>
-                        <div class="center-area">
-                            <div class="fright">
-                                <div class="subtitle">歡迎</div>
-                            </div>
-                        </div>
-                        <div class="right-area">
-                            <!-- 帳號的欄位 -->
-                            <div class="login-area">
-                                <div class="login-form-1  clearfix">
-                                <form id="login-form"><!-- 套版注意 -->
-                                    {% if current_user.is_authenticated %}
-                                        <!-- 登入後的顯示方式 -->
-                                        <div id="account-info">
-                                            <strong>{{ current_user.username }}</strong>
-                                            <button type="button" id="delete-account-btn">刪除帳戶</button>
-                                            <button type="button" id="logout-btn" onclick="location.href='{{ url_for('logout') }}'">登出</button>
-                                        </div>
-                                    {% else %}
-                                        <!-- 登入前的顯示方式：登入表單 -->
-                                        <ul class="top_menu clearfix">
-                                            <li>
-                                                <div class="register-wrapper">
-                                                    <button type="button" id="register-btn">註冊</button>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <!-- 帳號碼輸入區域 -->
-                                                <div class="input-group">
-                                                    <!-- 帳號輸入框 -->
-                                                    <div class="username-wrapper">
-                                                        <input type="username" id="username" name="username" placeholder="使用者名稱" autocomplete="new-password">
-                                                        <div id="username-error" class="error-message"></div><!-- 帳號錯誤顯示欄 -->
-                                                    </div>
-                                                    <!-- 密碼輸入框 -->
-                                                    <div class="password-wrapper">
-                                                        <input type="password" id="password" name="password" placeholder="使用者密碼" autocomplete="current-password">
-                                                        <div id="password-error" class="error-message"></div><!-- 密碼錯誤顯示欄 -->
-                                                    </div>
-                                                </div>
-                                                <div class="button-group">
-                                                    <button type="submit" id="login-btn">登入</button>
-                                                    <button type="button" id="forgot-password-btn">忘記密碼？</button>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    {% endif %}
-                                </form>
-                                </div>
-                            </div>
-                        </div>
-                   </div>
-               </div>
-            </div>
-            
-            <!-- 註冊彈出視窗 -->
-            <div class="modal1-overlay" id="modal-overlay"></div>
-            <div class="modal1" id="register-modal">
-                <h2>註冊帳號</h2>
-                <form id="register-form">
-                    <input type="text" id="register-username" name="username" placeholder="使用者名稱" required>
-                    <input type="password" id="register-password" name="password" placeholder="習慣用語" required>
-                    <input type="email" id="register-email" name="email" placeholder="電子郵件" required>
-                    <button type="submit">註冊</button>
-                </form>
-                <p id="register-error-msg"></p>
-                <button id="close-register-modal">關閉</button>
-            </div>
-            
-            <!-- Header 第二排：導航列與搜尋區 -->
             <div class="row">
                 <div class="grid_12">
-                    <!-- 導航列 -->
+                    <h1><a href="index.html">WeatherChannel</a></h1>
+                    <div class="fright">
+                        <div class="clearfix">
+                            <ul class="top_menu clearfix">
+                                <li><a href="#">Sign In</a>|</li>
+                                <li><a href="#">Join</a>|</li>
+                                <li><a href="#">Settings</a></li>
+                            </ul>
+                            <div class="temp clearfix"><a href="#" class="cels">C&deg;</a><a href="#" class="far">F&deg;</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="grid_12">
                     <nav class="full-width">
                         <ul class="sf-menu clearfix">
-                            <li class="current"><a href="templates/index.html">Home</a></li>
-                            <li><a href="index-1.html">休息園地</a>
+                            <li><a href="index.html">Home</a></li>
+                            <li class="current"><a href="index-1.html">Weather guides</a>
                                 <ul>
-                                    <li><a href="/game/parkour">跑酷小遊戲</a></li>
-                                    <!-- 修改積分計算連結，導向 leaderboard.html -->
-                                    <li><a href="leaderboard.html">積分計算</a></li>
-                                    <li><a href="/game/tetris">俄羅斯方塊</a></li>
-                                    <li><a href="https://www.youtube.com/">YouTube</a></li>
+                                    <li><a href="#">Daily Briefing</a></li>
+                                    <li><a href="#">Marine</a>
+                                    <li><a href="#">Climate</a>
+                                    <li><a href="#">Space Weather</a>
+                                    <li><a href="#">Fire Weather</a>
+                                    <li><a href="#">Aviation</a>
+                                    <li><a href="#">Tsunami</a>
+                                    <li><a href="#">Forecast Models</a>
+                                    <li><a href="#">Water</a>
+                                    <li><a href="#">GIS</a>
+                                    <li><a href="#">Storm Spotters</a>
+                                    <li><a href="#">Facts and Figures</a>
                                </ul>
                             </li>
-                            <li><a href="index-2.html">焦點新聞</a></li>
-                            <li><a href="index-3.html">運動新聞</a></li>
-                            <li><a href="index-4.html">娛樂新聞</a></li>
-                            <li><a href="index-5.html">氣象特報</a></li>
-                            <li><a href="https://monsterone.com/graphics/logo-templates/">框架來源</a></li>
+                            <li><a href="index-2.html">World weather news</a></li>
+                            <li><a href="index-3.html">Weather charts</a></li>
+                            <li><a href="index-4.html">Footage</a></li>
+                            <li><a href="index-5.html">Contacts</a></li>
                         </ul>
                     </nav>
-                    
-                    <!-- 站內搜尋表單 -->
                     <div class="search-block">
-                        <form id="search-category" class="search" action="search.js" method="GET">
-                            <label for="s">站內搜尋</label>
-                            <select name="category" id="category">
-                              <option value="all">綜合查詢</option>
-                              <option value="images">圖片</option>
-                              <option value="websites">網站</option>
-                            </select>
-                            <input id="s" type="text" name="s" value="">
+                        <form id="search1" class="search" action="search.php" method="GET">
+                            <label for="s">Enter Location</label>
+                            <input id="s" type="text" name="s" value="" >
                             <a onClick="document.getElementById('search1').submit()" class="button1"></a>
                         </form>
                     </div>
-                    <!-- 站外搜尋表單 -->
-                    <div class="search-block">
-                        <form id="search1" class="search" action="https://duckduckgo.com/" method="GET">
-                            <input type="text" name="q" id="external-search-input" placeholder="外側搜尋引擎">
-                            <button type="submit" id="external-search-btn">站外搜尋</button>
-                        </form>
-                    </div>
                 </div>
-            </div>        
+            </div>
         </div>
     </header>
     <!--=======content================================-->
@@ -308,63 +229,61 @@
             </div>
         </div>
     </div>
-    <!-- ============================== Footer 區塊 ============================== -->
+    <!--=======footer=================================-->
+    
     <footer>
         <div class="container_12 border-bot">
-            <!-- 小組成員區 -->
             <div class="row">
-                <h6><i><b>小組成員:</b></i></h6>
                 <div class="grid_2 w1">
-                    <h6><b>邵妙齊</b></h6>
+                    <h6>Local Weather</h6>
                     <ul class="list-2">
-                        <li><i>方向指定</i></li>
-                        <li><i>框架製作</i></li>
-                        <li><i>代碼結合</i></li>
+                        <li><a href="#">My Favorites</a></li>
+                        <li><a href="#">History Data</a></li>
+                        <li><a href="#">Weather Stations</a></li>
                     </ul>
                 </div>
                 <div class="grid_2 w1">
-                    <h6><b>廖勁捷</b></h6>
+                    <h6>Maps &amp; Radar</h6>
                     <ul class="list-2">
-                        <li><i>新聞爬蟲</i></li>
-                        <li><i>定時運行</i></li>
-                        <li><i>資料庫建立及匯入</i></li>
+                        <li><a href="#">Radar</a></li>
+                        <li><a href="#">Satellite</a></li>
                     </ul>
                 </div>
                 <div class="grid_2 w1">
-                    <h6><b>吳婕如</b></h6>
+                    <h6>Severe Weather</h6>
                     <ul class="list-2">
-                        <li><i>新聞爬蟲</i></li>
-                        <li><i>定時運行</i></li>
-                        <li><i>資料庫建立及匯入</i></li>
+                        <li><a href="#">Tropical &amp; Hurricane</a></li>
+                        <li><a href="#">Storm Reports</a></li>
+                        <li><a href="#">U.S. Severe Alerts</a></li>
                     </ul>
                 </div>
                 <div class="grid_2 w1">
-                    <h6><b>黃國豪</b></h6>
+                    <h6>Photos &amp; Videos</h6>
                     <ul class="list-2">
-                        <li><i>演算法建立</i></li>
-                        <li><i>帳戶連動</i></li>
-                        <li><i>靈感提出</i></li>
+                        <li><a href="#">Photo Galleries</a></li>
+                        <li><a href="#">World View</a></li>
+                        <li><a href="#">Webcams</a></li>
                     </ul>
                 </div>
                 <div class="grid_2 w1">
-                    <h6><b>XXX</b></h6>
+                    <h6>Blogs</h6>
                     <ul class="list-2">
-                        <li><i>網頁爬蟲</i></li>
-                        <li><i>定時展示</i></li>
+                        <li><a href="#">Meteorology Blogs</a></li>
+                        <li><a href="#">Member Blogs</a></li>
+                    </ul>
+                </div>
+                <div class="grid_2 w1">
+                    <h6>Climate</h6>
+                    <ul class="list-2">
+                        <li><a href="#">Climate Change</a></li>
+                        <li><a href="#">Evidence</a></li>
+                        <li><a href="#">Record Extremes</a></li>
                     </ul>
                 </div>
             </div>
-            <!-- 指導老師區 -->
-            <div class="row">
-                <h6><i><b>指導老師:</b></i></h6>
-                <div class="grid_2 w1">
-                    <h6><b>簡志聰</b></h6>
-                </div>
-            </div>
-            <!-- 頁尾版權與社群連結 -->
             <div class="row f-last">
                 <div class="fleft">
-                    本網站由 &nbsp;|&nbsp;  <a class="h-underline" href="https://www.lccnet.com.tw/">聯成電腦</a> &nbsp;|&nbsp; 專案教導團隊指導
+                    WeatherChannel © 2013 &nbsp;|&nbsp;  <a class="h-underline" href="index-6.html">Privacy Policy</a> &nbsp;|&nbsp; All Rights Reseved
                 </div>
                 <div class="fright">
                     <div class="list-services">
@@ -376,9 +295,5 @@
             </div>
         </div>
     </footer>
-    
-    
-<!-- 載入 帳號處理 檔案 -->
-<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
 </body>
 </html>

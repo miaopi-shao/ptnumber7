@@ -52,10 +52,32 @@ class User(db.Model, UserMixin):  # 繼承 UserMixin 提供 login_required 所�
 
 @app.route('/')
 def home():
-    return render_template('index.html')  # 假設你的首頁是 'index.html'
+    return render_template('index.html')  # 你的首頁是 'index.html'
+
+@app.route('/index-1.html')
+def index1():
+    return render_template('index-1.html')  # 休息園地
+
+@app.route('/index-1-1.html')
+def index11():
+    return render_template('index-1-1.html')  # 原始網站
+
+@app.route('/index-2.html')
+def index2():
+    return render_template('index-2.html')  # 焦點新聞
+@app.route('/index-3.html')
+def index3():
+    return render_template('index-3.html')  # 運動新聞
+@app.route('/index-4.html')
+def index4():
+    return render_template('index-4.html')  # 娛樂新聞
+@app.route('/index-5.html')
+def index5():
+    return render_template('index-5.html')  # 氣象特報
+
+
+
 # 設置用戶的加載回調函數
-
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))  # 假設你的用戶模型是 User，並且使用 ID 查詢

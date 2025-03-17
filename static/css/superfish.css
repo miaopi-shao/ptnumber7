@@ -82,28 +82,28 @@ li.sfHover {
 	padding: 8px 15px 8px 15px;        /* 四周內邊距：上下8px，左右15px */
 	text-align: center;                /* 文字置中 */
 	color: #4c4c4c;                    /* 文字顏色：深灰 */
-	font-weight: bold;
+	font-weight: bold;                 /* 字體加粗 */
 	text-transform: uppercase;         /* 全部大寫 */
 	letter-spacing: 1px;               /* 字間距 1px */
-	-webkit-border-radius: 3px;         /* 圓角 3px */
-	-moz-border-radius: 3px;
-	-ms-border-radius: 3px;
-	-o-border-radius: 3px;
-	border-radius: 3px;
-	margin: 0 auto;
-	letter-spacing: -1px;              /* 調整字間距 */
-    -moz-transition: color 0.3s ease-out;  /* 過渡動畫：文字顏色 */
-    -o-transition: color 0.3s ease-out;
-    -webkit-transition: color 0.3s ease-out;
-    transition: color 0.3s ease;
+	-webkit-border-radius: 3px;      /* 圓角 3px，適用於 Safari 和 Chrome */
+	-moz-border-radius: 3px;         /* 圓角 3px，適用於 Firefox */
+	-ms-border-radius: 3px;          /* 圓角 3px，適用於 Internet Explorer */
+	-o-border-radius: 3px;           /* 圓角 3px，適用於 Opera */
+	border-radius: 3px;              /* 圓角 3px，標準屬性 */
+	margin: 0 auto;                    /* 自動水平外邊距，通常用於居中對齊 */
+	letter-spacing: -1px;              /* 調整字間距為 -1px */
+    -moz-transition: color 0.3s ease-out;  /* 過渡動畫：文字顏色，適用於 Mozilla 引擎瀏覽器 */
+    -o-transition: color 0.3s ease-out;    /* 過渡動畫：文字顏色，適用於 Opera 瀏覽器 */
+    -webkit-transition: color 0.3s ease-out; /* 過渡動畫：文字顏色，適用於 WebKit 引擎瀏覽器 */
+    transition: color 0.3s ease;        /* 文字顏色過渡效果，持續0.3秒，緩和過渡 */
 }
 
 /* 主選單項的背景及間距設定 */
 .sf-menu > li {
-	display: block;
-	margin: 0 0px;
-	position: relative;
-	text-align: center;
+	display: block;                  /* 區塊元素 */
+	margin: 0 0px;                   /* 左右外邊距 0px */
+	position: relative;              /* 相對定位 */
+	text-align: center;              /* 文字置中 */
 	background: url(../images/bg-3.gif) left center no-repeat; /* 背景圖片，左側置中 */
 	padding: 0 17px;                   /* 左右內邊距 17px */
 }

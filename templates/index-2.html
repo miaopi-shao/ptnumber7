@@ -1,279 +1,387 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-    <title>World weather news</title>
+<html lang="zh-TW">
+<head>
+    <title>焦點新聞</title><!-- 焦點新聞 -->
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name = "format-detection" content = "telephone=no" />
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/superfish.css">
-    <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen">
-    <link href='//fonts.googleapis.com/css?family=Domine:400,700' rel='stylesheet' type='text/css'>
-    <!-- font-awesome font -->
-    <link rel="stylesheet" href="font/font-awesome.css" type="text/css" media="screen">
-    <!--<![endif]-->
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery-migrate-1.1.1.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/jquery.equalheights.js"></script>
-    <script src="js/superfish.js"></script>
-    <script src="js/jquery.mobilemenu.js"></script>
-    <script src="js/jquery.fancybox.pack.js"></script>
-    <script src="js/jquery.ui.totop.js"></script>
+
+    <!-- 載入網站圖標 -->
+    <link rel="icon" href="{{ url_for('static', filename='images/weather/favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/weather/favicon.ico') }}" type="image/x-icon">
+    
+    <!-- 載入 CSS 檔案 -->
+    
+    <!-- 載入 清除預設 檔案 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <!-- 載入 主要框架 檔案 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">
+    <!-- 載入 清除預設 檔案，下拉菜單應用-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/superfish.css') }}">
+     <!--新的css檔 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.fancybox.css') }}" type="text/css" media="screen">
+    
+    <!-- 載入 舊版IE應對 檔案 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ie.css') }}">
+    
+    <!-- 載入 Google Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Domine:400,700" rel="stylesheet" type="text/css">
+    
+    <!-- 載入 文字 檔案 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font/font-awesome.css') }}" type="text/css" media="screen">
+    
+     
+    <!-- 載入 JavaScript 檔案 -->
+    <!-- 載入 jQuery主庫 檔案，不用理他 -->
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    
+    <!-- 載入 jQuery遷移插件-舊版本間容 檔案 -->
+    <script src="{{ url_for('static', filename='js/jquery-migrate-1.1.1.js') }}"></script>
+
+      
+    <!-- 載入 平滑動畫 檔案，如幻燈片或滾動特效 -->
+    <script src="{{ url_for('static', filename='js/jquery.easing.1.3.js') }}"></script>  
+    
+    <script src="{{ url_for('static', filename='js/jquery.equalheights.js') }}"></script>
+    <!-- 載入 多層下拉式菜單 檔案 -->
+    <script src="{{ url_for('static', filename='js/superfish.js') }}"></script>
+    
+    <script src="{{ url_for('static', filename='js/jquery.mobilemenu.js') }}"></script>
+    
+    <script src="{{ url_for('static', filename='js/jquery.fancybox.pack.js') }}"></script> <!--新的js檔 -->
+    
+    <script src="{{ url_for('static', filename='js/jquery.ui.totop.js') }}"></script>
+    
+    <!-- 載入 通用腳本 檔案，如網站的主要邏輯或互動功能 -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
      <script>
         $(document).ready(function() {
             $(function() {$("a.various").fancybox();});
             $().UItoTop({ easingType: 'easeOutQuart' });
         });
      </script>
-     <!--[if lt IE 8]>
-       <div style=' clear: both; text-align:center; position: relative;'>
-         <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
-           <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
-         </a>
-      </div>
-    <![endif]-->
-    <!--[if lt IE 9]>
-   		<script src="js/html5shiv.js"></script>
-    	<link rel="stylesheet" type="text/css" media="screen" href="css/ie.css">
-    <![endif]-->
-     </head>
-     <body>
-<!--==============================header=================================-->
-<header>
-    <div class="container_12">
-        <div class="row">
-            <div class="grid_12">
-                <h1><a href="index.html">WeatherChannel</a></h1>
-                <div class="fright">
-                    <div class="clearfix">
-                        <ul class="top_menu clearfix">
-                            <li><a href="#">Sign In</a>|</li>
-                            <li><a href="#">Join</a>|</li>
-                            <li><a href="#">Settings</a></li>
+    <!-- 舊版IE判斷後更改運行模式 -->
+    <div id="browser-warning" style="display: none; text-align:center; position: relative;">
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+            <img src="{{ url_for('static', filename='images/preloader.gif') }}" border="0" height="42" width="820" alt="Upgrade your browser" />
+        </a>
+    </div>
+</head>
+<body>
+    <!-- ============================== Header 區塊 ============================== -->
+    <header>
+        <div class="container_12">
+            <!-- Header 第一排：網站標題與使用者資訊 -->
+            <div class="row">
+               <div class="grid_12">
+                   <!-- 最上層的header -->
+                   <div class="header-container">
+                        <!-- 網站標題 -->
+                        <div class="left-area">
+                            <div class="h1-1">
+                            <h1>
+                                <a href="index.html">全球新聞搜尋網-休息園地</a>
+                                <div class="subtitle">- 第七組專題</div>
+                            </h1>
+                            </div>
+                        </div>
+                        <div class="center-area">
+                            <div class="fright">
+                                <div class="subtitle">歡迎</div>
+                            </div>
+                        </div>
+                        <div class="right-area">
+                            <!-- 帳號的欄位 -->
+                            <div class="login-area">
+                                <div class="login-form-1  clearfix">
+                                <form id="login-form"><!-- 套版注意 -->
+                                    {% if current_user.is_authenticated %}
+                                        <!-- 登入後的顯示方式 -->
+                                        <div id="account-info">
+                                            <strong>{{ current_user.username }}</strong>
+                                            <button type="button" id="delete-account-btn">刪除帳戶</button>
+                                            <button type="button" id="logout-btn" onclick="location.href='{{ url_for('logout') }}'">登出</button>
+                                        </div>
+                                    {% else %}
+                                        <!-- 登入前的顯示方式：登入表單 -->
+                                        <ul class="top_menu clearfix">
+                                            <li>
+                                                <div class="register-wrapper">
+                                                    <button type="button" id="register-btn">註冊</button>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <!-- 帳號碼輸入區域 -->
+                                                <div class="input-group">
+                                                    <!-- 帳號輸入框 -->
+                                                    <div class="username-wrapper">
+                                                        <input type="username" id="username" name="username" placeholder="使用者名稱" autocomplete="new-password">
+                                                        <div id="username-error" class="error-message"></div><!-- 帳號錯誤顯示欄 -->
+                                                    </div>
+                                                    <!-- 密碼輸入框 -->
+                                                    <div class="password-wrapper">
+                                                        <input type="password" id="password" name="password" placeholder="使用者密碼" autocomplete="current-password">
+                                                        <div id="password-error" class="error-message"></div><!-- 密碼錯誤顯示欄 -->
+                                                    </div>
+                                                </div>
+                                                <div class="button-group">
+                                                    <button type="submit" id="login-btn">登入</button>
+                                                    <button type="button" id="forgot-password-btn">忘記密碼？</button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    {% endif %}
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                   </div>
+               </div>
+            </div>
+            
+            <!-- 註冊彈出視窗 -->
+            <div class="modal1-overlay" id="modal-overlay"></div>
+            <div class="modal1" id="register-modal">
+                <h2>註冊帳號</h2>
+                <form id="register-form">
+                    <input type="text" id="register-username" name="username" placeholder="使用者名稱" required>
+                    <input type="password" id="register-password" name="password" placeholder="習慣用語" required>
+                    <input type="email" id="register-email" name="email" placeholder="電子郵件" required>
+                    <button type="submit">註冊</button>
+                </form>
+                <p id="register-error-msg"></p>
+                <button id="close-register-modal">關閉</button>
+            </div>
+            
+            <!-- Header 第二排：導航列與搜尋區 -->
+            <div class="row">
+                <div class="grid_12">
+                    <!-- 導航列 -->
+                    <nav class="full-width">
+                        <ul class="sf-menu clearfix">
+                            <li class="current"><a href="templates/index.html">Home</a></li>
+                            <li><a href="index-1.html">休息園地</a>
+                                <ul>
+                                    <li><a href="/game/parkour">跑酷小遊戲</a></li>
+                                    <!-- 修改積分計算連結，導向 leaderboard.html -->
+                                    <li><a href="leaderboard.html">積分計算</a></li>
+                                    <li><a href="/game/tetris">俄羅斯方塊</a></li>
+                                    <li><a href="https://www.youtube.com/">YouTube</a></li>
+                               </ul>
+                            </li>
+                            <li><a href="index-2.html">焦點新聞</a></li>
+                            <li><a href="index-3.html">運動新聞</a></li>
+                            <li><a href="index-4.html">娛樂新聞</a></li>
+                            <li><a href="index-5.html">氣象特報</a></li>
+                            <li><a href="https://monsterone.com/graphics/logo-templates/">框架來源</a></li>
                         </ul>
-                        <div class="temp clearfix"><a href="#" class="cels">C&deg;</a><a href="#" class="far">F&deg;</a></div>
+                    </nav>
+                    
+                    <!-- 站內搜尋表單 -->
+                    <div class="search-block">
+                        <form id="search-category" class="search" action="search.js" method="GET">
+                            <label for="s">站內搜尋</label>
+                            <select name="category" id="category">
+                              <option value="all">綜合查詢</option>
+                              <option value="images">圖片</option>
+                              <option value="websites">網站</option>
+                            </select>
+                            <input id="s" type="text" name="s" value="">
+                            <a onClick="document.getElementById('search1').submit()" class="button1"></a>
+                        </form>
+                    </div>
+                    <!-- 站外搜尋表單 -->
+                    <div class="search-block">
+                        <form id="search1" class="search" action="https://duckduckgo.com/" method="GET">
+                            <input type="text" name="q" id="external-search-input" placeholder="外側搜尋引擎">
+                            <button type="submit" id="external-search-btn">站外搜尋</button>
+                        </form>
+                    </div>
+                </div>
+            </div>        
+        </div>
+    </header>
+    <!--=======content================================-->
+    <div class="content">
+        <div class="container_12">
+            <div class="row">
+                <div class="grid_8">
+                    <div class="shadow-block-wrapper p-news">
+                        <div class="shadow-block">
+                            <h2>今日焦點</h2>
+                            <div class="box-1 clearfix">
+                                <img src="{{ url_for('static', filename='images/page-3_img-1.jpg') }}" alt="" class="img-ind">
+                                <div>
+                                    <h3>第一則新聞</h3>
+                                    <div class="short_info">
+                                        <span>來自 <a class="h-underline" href="發文者主頁">發文者</a></span>
+                                        <span>文章日期</span>
+                                    </div>  
+                                    <div>文章內容 <a href="文章網址" class="btn">前往</a></div>
+                                </div>
+                            </div>
+                            <div class="box-1 clearfix">
+                                <img src="{{ url_for('static', filename='images/page-3_img-2.jpg') }}" alt="" class="img-ind">
+                                <div>
+                                    <h3>第二則新聞</h3>
+                                    <div class="short_info">
+                                        <span>來自 <a class="h-underline" href="發文者主頁">發文者</a></span>
+                                        <span>文章日期</span>
+                                    </div>  
+                                    <div>文章內容 <a href="文章網址" class="btn">前往</a></div>
+                                </div>
+                            </div>
+                            <div class="box-1 clearfix">
+                                <img src="{{ url_for('static', filename='images/page-3_img-3.jpg') }}" alt="" class="img-ind">
+                                <div>
+                                    <h3>第三則新聞</h3>
+                                    <div class="short_info">
+                                        <span>來自 <a class="h-underline" href="發文者主頁">發文者</a></span>
+                                        <span>文章日期</span>
+                                    </div>  
+                                    <div>文章內容 <a href="文章網址" class="btn">前往</a></div>
+                                </div>
+                            </div>
+                            
+                            <div class="box-1 clearfix">
+                                <img src="{{ url_for('static', filename='images/page-3_img-4.jpg') }}" alt="" class="img-ind">
+                                <div>
+                                    <h3>第四則新聞<br> 標題太長就分段 </h3>
+                                    <div class="short_info">
+                                        <span>來自 <a class="h-underline" href="發文者主頁">發文者</a></span>
+                                        <span>文章日期</span>
+                                    </div>  
+                                    <div>文章內容 <a href="文章網址" class="btn">前往</a></div>
+                                </div>
+                            </div>
+                            <div class="box-1 clearfix">
+                                <img src="{{ url_for('static', filename='images/page-3_img-5.jpg') }}" alt="" class="img-ind">
+                                <div>
+                                    <h3>第五則新聞<br> 標題太長就分段 </h3>
+                                    <div class="short_info">
+                                        <span>來自 <a class="h-underline" href="發文者主頁">發文者</a></span>
+                                        <span>文章日期</span>
+                                    </div>  
+                                    <div>文章內容 <a href="文章網址" class="btn">前往</a></div>
+                                </div>
+                            </div>
+                            <div class="box-1 clearfix">
+                                <img src="{{ url_for('static', filename='images/page-3_img-6.jpg') }}" alt="" class="img-ind">
+                                <div>
+                                    <h3>第六則新聞<br> 標題太長就分段 </h3>
+                                    <div class="short_info">
+                                        <span>來自 <a class="h-underline" href="發文者主頁">發文者</a></span>
+                                        <span>文章日期</span>
+                                    </div>  
+                                    <div>文章內容 <a href="文章網址" class="btn">前往</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid_4">
+                    <h2>國際快訊</h2>
+                    <div class="bg-4 p5">
+                        <ul class="list-1">
+                            <li><a href="#">第一則</a></li>
+                            <li><a href="#">第二則</a></li>
+                            <li><a href="#">第三則</a></li>
+                            <li><a href="#">第四則</a></li>
+                            <li><a href="#">第五則</a></li>
+                            <li><a href="#">第六則 </a></li>
+                            <li><a href="#">第七則</a></li>
+                            <li><a href="#">第八則</a></li>
+                        </ul>
+                    </div>
+                    <h2>今日熱門影片</h2>
+                    <div class="b-video">
+                        <div class="box-3">
+                            <a class="various iframe" href="http://www.youtube.com/embed/2kodXWejuy0?rel=0"><img src="{{ url_for('static', filename='images/page-3_img-7.jpg') }}" alt="" class="wrapper"></a>
+                            <h3><a class="a-hov" href="#">Aenean nonummy hendrerit mauris phasellus <span>porta</span></a></h3>
+                        </div>
+                        <div class="box-3">
+                            <a class="various iframe" href="http://www.youtube.com/embed/2kodXWejuy0?rel=0"><img src="{{ url_for('static', filename='images/page-3_img-8.jpg') }}" alt="" class="wrapper"></a>
+                            <h3><a class="a-hov" href="#">Ultrices posuere cubilia curae aug Suspendisse sollicitudin velit sed leou pharetra <span>augue </span></a></h3>
+                        </div>
+                        <div class="box-3">
+                            <a class="various iframe" href="http://www.youtube.com/embed/2kodXWejuy0?rel=0"><img src="{{ url_for('static', filename='images/page-3_img-9.jpg') }}" alt="" class="wrapper"></a>
+                            <h3><a class="a-hov" href="#">Vestibulum ante ipsum primis inmo faucibus orci luctus <span>et</span></a></h3>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="grid_12">
-                <nav class="full-width">
-                    <ul class="sf-menu clearfix">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="index-1.html">Weather guides</a>
-                            <ul>
-                                <li><a href="#">Daily Briefing</a></li>
-                                <li><a href="#">Marine</a>
-                                <li><a href="#">Climate</a>
-                                <li><a href="#">Space Weather</a>
-                                <li><a href="#">Fire Weather</a>
-                                <li><a href="#">Aviation</a>
-                                <li><a href="#">Tsunami</a>
-                                <li><a href="#">Forecast Models</a>
-                                <li><a href="#">Water</a>
-                                <li><a href="#">GIS</a>
-                                <li><a href="#">Storm Spotters</a>
-                                <li><a href="#">Facts and Figures</a>
-                           </ul>
-                        </li>
-                        <li class="current"><a href="index-2.html">World weather news</a></li>
-                        <li><a href="index-3.html">Weather charts</a></li>
-                        <li><a href="index-4.html">Footage</a></li>
-                        <li><a href="index-5.html">Contacts</a></li>
+    </div>
+    <!-- ============================== 頁尾區塊 ============================== -->
+    <footer>
+        <div class="container_12 border-bot">
+            <!-- 小組成員區 -->
+            <div class="row">
+                <h6><i><b>小組成員:</b></i></h6>
+                <div class="grid_2 w1">
+                    <h6><b>邵妙齊</b></h6>
+                    <ul class="list-2">
+                        <li><i>方向指定</i></li>
+                        <li><i>框架製作</i></li>
+                        <li><i>代碼結合</i></li>
                     </ul>
-                </nav>
-                <div class="search-block">
-                    <form id="search1" class="search" action="search.php" method="GET">
-                        <label for="s">Enter Location</label>
-                        <input id="s" type="text" name="s" value="" >
-                        <a onClick="document.getElementById('search1').submit()" class="button1"></a>
-                    </form>
                 </div>
-            </div>
-        </div>
-    </div>
-</header>
-<!--=======content================================-->
-<div class="content">
-    <div class="container_12">
-        <div class="row">
-            <div class="grid_8">
-                <div class="shadow-block-wrapper p-news">
-                    <div class="shadow-block">
-                        <h2>News</h2>
-                        <div class="box-1 clearfix">
-                            <img src="images/page-3_img-1.jpg" alt="" class="img-ind">
-                            <div>
-                                <h3>Aenean nonummy hendrerit mauris hasellus porta euismod purus</h3>
-                                <div class="short_info">
-                                    <span>By <a class="h-underline" href="#">Tariq Malik</a></span>
-                                    <span>October 4, 2013</span>
-                                </div>  
-                                <div>Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit varius mi. lobortis dignissim, pulvinar ac, lorem. <a href="#" class="btn">More</a></div>
-                            </div>
-                        </div>
-                        <div class="box-1 clearfix">
-                            <img src="images/page-3_img-2.jpg" alt="" class="img-ind">
-                            <div>
-                                <h3>Praesent justo dolor, lobortis quis, lobortis dignissim, pulvinar</h3>
-                                <div class="short_info">
-                                    <span>By <a class="h-underline" href="#">Tariq Malik</a></span>
-                                    <span>October 4, 2013</span>
-                                </div>  
-                                <div>Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit varius mi. lobortis dignissim, pulvinar ac, lorem. <a href="#" class="btn">More</a></div>
-                            </div>
-                        </div>
-                        <div class="box-1 clearfix">
-                            <img src="images/page-3_img-3.jpg" alt="" class="img-ind">
-                            <div>
-                                <h3>In pede mi, aliquet sit amet, euismod in,auctor ut, ligula</h3>
-                                <div class="short_info">
-                                    <span>By <a class="h-underline" href="#">Tariq Malik</a></span>
-                                    <span>October 4, 2013</span>
-                                </div>  
-                                <div>Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit varius mi. lobortis dignissim, pulvinar ac, lorem. <a href="#" class="btn">More</a></div>
-                            </div>
-                        </div>
-                        <div class="box-1 clearfix">
-                            <img src="images/page-3_img-4.jpg" alt="" class="img-ind">
-                            <div>
-                                <h3>Vestibulum sed ante.<br> Donec sagittis euismod purus ibulum </h3>
-                                <div class="short_info">
-                                    <span>By <a class="h-underline" href="#">Tariq Malik</a></span>
-                                    <span>October 4, 2013</span>
-                                </div>  
-                                <div>Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit varius mi. lobortis dignissim, pulvinar ac, lorem. <a href="#" class="btn">More</a></div>
-                            </div>
-                        </div>
-                        <div class="box-1 clearfix">
-                            <img src="images/page-3_img-5.jpg" alt="" class="img-ind">
-                            <div>
-                                <h3>Vestibulum sed ante.<br>Donec sagittis euismod purus ibulum </h3>
-                                <div class="short_info">
-                                    <span>By <a class="h-underline" href="#">Tariq Malik</a></span>
-                                    <span>October 4, 2013</span>
-                                </div>  
-                                <div>Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit varius mi. lobortis dignissim, pulvinar ac, lorem. <a href="#" class="btn">More</a></div>
-                            </div>
-                        </div>
-                        <div class="box-1 clearfix">
-                            <img src="images/page-3_img-6.jpg" alt="" class="img-ind">
-                            <div>
-                                <h3>Vestibulum sed ante. <br>Donec sagittis euismod purus ibulum </h3>
-                                <div class="short_info">
-                                    <span>By <a class="h-underline" href="#">Tariq Malik</a></span>
-                                    <span>October 4, 2013</span>
-                                </div>  
-                                <div>Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit varius mi. lobortis dignissim, pulvinar ac, lorem. <a href="#" class="btn">More</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="grid_4">
-                <h2>Most Discussed</h2>
-                <div class="bg-4 p5">
-                    <ul class="list-1">
-                        <li><a href="#">Lorem ipsum dolor</a></li>
-                        <li><a href="#">Praesent vestibulum molestie porta fusce suscipit varius miursu</a></li>
-                        <li><a href="#">Nulla facilisienean nec eroestibulum ante ipsum primis</a></li>
-                        <li><a href="#">Etiam cursus leo vel metusenean</a></li>
-                        <li><a href="#">In faucibus orci luctus etltrices posuere cubilia Curae</a></li>
-                        <li><a href="#">Suspendisse sollicitudin velit sed leot pharetra augue nec </a></li>
-                        <li><a href="#">Nam elit agna,endrerit sit amet</a></li>
-                        <li><a href="#">Tincidunt ac, viverra sed, nulla onec porta diam eu massa</a></li>
+                <div class="grid_2 w1">
+                    <h6><b>廖勁捷</b></h6>
+                    <ul class="list-2">
+                        <li><i>新聞爬蟲</i></li>
+                        <li><i>定時運行</i></li>
+                        <li><i>資料庫建立及匯入</i></li>
                     </ul>
                 </div>
-                <h2>Today's Top Videos</h2>
-                <div class="b-video">
-                    <div class="box-3">
-                        <a class="various iframe" href="http://www.youtube.com/embed/2kodXWejuy0?rel=0"><img src="images/page-3_img-7.jpg" alt="" class="wrapper"></a>
-                        <h3><a class="a-hov" href="#">Aenean nonummy hendrerit mauris phasellus <span>porta</span></a></h3>
-                    </div>
-                    <div class="box-3">
-                        <a class="various iframe" href="http://www.youtube.com/embed/2kodXWejuy0?rel=0"><img src="images/page-3_img-8.jpg" alt="" class="wrapper"></a>
-                        <h3><a class="a-hov" href="#">Ultrices posuere cubilia curae aug Suspendisse sollicitudin velit sed leou pharetra <span>augue </span></a></h3>
-                    </div>
-                    <div class="box-3">
-                        <a class="various iframe" href="http://www.youtube.com/embed/2kodXWejuy0?rel=0"><img src="images/page-3_img-9.jpg" alt="" class="wrapper"></a>
-                        <h3><a class="a-hov" href="#">Vestibulum ante ipsum primis inmo faucibus orci luctus <span>et</span></a></h3>
+                <div class="grid_2 w1">
+                    <h6><b>吳婕如</b></h6>
+                    <ul class="list-2">
+                        <li><i>新聞爬蟲</i></li>
+                        <li><i>定時運行</i></li>
+                        <li><i>資料庫建立及匯入</i></li>
+                    </ul>
+                </div>
+                <div class="grid_2 w1">
+                    <h6><b>黃國豪</b></h6>
+                    <ul class="list-2">
+                        <li><i>演算法建立</i></li>
+                        <li><i>帳戶連動</i></li>
+                        <li><i>靈感提出</i></li>
+                    </ul>
+                </div>
+                <div class="grid_2 w1">
+                    <h6><b>XXX</b></h6>
+                    <ul class="list-2">
+                        <li><i>網頁爬蟲</i></li>
+                        <li><i>定時展示</i></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 指導老師區 -->
+            <div class="row">
+                <h6><i><b>指導老師:</b></i></h6>
+                <div class="grid_2 w1">
+                    <h6><b>簡志聰</b></h6>
+                </div>
+            </div>
+            <!-- 頁尾版權與社群連結 -->
+            <div class="row f-last">
+                <div class="fleft">
+                    本網站由 &nbsp;|&nbsp;  <a class="h-underline" href="https://www.lccnet.com.tw/">聯成電腦</a> &nbsp;|&nbsp; 專案教導團隊指導
+                </div>
+                <div class="fright">
+                    <div class="list-services">
+                        <a href="#" class="soc-1"><i class="icon-twitter-sign"></i>twitter</a>
+                        <a href="#" class="soc-2"><i class="icon-facebook-sign"></i>facebook</a>
+                        <a href="#" class="soc-3"><i class="icon-google-plus-sign"></i>Google+</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<!--=======footer=================================-->
-
-<footer>
-    <div class="container_12 border-bot">
-        <div class="row">
-            <div class="grid_2 w1">
-                <h6>Local Weather</h6>
-                <ul class="list-2">
-                    <li><a href="#">My Favorites</a></li>
-                    <li><a href="#">History Data</a></li>
-                    <li><a href="#">Weather Stations</a></li>
-                </ul>
-            </div>
-            <div class="grid_2 w1">
-                <h6>Maps &amp; Radar</h6>
-                <ul class="list-2">
-                    <li><a href="#">Radar</a></li>
-                    <li><a href="#">Satellite</a></li>
-                </ul>
-            </div>
-            <div class="grid_2 w1">
-                <h6>Severe Weather</h6>
-                <ul class="list-2">
-                    <li><a href="#">Tropical &amp; Hurricane</a></li>
-                    <li><a href="#">Storm Reports</a></li>
-                    <li><a href="#">U.S. Severe Alerts</a></li>
-                </ul>
-            </div>
-            <div class="grid_2 w1">
-                <h6>Photos &amp; Videos</h6>
-                <ul class="list-2">
-                    <li><a href="#">Photo Galleries</a></li>
-                    <li><a href="#">World View</a></li>
-                    <li><a href="#">Webcams</a></li>
-                </ul>
-            </div>
-            <div class="grid_2 w1">
-                <h6>Blogs</h6>
-                <ul class="list-2">
-                    <li><a href="#">Meteorology Blogs</a></li>
-                    <li><a href="#">Member Blogs</a></li>
-                </ul>
-            </div>
-            <div class="grid_2 w1">
-                <h6>Climate</h6>
-                <ul class="list-2">
-                    <li><a href="#">Climate Change</a></li>
-                    <li><a href="#">Evidence</a></li>
-                    <li><a href="#">Record Extremes</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="row f-last">
-            <div class="fleft">
-                WeatherChannel © 2013 &nbsp;|&nbsp;  <a class="h-underline" href="index-6.html">Privacy Policy</a> &nbsp;|&nbsp; All Rights Reseved
-            </div>
-            <div class="fright">
-                <div class="list-services">
-                    <a href="#" class="soc-1"><i class="icon-twitter-sign"></i>twitter</a>
-                    <a href="#" class="soc-2"><i class="icon-facebook-sign"></i>facebook</a>
-                    <a href="#" class="soc-3"><i class="icon-google-plus-sign"></i>Google+</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-
+    </footer>
+<!-- 載入 帳號處理 檔案 -->
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
 
 </body>
 </html>

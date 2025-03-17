@@ -1,15 +1,15 @@
 
 /*
- * Superfish v1.4.8 - jQuery menu widget
- * Copyright (c) 2008 Joel Birch
+ * Superfish v1.4.8 - jQuery 菜单插件
+ * 版权所有 (c) 2008 Joel Birch
  *
- * Dual licensed under the MIT and GPL licenses:
+ * 双重许可协议：MIT 和 GPL
  * 	http://www.opensource.org/licenses/mit-license.php
  * 	http://www.gnu.org/licenses/gpl.html
  *
- * CHANGELOG: http://users.tpg.com.au/j_birch/plugins/superfish/changelog.txt
+ * 更新日志: http://users.tpg.com.au/j_birch/plugins/superfish/changelog.txt
  */
-
+ 
 ;(function($){
 	$.fn.superfish = function(op){
 
