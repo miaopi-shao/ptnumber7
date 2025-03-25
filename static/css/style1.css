@@ -140,6 +140,22 @@ h6 {
     font: bold 13px/13px Arial, sans-serif;
     color: #4c4c4c;
 }
+
+/* 氣象網站的新增按鈕 */
+.text-4 a {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #1E90FF; /* 背景顏色 */
+    color: black!important ; /* 文字顏色 */
+    text-decoration: none; /* 移除下劃線 */
+    border-radius: 5px; /* 圓角效果 */
+    transition: background-color 0.3s ease; /* 添加漸變效果 */
+}
+
+.text-4 a:hover {
+    background-color: #0056b3; /* 滑鼠懸停時改變背景顏色 */
+}
+
 .text-5 {
     font: 11px/12px Arial, sans-serif;
     color: #a4a4a4;
@@ -1405,4 +1421,40 @@ small {
 
 .top_menu li {
     list-style: none;
+}
+
+/* ========================
+   氣象網站區塊樣式 (氣象特報)
+======================== */
+
+.graphic {
+    display: flex;
+    flex-direction: column; /* 垂直排列：標題、地圖與圖示 */
+    align-items: center; /* 子元素水平方向居中 */
+    gap: 10px; /* 元素之間的間距 */
+    margin: 20px auto; /* 整個區塊居中 */
+    max-width: 620px; /* 限制最大寬度 */
+}
+
+.graphic2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+.iframe-container {
+    position: relative;
+    width: 100%; /* 填滿父容器 */
+    padding-top: 56.25%; /* 維持 16:9 比例（可以調整成 4:3 為 75%） */
+    background-color: #000; /* 可視化測試用 */
+}
+
+.iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* 填滿父容器寬度 */
+    height: 100%; /* 填滿父容器高度 */
+    border: none;
 }

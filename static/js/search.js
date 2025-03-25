@@ -1,21 +1,22 @@
-// 站內搜尋按鈕處理邏輯
-document.addEventListener('DOMContentLoaded', function() {
-    console.log("search.js 加載完成");
-
-    // 站內搜尋按鈕處理邏輯
-    const searchBtn = document.getElementById('internal-search-btn');
-    if (searchBtn) {
-        searchBtn.addEventListener('click', function() {
-            const query = document.getElementById('internal-search-input').value.trim(); // 去掉多餘空格
-            const category = document.getElementById('search-category').value;
-
-            if (query === "") {
-                alert("請輸入搜尋關鍵字");
-                return;
-            }
-
-            let url = `/internal_search?query=${encodeURIComponent(query)}& category=${encodeURIComponent(category)}`;
-            window.location.href = url;
-        });
-    }
-});
+$(function(){
+	var s=location.search.replace(/^\?.*s=([^&]+)/,'$1')
+		,form=$('#search-form')
+		,input=$('input[type=text]',form)
+		,results=$('#search-results').height(0)
+		,src='search/results.php'
+		,ifr=$('<iframe width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" allowTransparency="true"></iframe>')
+	
+	if(results.length)		
+		ifr		
+			.attr({
+				src:src+'?s='+s
+			})
+			.appendTo(results)
+		,input
+			.val(decodeURI(s))
+	
+	window._resize=function(h){		
+		results
+			.height(h)
+	}
+})

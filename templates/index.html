@@ -67,8 +67,9 @@
     <!-- 第二階段-頁面格式載入完成 -->
     
     
-    <!-- 載入 帳號處理 檔案 -->
+    <!-- 載入 自訂類型 檔案 -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
     
     <!-- 載入 通用腳本 檔案，如網站的主要邏輯或互動功能 -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
@@ -129,7 +130,7 @@
                         <div class="left-area">
                             <div class="h1-1">
                             <h1>
-                                <a href="index.html">全球新聞搜尋網</a>
+                                <a href="index.html">新聞搜尋網</a>
                                 <div class="subtitle">- 第七組專題</div>
                             </h1>
                             </div>
@@ -208,7 +209,9 @@
                     <!-- 導航列 -->
                     <nav class="full-width">
                         <ul class="sf-menu clearfix">
-                            <li class="current"><a href="templates/index.html">Home</a></li>
+                            <li class="current">
+                                <a href="/">首頁</a>
+                            </li>
                             <li><a href="index-1.html">休息園地</a>
                                 <ul>
                                     <li><a href="/game/parkour">跑酷小遊戲</a></li>
@@ -219,9 +222,9 @@
                                </ul>
                             </li>
                             <li><a href="index-2.html">焦點新聞</a></li>
-                            <li><a href="index-3.html">運動新聞</a></li>
+                            <li><a href="index-3.html">氣象特報</a></li>
                             <li><a href="index-4.html">娛樂新聞</a></li>
-                            <li><a href="index-5.html">氣象特報</a></li>
+                            <li><a href="index-5.html">運動新聞</a></li>
                             <li><a href="https://monsterone.com/graphics/logo-templates/">框架來源</a></li>
                         </ul>
                     </nav>
@@ -259,7 +262,7 @@
                              data-time="1500" data-trasPeriod="4000" data-link="http://www.google.com/" data-target="_blank">
                             <div class="camera_caption fadeIn">
                                 <div class="slider-text">
-                                    <div class="inside">柯文哲挖鼻孔 <a href="#">去看看</a></div>
+                                    <div class="inside">新聞等待中 <a href="#">去看看</a></div>
                                 </div>
                             </div>
                         </div>
@@ -442,47 +445,49 @@
                             <!-- 新聞快訊標題 -->
                             <li><a href="#">新聞快訊</a></li>
                             <ul class="tabs clearfix">
-                                <li><a href="#">Google焦點新聞</a></li>
+                                <li><a href="#">ETtoday新聞</a></li>
                                 <li><a href="#">Yahoo焦點新聞</a></li>
                             </ul>
                             <div class="tab_container bg-2 clearfix">
                                 <!-- 第一個頁籤內容 -->
+                                {% for article in news %}
                                 <div class="tab_content">
                                     <div class="clearfix">
                                         <div class="box-2 maxheight clearfix">
-                                            <img src="{{ url_for('static', filename='images/breaking_news/breaking_news_1.png') }}" alt="" class="img-ind">
+                                            <img src="{{ article.image_url or url_for('static', filename='images/default.png') }}" alt="" class="img-ind">
                                             <div>
-                                                <h3>Google新聞標題</h3>
-                                                <div>Google新聞內容</div>
-                                                <a href="#" class="btn-2">前往連結</a>
+                                                <h3>{{ article.title }}</h3>
+                                                <div>{{ article.content }}</div>
+                                                <a href="{{ article.url }}" class="btn-2">{{ article.title }}</a>
                                             </div>
                                         </div>
                                         <div class="box-2 maxheight clearfix">
-                                            <img src="{{ url_for('static', filename='images/breaking_news/breaking_news_2.png') }}" alt="" class="img-ind">
+                                            <img src="{{ article.image_url or url_for('static', filename='images/default.png') }}" alt="" class="img-ind">
                                             <div>
-                                                <h3>Google新聞標題</h3>
-                                                <div>Google新聞內容</div>
-                                                <a href="#" class="btn-2">前往連結</a>
+                                                <h3>{{ article.title }}</h3>
+                                                <div>{{ article.content }}</div>
+                                                <a href="{{ article.url }}" class="btn-2">{{ article.title }}</a>
                                             </div>
                                         </div>
                                         <div class="box-2 maxheight clearfix">
-                                            <img src="{{ url_for('static', filename='images/breaking_news/breaking_news_3.png') }}" alt="" class="img-ind">
+                                            <img src="{{ article.image_url or url_for('static', filename='images/default.png') }}" alt="" class="img-ind">
                                             <div>
-                                                <h3>Google新聞標題</h3>
-                                                <div>Google新聞內容</div>
-                                                <a href="#" class="btn-2">前往連結</a>
+                                                <h3>{{ article.title }}</h3>
+                                                <div>{{ article.content }}</div>
+                                                <a href="{{ article.url }}" class="btn-2">{{ article.title }}</a>
                                             </div>
                                         </div>
                                         <div class="box-2 maxheight clearfix">
-                                            <img src="{{ url_for('static', filename='images/breaking_news/breaking_news_4.png') }}" alt="" class="img-ind">
+                                            <img src="{{ article.image_url or url_for('static', filename='images/default.png') }}" alt="" class="img-ind">
                                             <div>
-                                                <h3>Google新聞標題</h3>
-                                                <div>Google新聞內容</div>
-                                                <a href="#" class="btn-2">前往連結</a>
+                                                <h3>{{ article.title }}</h3>
+                                                <div>{{ article.content }}</div>
+                                                <a href="{{ article.url }}" class="btn-2">{{ article.title }}</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                {% endfor %}
                                 <!-- 第二個頁籤內容 -->
                                 <div class="tab_content">
                                     <div class="clearfix">

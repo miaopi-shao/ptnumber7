@@ -1,6 +1,25 @@
 //避免 replaceWith()，改用 removeEventListener() + addEventListener()
 //每個 JS 檔案的程式碼封裝在 (() => {...})() 立即執行函式（IIFE）裡
 
+// 定義 apiRequest的運行邏輯
+async function apiRequest(endpoint, method, body) {
+    const options = {
+        method: method,
+        headers: { 'Content-Type': 'application/json' },
+        body: body ? JSON.stringify(body) : null,
+    };
+    try {
+        const response = await fetch(endpoint, options);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error during API request:', error);
+        throw error;
+    }
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執行函式（IIFE），避免全域變數污染
     // 取得 DOM 元素
@@ -56,14 +75,21 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
             errorMsg.innerText = "";  // 清空錯誤訊息
     
             // 發送註冊請求
-            let data = await apiRequest("/auth/register", "POST", { username, phrase, email });
-    
-            if (data?.error) {  // 如果後端回傳錯誤訊息
-                errorMsg.innerText = data.error;
+             try {
+                // 發送 API 請求
+                let data = await apiRequest("/auth/register", "POST", { username, phrase, email });
+                if (data.error) {
+                    // 顯示後端返回的錯誤訊息
+                    errorMsg.innerText = data.error;
+                    errorMsg.style.color = "red";
+                } else {
+                    alert("註冊成功！請使用您的帳號登入。");
+                    setTimeout(() => window.location.href = "/", 2000);
+                }
+            } catch (error) {
+                console.error("API 錯誤:", error.message);
+                errorMsg.innerText = error.message || "發生錯誤，請稍後再試。";
                 errorMsg.style.color = "red";
-            } else {  // 註冊成功
-                alert("註冊成功！請使用您的帳號登入。");
-                setTimeout(() => window.location.href = "/", 2000);
             }
         });
     

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <title>運動新聞</title>
+    <title>娛樂新聞</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name = "format-detection" content = "telephone=no" />
@@ -54,6 +54,9 @@
     
     <script src="{{ url_for('static', filename='js/jquery.ui.totop.js') }}"></script>
     
+    
+    <!-- 載入 自訂類型 檔案 -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <!-- 載入 通用腳本 檔案，如網站的主要邏輯或互動功能 -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     
@@ -86,7 +89,7 @@
                         <div class="left-area">
                             <div class="h1-1">
                             <h1>
-                                <a href="index.html">全球新聞搜尋網-休息園地</a>
+                                <a href="index.html">全球新聞搜尋網-氣象特報</a>
                                 <div class="subtitle">- 第七組專題</div>
                             </h1>
                             </div>
@@ -165,7 +168,7 @@
                     <!-- 導航列 -->
                     <nav class="full-width">
                         <ul class="sf-menu clearfix">
-                            <li class="current"><a href="templates/index.html">Home</a></li>
+                            <li class="current"><a href="/">Home</a></li>
                             <li><a href="index-1.html">休息園地</a>
                                 <ul>
                                     <li><a href="/game/parkour">跑酷小遊戲</a></li>
@@ -176,9 +179,9 @@
                                </ul>
                             </li>
                             <li><a href="index-2.html">焦點新聞</a></li>
-                            <li><a href="index-3.html">運動新聞</a></li>
+                            <li><a href="index-3.html">氣象特報</a></li>
                             <li><a href="index-4.html">娛樂新聞</a></li>
-                            <li><a href="index-5.html">氣象特報</a></li>
+                            <li><a href="index-5.html">運動新聞</a></li>
                             <li><a href="https://monsterone.com/graphics/logo-templates/">框架來源</a></li>
                         </ul>
                     </nav>
@@ -215,9 +218,15 @@
                     <h2>本月氣溫</h2>
                     <div class="text-5">氣溫走向</div>
                     <div class="graphic">
-                        <div class="title-2">氣溫走向示意圖</div>
-                        <img src="images/page-4_img-1.gif" alt="" class="wrapper">
-                        <div class="text-4">圖示</div>
+                        <div class="graphic2">
+                            <div class="title-2">ventusky衛星雲圖</div>
+                        </div>
+                        <div class="iframe-container">
+                            <iframe src="https://www.ventusky.com/" style="border: none;"></iframe>
+                        </div>
+                        <div class="text-4">
+                            <a href="https://www.ventusky.com/" target="_blank" style="text-decoration: none; color: inherit;">前往衛星圖提供網站</a>
+                        </div>
                     </div>
                     <div class="shadow-block-wrapper p2">
                         <div class="shadow-block">
@@ -295,26 +304,12 @@
                             </div>
                         </div>
                         <div>
-                            <h3><a href="#">Consectetuer</a></h3>
+                            <h3><a href="#">地震資訊</a></h3>
                             <div>
                                 <ul>
-                                    <li><a href="#">In faucibus orci luctus et</a></li>
-                                    <li><a href="#">Ultrices posuere cubilia Curae</a></li>
-                                    <li><a href="#">Suspendisse sollicitudin velit sed leo</a></li>
-                                    <li><a href="#">Ut pharetra augue nec</a></li>
-                                    <li><a href="#">Nam elit agna,endrerit sit amet</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div>
-                            <h3><a href="#">Lorem ipsum dolor</a></h3>
-                            <div>
-                                <ul>
-                                    <li><a href="#">In faucibus orci luctus et</a></li>
-                                    <li><a href="#">Ultrices posuere cubilia Curae</a></li>
-                                    <li><a href="#">Suspendisse sollicitudin velit sed leo</a></li>
-                                    <li><a href="#">Ut pharetra augue nec</a></li>
-                                    <li><a href="#">Nam elit agna,endrerit sit amet</a></li>
+                                    <li><a href="https://www.cwa.gov.tw/V8/C/E/index.html">近期地震</a></li>
+                                    <li><a href="https://scweb.cwa.gov.tw/zh-tw/guidance/faq/">地震百科</a></li>
+                                    <li><a href="https://scweb.cwa.gov.tw/zh-tw/earthquake/world/">全球地震</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -327,6 +322,18 @@
                                     <li><a href="https://scweb.cwa.gov.tw/">地震測報中心</a></li>
                                     <li><a href="https://wede.cwa.gov.tw/">氣象隨選平台</a></li>
                                     <li><a href="https://qpeplus.cwa.gov.tw/">劇烈天氣監測網</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <h3><a href="#">資料網站</a></h3>
+                            <div>
+                                <ul>
+                                    <li><a href="https://www.windy.com/">windy衛星氣象雲圖</a></li>
+                                    <li><a href="https://www.accuweather.com/">AccuWeather天氣網</a></li>
+                                    <li><a href="https://www.1blueplanet.com/">1blueplanet氣象網</a></li>
+                                    <li><a href="https://worldweather.wmo.int/tc/home.html">世界氣象組織</a></li>
+                                    <li><a href="https://www.ventusky.com/">ventusky衛星氣象雲圖</a></li>
                                 </ul>
                             </div>
                         </div>

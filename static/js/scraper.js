@@ -1,3 +1,5 @@
+//自行輸入網址爬蟲邏輯
+
 (() => {
     // 用戶輸入網址進行爬蟲
     document.getElementById("scrape-btn").addEventListener("click", function () {

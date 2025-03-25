@@ -10,7 +10,7 @@ cd /d/PTtest
 2-設定 Git：
 
 git init
-git remote add origin https://github.com/miaopi-shao/PTNUMBER7
+git remote add origin https://github.com/miaopi-shao/model
 .git
 
 
