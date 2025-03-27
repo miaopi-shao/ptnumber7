@@ -10,7 +10,7 @@ async function apiRequest(endpoint, method, body) {
         body: body ? JSON.stringify(body) : null,
     };
     if (token) {
-        options.headers["Authorization"] = `Bearer ${token}`; // 加入 Authorization 標頭
+        options.headers["Authorization"] = `Bearer ${localStorage.getItem("token")}`; // 加入 Authorization 標頭
     }
     try {
         const response = await fetch(endpoint, options);
@@ -34,9 +34,8 @@ async function apiRequest(endpoint, method, body) {
 
 
 document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執行函式（IIFE），避免全域變數污染
-    
-    // 檢查是否正常登入
-    // 檢查是否正常登入並獲取用戶資訊
+
+    // 檢查使用者登入狀態
     async function fetchUserProfile() {
         console.log("初始化用戶資訊加載...");
     

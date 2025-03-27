@@ -24,6 +24,7 @@ print(NewsArticle)  # 應該輸出 <class 'models.NewsArticle'>，確認模型�
 # Import HTTP request library for external API communication
 import requests  # 程式庫的模組，用於執行 HTTP 請求操作
 from flask_mail import Mail
+from flask_cors import CORS
 
 # ========================================================
 # 專案模組匯入，所有Blueprint 模組
@@ -88,6 +89,7 @@ app.config['SQLALCHEMY_BINDS'] = {  # 程式庫設定，其他綁定資料庫的
     'news': 'mysql+pymysql://root:Psy481705=..@localhost/news_database_name'   # 專案資料庫，新聞爬蟲相關資料
 }
 
+CORS(app, supports_credentials=True)
 # 配置 Session
 app.config["SESSION_PERMANENT"] = True  # 設置 Session 為永久
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=7)  # Session 有效期為 7 天

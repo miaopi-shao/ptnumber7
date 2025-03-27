@@ -166,6 +166,7 @@ def login():
 def profile():
     """ 取得登入使用者的資訊 """
     if current_user.is_authenticated:
+        print(f"Session 驗證成功，用戶 ID: {current_user.get_id()}")
         user = AuthUser.query.get(current_user.get_id())
         if user:
             return jsonify({
@@ -174,8 +175,10 @@ def profile():
                 "role": user.role
             }), 200
         else:
+            print("Session 驗證失敗！")
             try:
                 raw_token = request.headers.get("Authorization")
+                print(f"接收到的 Authorization 標頭: {raw_token}")
                 logging.info(f"接收到的 Authorization 標頭: {raw_token}")
                  
                 user_id = get_jwt_identity()  # 從 JWT Token 中解析出用戶 ID
