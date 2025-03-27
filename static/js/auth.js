@@ -46,15 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
             console.log("個人資訊回應:", data); // 確認回應方便調試
     
             // 確保 DOM 中的 `account-info` 區域存在
-            let userInfoElement = document.getElementById("account-info");
-            if (!userInfoElement) {
-                console.warn("'account-info' 不存在，動態創建！");
-                userInfoElement = document.createElement("div");
-                userInfoElement.id = "account-info";
-                document.body.appendChild(userInfoElement); // 動態添加到頁面
-            }
+            let userInfoElement = document.getElementById("account-info") || (() => {
+                const element = document.createElement("div");
+                element.id = "account-info";
+                document.body.appendChild(element);
+                return element;
+            })();
     
-            // 更新用戶資訊到 `account-info` 區域
             userInfoElement.innerHTML = `
                 <p>歡迎，${data.username}</p>
                 <p>Email: ${data.email}</p>
@@ -62,9 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
             `;
         } catch (error) {
             console.error("獲取用戶資訊失敗:", error.message);
-            // 顯示友好的提示
             alert("無法獲取用戶資訊，請稍後再試！");
         }
+
     }
     
     // API 請求封裝函數
@@ -87,7 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
                 headers: headers,
                 body: options.body ? JSON.stringify(options.body) : null,
             });
-    
+            
+            if (response.status === 401) {
+                alert("您的登入已過期，請重新登入！");
+                window.location.href = "/login";
+                return; // 提前退出，避免繼續處理錯誤
+            }
+            
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.error || `HTTP 錯誤！狀態碼: ${response.status}`);
