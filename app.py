@@ -20,17 +20,35 @@ print(User)  # 應該輸出 <class 'models.User'>，確認模型匯入成功
 print(Score)  # 應該輸出 <class 'models.Score'>，確認模型匯入成功
 print(NewsArticle)  # 應該輸出 <class 'models.NewsArticle'>，確認模型匯入成功
 
-# 專案模組匯入，所有Blueprint 模組，用於模組化路由
-# Import all Blueprint modules for modular routing within the project
-from auth import all_auth_blueprints                      # 負責處理帳號驗證邏輯
-from new import all_new_blueprints                        # 負責定時爬取新聞的邏輯
-from game import all_game_blueprints                      # 負責處理遊戲相關邏輯
-from remaining_code import all_remaining_code_blueprints  # 包含其餘功能的邏輯
-from remaining_code.scrape_news import run_scheduler      # 定時執行新聞爬蟲
-
 # 引入 HTTP 請求模組，用於與外部 API 通訊
 # Import HTTP request library for external API communication
 import requests  # 程式庫的模組，用於執行 HTTP 請求操作
+from flask_mail import Mail
+
+# ========================================================
+# 專案模組匯入，所有Blueprint 模組
+# Import all Blueprint modules for modular routing within the project
+# ========================================================
+from auth import auth_bp
+from external_search import external_search_bp
+from news_fetch import news_fetch_bp
+from search_engine import search_engine_bp
+from user_scrape import user_scrape_bp
+from weather import weather_bp                            # 負責氣象資訊
+from weather_news import weather_news_bp                  # 負責氣象新聞
+from cts import cts_bp
+from ettoday import ettoday_bp
+from ettoday2 import ettoday2_bp
+from google import google_bp
+from nownews import nownews_bp
+from nownews2 import nownews2_bp
+from setn import setn_bp
+from tvbs import tvbs_bp
+from worldnews import worldnews_bp
+from udn import udn_bp
+from yahoo import yahoo_bp
+from database import mail
+from scrape_news import scrape_news_bp                    # 定義定時任務
 
 # ========================================================
 # 初始化應用及配置
@@ -51,6 +69,7 @@ import os  # 程式庫模組，負責操作系統功能（例如文件路徑）
 # Load environment variables from .env file
 load_dotenv()  # 調用程式庫模組，用於將 .env 文件中的變數載入到系統環境
 
+
 # 配置多資料庫綁定
 # Configure multi-database bindings
 if os.environ.get("FLASK_ENV") == "development":  # 判斷環境是否是開發模式
@@ -67,6 +86,8 @@ app.config['SQLALCHEMY_BINDS'] = {  # 程式庫設定，其他綁定資料庫的
     'game': 'mysql+pymysql://root:Psy481705=..@localhost/game_database_name',  # 專案資料庫，遊戲分數相關資料
     'news': 'mysql+pymysql://root:Psy481705=..@localhost/news_database_name'   # 專案資料庫，新聞爬蟲相關資料
 }
+app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'  # 替換成安全的 JWT 密鑰
+
 
 # 調整資料庫文件的讀寫權限
 # Adjust read/write permissions for database files
@@ -84,29 +105,66 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # 程式庫設定，禁用
 # Configure application secret key for encryption and security
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "default_secret_key")  # 程式庫設定，應用的密鑰配置
 
+
 # ========================================================
-# 初始化擴展及功能
+# E-mail功能擴建
+# 
+# ========================================================
+
+# 配置 Flask-Mail 的參數-注意!!!正式上線的服務不能直接使用.evn的數據，會影響保密程度
+app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')          # SMTP 伺服器
+app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT', 587))    # SMTP 埠，默認 587
+app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS', 'true').lower() == 'true'  # 是否啟用 TLS
+app.config['MAIL_USE_SSL'] = os.getenv('MAIL_USE_SSL', 'false').lower() == 'true' # 是否啟用 SSL
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')      # 發送郵件的帳號
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')      # 發送郵件的密碼
+app.config['MAIL_DEFAULT_SENDER'] = os.getenv('oaplookout@gmail.com')  # 預設的寄件人
+
+
+# 統一初始化
+# Unified initialization of extensions
+print("==========統一初始化===============")
+init_extensions(app)  # 專案模組，統一初始化資料庫、登入管理等功能
+mail.init_app(app)
+print("Flask-Mail 是否正確初始化:", mail)
+
+
+# ========================================================
+# 初始化擴展及功能app.register_blueprint
 # Extension initialization and functionality
 # ========================================================
-
-# 統一初始化擴展
-# Unified initialization of extensions
-init_extensions(app)  # 專案模組，統一初始化資料庫、登入管理等功能
-
-# 啟動定時任務
-# Start scheduled tasks
-run_scheduler()  # 專案模組，負責啟動定時爬取新聞的功能
-
-# 註冊 Blueprint，分別加載各功能模組
-# Register Blueprints to load functionality modules
-for blueprint in all_auth_blueprints + all_new_blueprints + all_game_blueprints + all_remaining_code_blueprints:
-    app.register_blueprint(blueprint)  # 專案模組，註冊各功能模組的路由
+print("=======初始化擴展及功能 app.register_blueprint============")
+app.register_blueprint(auth_bp, url_prefix="/auth")
+app.register_blueprint(external_search_bp, url_prefix="/external_search")
+app.register_blueprint(news_fetch_bp, url_prefix="/news_fetch")
+app.register_blueprint(search_engine_bp, url_prefix="/search_engine")
+app.register_blueprint(user_scrape_bp, url_prefix="/user_scrape")
+app.register_blueprint(weather_bp, url_prefix="/weather")  # 負責氣象資訊
+app.register_blueprint(weather_news_bp, url_prefix="/weather_news")  # 負責氣象新聞
+app.register_blueprint(cts_bp, url_prefix="/cts")
+app.register_blueprint(ettoday_bp, url_prefix="/ettoday")
+app.register_blueprint(ettoday2_bp, url_prefix="/ettoday2")
+app.register_blueprint(google_bp, url_prefix="/google")
+app.register_blueprint(nownews_bp, url_prefix="/nownews")
+app.register_blueprint(nownews2_bp, url_prefix="/nownews2")
+app.register_blueprint(setn_bp, url_prefix="/setn")
+app.register_blueprint(tvbs_bp, url_prefix="/tvbs")
+app.register_blueprint(worldnews_bp, url_prefix="/worldnews")
+app.register_blueprint(udn_bp, url_prefix="/udn")
+app.register_blueprint(yahoo_bp, url_prefix="/yahoo")
+app.register_blueprint(scrape_news_bp, url_prefix="/scrape_news") # 啟動定時任務
 
 # 登入管理的加載回調函數，根據用戶 ID 查找用戶
 # Login manager's user loader callback function to find a user by ID
+# @login_manager.user_loader
+# def load_user(user_id):  # 專案邏輯，設定用戶的登錄驗證
+#     return User.query.get(int(user_id))  # 專案模組，查詢用戶資料
 @login_manager.user_loader
-def load_user(user_id):  # 專案邏輯，設定用戶的登錄驗證
-    return User.query.get(int(user_id))  # 專案模組，查詢用戶資料
+def load_user(user_id):
+    return AuthUser.query.get(int(user_id))  # 確保使用 AuthUser
+
+
+
 
 # ========================================================
 # 創建資料表
@@ -136,40 +194,73 @@ with app.app_context():
 # 定義路由，渲染首頁模板
 @app.route('/')
 def home():  # 程式庫邏輯，定義首頁路由
+    print("首頁加載中")
     return render_template('index.html')  # 專案邏輯，渲染首頁 HTML 文件
 
 # 其他靜態頁面路由
 @app.route('/index-1.html')
 def index1():  # 程式庫邏輯，定義休息園地路由
+    print("休息園地加載中")
     return render_template('index-1.html')  # 專案邏輯，渲染休息園地 HTML 文件
 
 @app.route('/index-1-1.html')
 def index11():  # 程式庫邏輯，定義原始網站路由
+    print("原始網站加載中")
     return render_template('index-1-1.html')  # 專案邏輯，渲染原始網站 HTML 文件
 
 @app.route('/index-2.html')
 def index2():  # 程式庫邏輯，定義焦點新聞路由
+    print("焦點新聞加載中")
     return render_template('index-2.html')  # 專案邏輯，渲染焦點新聞 HTML 文件
 
 @app.route('/index-3.html')
-def index3():  # 程式庫邏輯，定義運動新聞路由
-    return render_template('index-3.html')  # 專案邏輯，渲染運動新聞 HTML 文件
+def index3():  # 程式庫邏輯，定義氣象新聞路由
+    print("氣象新聞加載中")
+    response = requests.get("http://127.0.0.1:10000/weather_news/news_items")
+    
+    if response.status_code == 200:
+        news_items = response.json()  # 將 JSON 資料轉為字典列表
+    else:
+        news_items = []  # 如果請求失敗，設置為空
+
+    return render_template('index-3.html', news_items=news_items)  # 專案邏輯，渲染氣象特報 HTML 文件
 
 @app.route('/index-4.html')
 def index4():  # 程式庫邏輯，定義娛樂新聞 HTML 文件
+    print("創建資料表加載中")
     return render_template('index-4.html')  # 專案邏輯，渲染娛樂新聞 HTML 文件
+
 @app.route('/index-5.html')
-def index5():
-    return render_template('index-5.html')  # 專案邏輯，渲染氣象特報 HTML 文件
+def index5():# 程式庫邏輯，定義運動新聞 HTML 文件
+    print("創建資料表加載中")
+    return render_template('index-5.html')  # 專案邏輯，渲染運動新聞 HTML 文件
+
+from flask_mail import Message
+
+
+@app.route('/test-email', methods=['GET', 'POST'])
+def test_email():
+    try:
+        msg = Message(
+            subject="聯成學員-妙齊測試郵件",
+            sender=os.getenv('MAIL_DEFAULT_SENDER'),  # 明確指定寄件人
+            recipients=["aaappphh174805@gmail.com"],  # 替換為測試用的收件人
+            body="老師您好，這是一封測試郵件，用於確認 Flask-Mail 功能是否正常運作。"
+        )
+        mail.send(msg)
+        return jsonify({"message": "郵件已成功發送！"}), 200
+    except Exception as e:
+        return jsonify({"error": f"郵件發送失敗: {str(e)}"}), 500
 
 
 
 
 if __name__ == '__main__':
+    
     # 從環境變數讀取 PORT，預設值為 10000
     port = int(os.environ.get('PORT', 10000))
     # 設定 host 為 0.0.0.0，讓外部可訪問
-    app.run(debug=False,host='127.0.0.1', port=port)#debug=True, 
+    app.run(debug=True,host='127.0.0.1', port=port)#debug=False, 
 
 
 """

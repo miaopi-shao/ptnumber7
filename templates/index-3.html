@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <title>娛樂新聞</title>
+    <title>氣象特報</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name = "format-detection" content = "telephone=no" />
@@ -75,6 +75,12 @@
             <img src="{{ url_for('static', filename='images/preloader.gif') }}" border="0" height="42" width="820" alt="Upgrade your browser" />
         </a>
     </div>
+    <style>
+    .shadow-block h2 {
+        font-size: 24px !important; /* 確保強制應用 */
+    }
+</style>
+    
 </head>
 <body>
     <!-- ============================== Header 區塊 ============================== -->
@@ -89,7 +95,7 @@
                         <div class="left-area">
                             <div class="h1-1">
                             <h1>
-                                <a href="index.html">全球新聞搜尋網-氣象特報</a>
+                                <a href="index.html">新聞搜尋網-氣象特報</a>
                                 <div class="subtitle">- 第七組專題</div>
                             </h1>
                             </div>
@@ -230,51 +236,77 @@
                     </div>
                     <div class="shadow-block-wrapper p2">
                         <div class="shadow-block">
-                            <h2>氣象新聞</h2>
-                            <div class="box-1 clearfix">
-                                <img src="images/page-4_img-2.jpg" alt="" class="img-ind">
-                                <div>
-                                    <h3>第一則新聞</h3>
-                                    <div class="short_info">
-                                        <span>文章作者</span>
-                                        <span>文章日期</span>
-                                    </div>       
-                                    <div>新聞內容<a href="新聞網址" class="btn">前往</a></div>
-                                </div>
-                            </div>
-                            <div class="box-1 clearfix">
-                                <img src="images/page-4_img-3.jpg" alt="" class="img-ind">
-                                <div>
-                                    <h3>第一則新聞</h3>
-                                    <div class="short_info">
-                                        <span>文章作者</span>
-                                        <span>文章日期</span>
-                                    </div>  
-                                    <div>新聞內容<a href="新聞網址" class="btn">前往</a></div>
-                                </div>
-                            </div>
-                            <div class="box-1 clearfix">
-                                <img src="images/page-4_img-4.jpg" alt="" class="img-ind">
-                                <div>
-                                    <h3>第一則新聞</h3>
-                                    <div class="short_info">
-                                        <span>文章作者</span>
-                                        <span>文章日期</span>
-                                    </div>  
-                                    <div>新聞內容<a href="新聞網址" class="btn">前往</a></div>
-                                </div>
-                            </div>
+                            <iframe src="/weather_news/news_block" style="width: 100%; border: none;" height="500"></iframe>
                         </div>
                     </div>
                 </div>
                 <div class="grid_4">
                     <div class="shadow-block-wrapper">
                         <div class="shadow-block p3">
-                            <h2>最新貼文</h2>
-                            <img src="images/page-4_img-5.jpg" alt="" class="wrapper">
-                            <h3>貼文標題</h3>
-                            <p>文章內容上半段</p>
-                            <div>文章內容下半段</div>
+                            <h2 style="font-size: 24px !important;">天氣概況</h2>
+                            <img id="weather-image" src="{{ url_for('static', filename='images/preloader.gif') }}" alt="天氣圖片" class="wrapper">
+                            <div class="fcbaten">溫度轉換:
+                                <a href="#" id="cels" class="cels">C&deg;</a>
+                                <a href="#" id="far" class="far">F&deg;</a>
+                            </div>
+                            <h3 style="font-size: 18px !important;">選擇城市</h3>
+                            <div class="city-container">
+                                <label for="city-select">城市：</label>
+                                <select id="city-select">
+                                    <option value="臺北市">臺北市</option>
+                                    <option value="新北市">新北市</option>
+                                    <option value="桃園市">桃園市</option>
+                                    <option value="臺中市">臺中市</option>
+                                    <option value="臺南市">臺南市</option>
+                                    <option value="高雄市">高雄市</option>
+                                    <option value="基隆市">基隆市</option>
+                                    <option value="新竹市">新竹市</option>
+                                    <option value="新竹縣">新竹縣</option>
+                                    <option value="苗栗縣">苗栗縣</option>
+                                    <option value="彰化縣">彰化縣</option>
+                                    <option value="南投縣">南投縣</option>
+                                    <option value="雲林縣">雲林縣</option>
+                                    <option value="嘉義市">嘉義市</option>
+                                    <option value="嘉義縣">嘉義縣</option>
+                                    <option value="屏東縣">屏東縣</option>
+                                    <option value="宜蘭縣">宜蘭縣</option>
+                                    <option value="花蓮縣">花蓮縣</option>
+                                    <option value="臺東縣">臺東縣</option>
+                                    <option value="澎湖縣">澎湖縣</option>
+                                    <option value="金門縣">金門縣</option>
+                                    <option value="連江縣">連江縣</option>
+                                </select>
+                            </div>
+                            <p style="font-size: 18px !important;">天氣狀況：</p>
+                            <div id="weather-display" style="font-size: 16px !important;">載入中...</div>
+                            <!-- 顯示天氣詳細資訊的表格 -->
+                            <table class="table-1">
+                                <tr class="bg-1-2">
+                                    <td class="bg-1-2-1">體感溫度:</td>
+                                    <td id="feels-like" class="bg-1-2-2"  style="font-size: 16px !important;">--°</td>
+                                </tr>
+                                <tr class="bg-1-1">
+                                    <td class="bg-1-1-1">降雨機率:</td>
+                                    <td id="humidity" class="bg-1-1-2"  style="font-size: 16px !important;">--</td>
+                                </tr>
+                                <tr class="bg-1-2">
+                                    <td class="bg-1-2-1">最高溫|最低溫:</td>
+                                    <td id="wind" class="bg-1-2-2"  style="font-size: 16px !important;">--</td>
+                                </tr>
+                                <tr class="bg-1-1">
+                                    <td class="bg-1-1-1">日出時間:</td>
+                                    <td id="sunrise" class="bg-1-1-2"  style="font-size: 16px !important;">--:-- AM</td>
+                                </tr>
+                                <tr class="bg-1-2">
+                                    <td class="bg-1-2-1">日落時間:</td>
+                                    <td id="sunset" class="bg-1-2-2"  style="font-size: 16px !important;">--:-- PM</td>
+                                </tr>
+                                <tr class="bg-1-1">
+                                    <td class="bg-1-1-1">氣壓:</td>
+                                    <td id="barometer" class="bg-1-1-2"  style="font-size: 16px !important;">--" Hg</td>
+                                </tr>
+                            </table>
+                            <a href="https://www.cwa.gov.tw/V8/C/index.html" class="btn-1"><span>中央氣象局</span></a>
                         </div>
                     </div>
                     <h2 class="p4">中央氣象局資訊</h2>
@@ -283,11 +315,9 @@
                             <h3><a href="#">最新消息</a></h3>
                             <div>
                                 <ul>
-                                    <li><a href="#">In faucibus orci luctus et</a></li>
-                                    <li><a href="#">Ultrices posuere cubilia Curae</a></li>
-                                    <li><a href="#">Suspendisse sollicitudin velit sed leo</a></li>
-                                    <li><a href="#">Ut pharetra augue nec</a></li>
-                                    <li><a href="#">Nam elit agna,endrerit sit amet</a></li>
+                                    {% for news in news_items %}
+                                        <li><a href="{{ news.link }}" target="_blank">{{ news.title }}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>
@@ -381,7 +411,7 @@
                     </ul>
                 </div>
                 <div class="grid_2 w1">
-                    <h6><b>XXX</b></h6>
+                    <h6><b>李凱莉</b></h6>
                     <ul class="list-2">
                         <li><i>網頁爬蟲</i></li>
                         <li><i>定時展示</i></li>

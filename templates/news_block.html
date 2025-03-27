@@ -1,0 +1,18 @@
+<h2>氣象新聞</h2>
+{% if news_items %}
+    {% for news in news_items %}
+        <div class="box-1 clearfix">
+            <img src="{{ news.img_url }}" alt="News Image" class="img-ind" style="width: 200px; height: auto;">
+            <div>
+                <h3>{{ news.title }}</h3>
+                <div class="short_info">
+                    <span><a href="www.nownews.com">來源:www.nownews.com</a></span>
+                    <span>{{ news.description }}</span>
+                </div>
+                <div>新聞內容<a href="{{ news.link }}" class="btn" target="_blank">前往</a></div>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>目前沒有最新的氣象新聞。</p>
+{% endif %}

@@ -149,8 +149,8 @@
                                         <!-- 登入後的顯示方式 -->
                                         <div id="account-info">
                                             <strong>{{ current_user.username }}</strong>
-                                            <button type="button" id="delete-account-btn">刪除帳戶</button>
-                                            <button type="button" id="logout-btn" onclick="location.href='{{ url_for('logout') }}'">登出</button>
+                                        <button type="button" id="delete-account-btn">刪除帳戶</button>
+                                        <button type="button" id="logout-btn" onclick="location.href='{{ url_for('logout') }}'">登出</button>
                                         </div>
                                     {% else %}
                                         <!-- 登入前的顯示方式：登入表單 -->
@@ -235,8 +235,7 @@
                             <label for="s">站內搜尋</label>
                             <select name="category" id="category">
                               <option value="all">綜合查詢</option>
-                              <option value="images">圖片</option>
-                              <option value="websites">網站</option>
+                              <option value="images">單純圖片</option>
                             </select>
                             <input id="s" type="text" name="s" value="">
                             <a onClick="document.getElementById('search1').submit()" class="button1"></a>
@@ -588,7 +587,7 @@
                     </ul>
                 </div>
                 <div class="grid_2 w1">
-                    <h6><b>XXX</b></h6>
+                    <h6><b>李凱莉</b></h6>
                     <ul class="list-2">
                         <li><i>網頁爬蟲</i></li>
                         <li><i>定時展示</i></li>

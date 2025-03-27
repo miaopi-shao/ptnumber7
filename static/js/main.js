@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateWeather() {
         let selectedCity = document.getElementById("city-select").value;
     
-        fetch(`/api/weather?city=${selectedCity}`)
+        fetch(`/weather/api/weather?city=${selectedCity}`)
             .then(response => response.json())
             .then(data => {
                 if (data.error) {

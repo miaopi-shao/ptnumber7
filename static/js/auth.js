@@ -3,25 +3,109 @@
 
 // 定義 apiRequest的運行邏輯
 async function apiRequest(endpoint, method, body) {
+    const token = localStorage.getItem("token"); // 確保正確取得 token
     const options = {
         method: method,
         headers: { 'Content-Type': 'application/json' },
         body: body ? JSON.stringify(body) : null,
     };
+    if (token) {
+        options.headers["Authorization"] = `Bearer ${token}`; // 加入 Authorization 標頭
+    }
     try {
         const response = await fetch(endpoint, options);
+        
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            const errorData = await response.json();
+            throw new Error(errorData.error || `HTTP 錯誤！狀態碼: ${response.status}`);
         }
+    
         return await response.json();
     } catch (error) {
-        console.error('Error during API request:', error);
-        throw error;
-    }
-}
+        if (error.message.includes("Failed to fetch")) {
+            console.error("API 錯誤：伺服器無法連接。");
+            throw new Error("無法連接伺服器，請檢查網路連線。");
+        } else {
+            console.error("API 請求錯誤:", error.message);
+            throw error; // 傳遞原始錯誤
+        }
+    }};
+
 
 
 document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執行函式（IIFE），避免全域變數污染
+    
+    // 檢查是否正常登入
+    // 檢查是否正常登入並獲取用戶資訊
+    async function fetchUserProfile() {
+        console.log("初始化用戶資訊加載...");
+    
+        try {
+            // 驗證並獲取用戶資訊
+            let data = await apiRequest("/auth/profile", "GET");
+    
+            console.log("個人資訊回應:", data); // 確認回應方便調試
+    
+            // 確保 DOM 中的 `account-info` 區域存在
+            let userInfoElement = document.getElementById("account-info");
+            if (!userInfoElement) {
+                console.warn("'account-info' 不存在，動態創建！");
+                userInfoElement = document.createElement("div");
+                userInfoElement.id = "account-info";
+                document.body.appendChild(userInfoElement); // 動態添加到頁面
+            }
+    
+            // 更新用戶資訊到 `account-info` 區域
+            userInfoElement.innerHTML = `
+                <p>歡迎，${data.username}</p>
+                <p>Email: ${data.email}</p>
+                <p>角色: ${data.role}</p>
+            `;
+        } catch (error) {
+            console.error("獲取用戶資訊失敗:", error.message);
+            // 顯示友好的提示
+            alert("無法獲取用戶資訊，請稍後再試！");
+        }
+    }
+    
+    // API 請求封裝函數
+    async function apiRequest(endpoint, method, options = {}) {
+        const token = localStorage.getItem("token"); // 確保正確取得 token
+        const headers = {
+            'Content-Type': 'application/json',
+            ...options.headers, // 合併自定義 headers
+        };
+        if (token) {
+            headers["Authorization"] = `Bearer ${token}`; // 添加 Authorization 標頭
+        }
+    
+        console.log("發送請求到:", endpoint);
+        console.log("附帶標頭:", headers);
+    
+        try {
+            const response = await fetch(endpoint, {
+                method: method,
+                headers: headers,
+                body: options.body ? JSON.stringify(options.body) : null,
+            });
+    
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || `HTTP 錯誤！狀態碼: ${response.status}`);
+            }
+    
+            return await response.json();
+        } catch (error) {
+            console.error("API 請求錯誤:", error.message);
+            throw error; // 傳遞原始錯誤
+        }
+    }
+    
+    // 當頁面加載完成後初始化用戶資訊
+    document.addEventListener("DOMContentLoaded", () => {
+        fetchUserProfile();
+    });
+    
     // 取得 DOM 元素
     const modalOverlay = document.getElementById("modal-overlay");  // 2. 取得 modal 背景
     const registerModal = document.getElementById("register-modal");  // 3. 取得註冊視窗
@@ -33,7 +117,87 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
     const confirmDeletebtn = document.getElementById("delete-account-btn");  // 7. 取得刪除帳密表單
         
         
-          
+        
+        
+        
+        
+    // ===== 登入帳號 =====
+    loginForm.addEventListener("submit", async (event) => {
+        event.preventDefault(); // 防止表單提交後頁面重新整理
+    
+        let username = document.getElementById("username").value.trim();
+        let phrase = document.getElementById("password").value.trim();
+        const usernameError = document.getElementById("username-error");
+        const passwordError = document.getElementById("password-error");
+    
+        // 清除錯誤訊息
+        usernameError.innerText = "";
+        passwordError.innerText = "";
+    
+        // 檢查是否有輸入帳號和密碼
+        if (!username || !phrase) {
+            if (!username) usernameError.innerText = "請輸入使用者名稱！";
+            if (!phrase) passwordError.innerText = "請輸入密碼！";
+            return;
+        }
+    
+        try {
+            // 發送登入請求
+            let data = await apiRequest("/auth/login", "POST", {
+                body: { username, phrase } // 正確封裝 Body
+            });
+            console.log("後端回應資訊:", data); // 打印 data 檢查內容是否包含 token
+    
+            if (data?.token) {
+                // 存儲 Token
+                localStorage.setItem("token", data.token);
+                console.log("存入的 Token:", localStorage.getItem("token"));
+    
+                if (data?.username) {
+                    let accountInfoElement = document.getElementById("account-info");
+    
+                    if (!accountInfoElement) {
+                        console.warn("'account-info' 不存在，動態創建！");
+                        accountInfoElement = document.createElement("div");
+                        accountInfoElement.id = "account-info";
+                        document.body.appendChild(accountInfoElement); // 動態添加到頁面
+                    }
+    
+                    accountInfoElement.innerText = `歡迎，${data.username}`;
+                }
+                // 顯示提示框後刷新頁面
+                alert("登入成功！即將重新加載頁面。");
+                setTimeout(() => {
+                    console.log("正在重新加載頁面...");
+                    window.location.reload(); // 刷新頁面來渲染後端模板
+                }, 2000);
+            } else if (data?.error) {
+                // 處理錯誤訊息
+                if (data.error.username) {
+                    usernameError.innerText = data.error.username;
+                }
+                if (data.error.password) {
+                    passwordError.innerText = data.error.password;
+                }
+                if (typeof data.error === "string") {
+                    alert(data.error);
+                }
+            }
+        } catch (error) {
+            console.error("登入請求失敗:", error.message);
+            alert("伺服器出現問題，請稍後再試！");
+        }
+    });
+
+     
+    
+
+    
+        
+           
+              
+    
+    
     // =====  註冊帳號區域 =====
     (() => {
         // 取得 DOM 元素
@@ -73,7 +237,14 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
 
     
             errorMsg.innerText = "";  // 清空錯誤訊息
-    
+            
+            // ===== 驗證輸入值是否完整 =====
+            if (!username || !phrase || !email) {  // 核心邏輯在這裡
+                errorMsg.innerText = "請填寫完整資訊！";
+                errorMsg.style.color = "red";
+                return;  // 停止後續處理
+            }
+            
             // 發送註冊請求
              try {
                 // 發送 API 請求
@@ -87,8 +258,11 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
                     setTimeout(() => window.location.href = "/", 2000);
                 }
             } catch (error) {
-                console.error("API 錯誤:", error.message);
-                errorMsg.innerText = error.message || "發生錯誤，請稍後再試。";
+                if (error.message.includes("Failed to fetch")) {
+                    errorMsg.innerText = "無法連接伺服器，請檢查網絡連線。";
+                } else {
+                    errorMsg.innerText = error.message || "發生未知錯誤，請稍後再試。";
+                }
                 errorMsg.style.color = "red";
             }
         });
@@ -101,82 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
         });
     
     })();
-    
-        
-        
-        
-    // =====  登入帳號 =====
-    // 42. 登入表單提交事件
-    loginForm.addEventListener("submit", async (event) => {
-        event.preventDefault();  // 43. 防止表單提交後頁面重新整理
-        
-        event.preventDefault();
-        
-        // 44. 取得使用者輸入的登入資料
-        let username = document.getElementById("username").value;  // 45. 取得使用者名稱
-        let phrase = document.getElementById("password").value;  // 46. 取得密碼
-        let errorMsg = document.getElementById("login-error-msg");
-        
-        errorMsg.innerText = "";
 
-        // 47. 發送登入請求到後端 /auth/login，這會觸發 auth.py 進行登入驗證
-        let data = await apiRequest("/auth/login", "POST", { username, phrase });
-
-        if (data?.token) {  // 48. 如果後端回傳 Token，表示登入成功
-            localStorage.setItem("token", data.token);  // 49. 儲存 Token 至 localStorage
-            if (data?.token) {  
-                localStorage.setItem("token", data.token);
-                document.getElementById("user-info").innerText = `歡迎，${data.username}`;// 50. 顯示登入成功訊息
-                setTimeout(() => {
-                    window.location.href = "/dashboard";  // 51. 轉跳到登入後的頁面（後端會使用 app.py 路由） 
-                }, 500);  // 0.5 秒後轉跳
-            }
-            
-        } else if (data?.error) {  // 登入失敗，依據錯誤訊息分別顯示
-        
-            // 假設後端回傳的 error 為物件 {username: "查無此帳號", password: "密碼錯誤"}
-            if (data.error.username) {
-                document.getElementById("username-error").innerText = data.error.username;
-            }
-            if (data.error.password) {
-                document.getElementById("password-error").innerText = data.error.password;
-            }
-            // 若回傳 error 是一般字串，可使用 alert 作為備援
-            if (typeof data.error === "string") {
-                alert(data.error);
-            }
-        // =====  即時清除錯誤訊息 =====
-        ["register-username", "register-password", "register-email"].forEach((id) => {
-            document.getElementById(id).addEventListener("input", () => {
-                errorMsg.innerText = "";
-            });
-        });
-    }});
-     
-    
-    // ===== 顯示登入者資訊 =====
-    async function fetchUserProfile() {
-        let token = localStorage.getItem("token");
-        if (!token) return;
-    
-        let data = await apiRequest("/auth/profile", "GET", null);
-        if (data?.username) {
-            document.getElementById("user-info").innerHTML = `
-                <p>歡迎，${data.username}</p>
-                <p>Email: ${data.email}</p>
-                <p>角色: ${data.role}</p>
-            `;
-        }
-    }
-    
-    // 登入成功後執行
-    if (localStorage.getItem("token")) {
-        fetchUserProfile();
-    }
-    
-        
-           
-        
     // ===== 忘記密碼功能 =====
     forgotPasswordBtn.addEventListener("click", () => {
         // 建立彈出式小視窗內容
@@ -281,30 +380,5 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
             }
         });
     }
+});  
     
-    
-    // =====  API 請求封裝（避免重複 fetch） =====
-    // 8. 定義一個 API 請求的函式
-    //async function apiRequest(url, method, bodyData) {
-    //    try {
-      //      const response = await fetch(url, {  // 9. 發送 API 請求
-        //        method: method,  // 10. 設定請求方法（GET, POST, 等）
-          //      headers: { "Content-Type": "application/json" },  // 11. 設定標頭，告訴伺服器資料格式為 JSON
-            //    body: JSON.stringify(bodyData),  // 12. 將資料轉換為 JSON 格式並放入請求的 body
-            //});
-            
-            
-           // const data = await response.json(); // 解析回應 JSON
-
-            
-            //if (!response.ok) {  // 13. 檢查回應是否成功
-              //  throw new Error(`HTTP 錯誤！狀態碼: ${response.status}`);  // 14. 如果錯誤，拋出異常
-    //        }
-      //      return data;// 15. 根據回傳質報錯
-        //} catch (error) {  // 16. 捕捉異常並處理
-       //     console.error("請求失敗:", error);  // 17. 在控制台輸出錯誤訊息
-        //    alert("伺服器錯誤，請稍後再試！");  // 18. 彈出錯誤提示
-        //}
-  //  }    
-
-});

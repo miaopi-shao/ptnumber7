@@ -1,0 +1,393 @@
+2025-03-26 20:48:58.309391 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:48:58.397431 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:48:58.517791 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:48:58.562793 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:48:58.563803 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:48:58.672826 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:00.429031 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:00.548031 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:02.237550 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.380548 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.626549 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.641551 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.643550 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.824549 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.839553 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.902551 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.904551 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.904551 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.906548 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.906548 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.907548 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.907548 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.908549 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.919549 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.920548 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.920548 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.920548 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.923549 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.934552 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:03.935551 - CTS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:05.315683 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:05.391681 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:05.525680 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:05.526680 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:05.550682 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:05.566680 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:05.567680 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:05.567680 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:05.568680 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:05.583679 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:05.584679 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:06.177682 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:06.177682 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:06.179682 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:06.251685 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:06.254683 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:06.255679 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:06.261681 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:06.270683 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:06.278680 - ETtoday 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:29.251988 - Setn 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:34.453518 - TVBS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:49:35.166523 - UDN 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:21.051565 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51322): Read timed out. (read timeout=120)
+2025-03-26 20:51:21.052559 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51356): Read timed out. (read timeout=120)
+2025-03-26 20:51:21.061564 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51316): Read timed out. (read timeout=120)
+2025-03-26 20:51:21.062563 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51251): Read timed out. (read timeout=120)
+2025-03-26 20:51:21.101561 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51334): Read timed out. (read timeout=120)
+2025-03-26 20:51:21.197564 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51325): Read timed out. (read timeout=120)
+2025-03-26 20:51:21.231560 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51337): Read timed out. (read timeout=120)
+2025-03-26 20:51:21.269559 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51365): Read timed out. (read timeout=120)
+2025-03-26 20:51:21.339564 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51243): Read timed out. (read timeout=120)
+2025-03-26 20:51:21.381560 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51335): Read timed out. (read timeout=120)
+2025-03-26 20:51:22.183563 - Setn 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:22.416562 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51372): Read timed out. (read timeout=120)
+2025-03-26 20:51:22.714559 - Setn 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:22.776564 - Setn 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:22.779563 - TVBS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:22.849561 - Setn 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:23.456560 - Setn 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:23.765563 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51364): Read timed out. (read timeout=120)
+2025-03-26 20:51:23.845562 - TVBS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:23.876560 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51360): Read timed out. (read timeout=120)
+2025-03-26 20:51:23.880559 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51369): Read timed out. (read timeout=120)
+2025-03-26 20:51:24.156560 - UDN 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:24.159562 - TVBS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:24.173562 - TVBS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:24.176559 - UDN 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:24.182563 - UDN 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:24.189560 - Setn 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:24.193560 - Setn 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:24.819562 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51363): Read timed out. (read timeout=120)
+2025-03-26 20:51:43.579204 - TVBS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:43.656199 - Setn 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:43.682202 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51336): Read timed out. (read timeout=120)
+2025-03-26 20:51:43.692200 - Setn 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:43.696203 - UDN 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:43.701201 - TVBS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:43.784200 - TVBS 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:43.802199 - Setn 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:44.037200 - Setn 資訊爬取失敗：Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+2025-03-26 20:51:45.977202 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51357): Read timed out. (read timeout=120)
+2025-03-26 20:51:46.466200 - Nownews 資訊爬取失敗：HTTPConnectionPool(host='localhost', port=51318): Read timed out. (read timeout=120)

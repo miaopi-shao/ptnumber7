@@ -44,7 +44,7 @@ class AuthUser(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
     role = db.Column(db.String(20), default="user")
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -54,7 +54,14 @@ class AuthUser(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
-
+    # Flask-Login 要求的屬性與方法
+    @property
+    def is_active(self):
+        # 判斷用戶是否活躍，通常返回 True 表示用戶有效
+        return True
+    def get_id(self):
+        # 返回用戶的唯一標識符
+        return str(self.user_id)
 
 # ------------------- 分數資料庫模型 -------------------
 class Score(db.Model):
