@@ -48,7 +48,8 @@ from worldnews import worldnews_bp
 from udn import udn_bp
 from yahoo import yahoo_bp
 from database import mail
-from scrape_news import scrape_news_bp                    # 定義定時任務
+from scrape_news import scrape_news_bp    
+from datetime import timedelta
 
 # ========================================================
 # 初始化應用及配置
@@ -89,6 +90,7 @@ app.config['SQLALCHEMY_BINDS'] = {  # 程式庫設定，其他綁定資料庫的
 
 # 配置 Session
 app.config["SESSION_PERMANENT"] = True  # 設置 Session 為永久
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=7)  # Session 有效期為 7 天
 app.config["SESSION_TYPE"] = "filesystem"  # 使用文件系統來存儲 Session
 
 app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'  # 替換成安全的 JWT 密鑰
