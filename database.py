@@ -33,6 +33,7 @@ login_manager = LoginManager()  # 登入管理器
 mail = Mail()  # 郵件管理器
 jwt = JWTManager()
 
+
 def init_extensions(app):
     if not hasattr(app, 'extensions_initialized'):  # 自定義屬性，標記擴展是否已初始化
        

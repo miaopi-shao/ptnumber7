@@ -86,6 +86,11 @@ app.config['SQLALCHEMY_BINDS'] = {  # 程式庫設定，其他綁定資料庫的
     'game': 'mysql+pymysql://root:Psy481705=..@localhost/game_database_name',  # 專案資料庫，遊戲分數相關資料
     'news': 'mysql+pymysql://root:Psy481705=..@localhost/news_database_name'   # 專案資料庫，新聞爬蟲相關資料
 }
+
+# 配置 Session
+app.config["SESSION_PERMANENT"] = True  # 設置 Session 為永久
+app.config["SESSION_TYPE"] = "filesystem"  # 使用文件系統來存儲 Session
+
 app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'  # 替換成安全的 JWT 密鑰
 
 
