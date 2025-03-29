@@ -19,14 +19,6 @@ import random                            # 用於啟用隨機模式
 
 taiwan_news_bp = Blueprint(' taiwan_news ', __name__)
 
-PRESET_IMAGES = [
-    {"thumb": "static/images/headline/thumb-slide-1.jpg", "large": "static/images/headline/slide-1.jpg"},
-    {"thumb": "static/images/headline/thumb-slide-2.jpg", "large": "static/images/headline/slide-2.jpg"},
-    {"thumb": "static/images/headline/thumb-slide-3.jpg", "large": "static/images/headline/slide-3.jpg"},
-    {"thumb": "static/images/headline/thumb-slide-4.jpg", "large": "static/images/headline/slide-4.jpg"},
-    {"thumb": "static/images/headline/thumb-slide-5.jpg", "large": "static/images/headline/slide-5.jpg"}
-]
-
 
 def fetch_setn_news():
     """
@@ -81,9 +73,7 @@ def fetch_setn_news():
             link = "https://www.setn.com" + link
 
         # 設置預設圖片
-        selected_image = random.choice(PRESET_IMAGES)
-        photo = selected_image["large"]  # 使用大圖 URL
-        thumb = selected_image["thumb"]  # 使用縮圖 URL
+        photo = "https://cdn.pixabay.com/photo/2025/02/25/10/07/pelican-9430027_1280.jpg"
 
         # 隨機內文或摘要
         ran_texts = ["前往觀看", "深入瞭解", "來去看看"]
@@ -96,10 +86,7 @@ def fetch_setn_news():
             "content": content,
             "source": source,
             "category": category,
-            "image_urls": {  # 包含大小圖
-                "large": photo,  # 大圖
-                "thumb": thumb   # 縮圖
-            },
+            "image_url": photo,
             "url": link,
             "published_at": published_at
         })
@@ -150,9 +137,8 @@ def fetch_tvbs_news():
         if not link_tag:
             continue
         link = "https://news.tvbs.com.tw" + link_tag.get('href')
-        photo = row.find('img').get('data-original') if row.find('img') else random.choice(PRESET_IMAGES)["large"]
-        thumb = photo  # 如果大圖與縮圖相同
-        
+        photo = row.find('img').get('data-original') if row.find('img') else "https://pixabay.com/zh/photos/lawn-grass-field-trees-quiet-7728984/"
+
         # 取得新聞標題與摘要
         title = row.find('h2').text.strip() if row.find('h2') else "無標題"
         content_tag = row.find('p')
@@ -170,10 +156,7 @@ def fetch_tvbs_news():
             "title": title,
             "content": content,
             "source": source,
-            "image_urls": {  # 包含大小圖
-                "large": photo,  # 大圖
-                "thumb": thumb   # 縮圖
-            },
+            "image_url": photo,
             "url": link,
             "published_at": published_at
         })
@@ -210,7 +193,7 @@ if __name__ == '__main__':
         print(f"新聞 {idx}:")
         print(f"標題: {article['title']}")
         print(f"連結: {article['url']}")
-        print(f"圖片: {article.get('image_urls', {'large': '無圖片', 'thumb': '無圖片'})}")
+        print(f"圖片: {article['image_url']}")
         print("==============================")
 
 
