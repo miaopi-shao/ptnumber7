@@ -283,7 +283,7 @@ def index2():  # 程式庫邏輯，定義焦點新聞路由
 def index3():  # 程式庫邏輯，定義氣象新聞路由
     print("氣象新聞加載中")
     if FLASK_ENV == "production":
-        response = requests.get("https://ptnumber7.onrender.com/weather_news/news_items")
+        response = requests.get("https://ptnumber7.onrender.com/weather_news/news_block")
     else:
         response = requests.get("http://127.0.0.1:10000/weather_news/news_items")
     
