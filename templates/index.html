@@ -407,8 +407,8 @@
                                 <img src="{{ international_news[0].image_link or url_for('static', filename='images/international/international1.jpg') }}" style="width: 150px; height: 70px;" alt="國際新聞">
                                 <div>
                                     <h3>{{ international_news[0].title }}</h3>
-                                    <div>
-                                        <a href="{{ international_news[0].link }}" class="btn">
+                                    <div style="font-size: 8px">
+                                        <a href="{{ international_news[0].link }}" class="btn" style="font-size: 24px !important;">
                                         {{ international_news[0].summary }}
                                         </a>
                                         英國廣播公司
@@ -420,8 +420,8 @@
                                 <img src="{{ international_news[1].image_link or url_for('static', filename='images/international/international2.jpg') }}" style="width: 150px; height: 70px;" alt="國際新聞">
                                 <div>
                                     <h3>{{ international_news[1].title }}</h3>
-                                    <div>
-                                        <a href="{{ international_news[1].link }}" class="btn">
+                                    <div style="font-size: 8px" >
+                                        <a href="{{ international_news[1].link }}" class="btn" style="font-size: 24px !important;">
                                         {{ international_news[1].summary }}
                                         </a>
                                         Al Jazeera 半島電視台
@@ -433,8 +433,8 @@
                                 <img src="{{ international_news[2].image_link or url_for('static', filename='images/international/international3.jpg') }}" style="width: 150px; height: 70px;" alt="國際新聞">
                                 <div>
                                     <h3>{{ international_news[2].title }}</h3>
-                                    <div>
-                                        <a href="{{ international_news[2].link }}" class="btn">
+                                    <div style="font-size: 8px">
+                                        <a href="{{ international_news[2].link }}" class="btn" style="font-size: 24px !important;">
                                         {{ international_news[2].summary }}
                                         </a>
                                         英國廣播公司
@@ -446,8 +446,8 @@
                                 <img src="{{ international_news[3].image_link or url_for('static', filename='images/international/international4.jpg') }}" style="width: 150px; height: 70px;" alt="國際新聞">
                                 <div>
                                     <h3>{{ international_news[3].title }}</h3>
-                                    <div>
-                                        <a href="{{ international_news[3].link }}" class="btn">
+                                    <div style="font-size: 8px">
+                                        <a href="{{ international_news[3].link }}" class="btn" style="font-size: 24px !important;">
                                         {{ international_news[3].summary }}
                                         </a>
                                         Al Jazeera 半島電視台
@@ -479,8 +479,8 @@
                                                         <img src="{{ article.image_link or url_for('static', filename='images/default.png') }}" alt="此文無附圖" class="img-ind">
                                                         <div>
                                                             <h3>{{ article.title or '未提供標題' }}</h3>
-                                                            <div>ETtoday新聞</div>
-                                                            <a href="{{ article.link or '#' }}" class="btn-2">
+                                                            <div style="font-size: 8px">ETtoday新聞</div>
+                                                            <a href="{{ article.link or '#' }}" class="btn-2" style="font-size: 24px !important;">
                                                             {{ article.content or '未提供摘要' }}
                                                             </a>
                                                         </div>
@@ -503,8 +503,8 @@
                                                         <img src="{{ article.image_link or url_for('static', filename='images/default.png') }}" alt="" class="img-ind">
                                                         <div>
                                                             <h3>{{ article.title or '未提供標題' }}</h3>
-                                                            <div>今日新聞</div>
-                                                            <a href="{{ article.link or '#' }}" class="btn-2">
+                                                            <div style="font-size: 8px">今日新聞</div>
+                                                            <a href="{{ article.link or '#' }}" class="btn-2" style="font-size: 24px !important;">
                                                             {{ article.description or '未提供摘要' }}
                                                             </a>
                                                         </div>
