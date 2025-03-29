@@ -67,30 +67,34 @@ from database import login_manager, init_extensions, db  # 專案的模組，用
 from dotenv import load_dotenv  # 程式庫的模組，用於加載 .env 環境變數
 import os  # 程式庫模組，負責操作系統功能（例如文件路徑）
 
+# 嘗試加載 .env 文件
+if load_dotenv():
+    print("✅ .env 文件成功加載")
+else:
+    print("⚠️ 無法加載 .env 文件，請檢查路徑或文件格式")
+
+
 # 加載 .env 文件中的變數
 # Load environment variables from .env file
 load_dotenv()  # 調用程式庫模組，用於將 .env 文件中的變數載入到系統環境
 
 # 配置多類型資料庫綁定
 FLASK_ENV = os.environ.get("FLASK_ENV", "development")
+print("*********************************")
+print(f"FLASK_ENV 設定為: {FLASK_ENV}")
+print("*********************************")
 
-if FLASK_ENV == "development":
-    # 检查 SQLite 路徑是否存在
-    sqlite_path = 'D:/PTtest/instance/local_database.db'
-    if os.path.exists(sqlite_path):
-        DATABASE_URI = f"sqlite:///{sqlite_path}"
-        print("使用開發環境的 SQLite 資料庫")
-    else:
-        DATABASE_URI = os.getenv("DB_MAIN_URI")
-        print("開發環境的 SQLite 不存在，切換至本地 MySQL")
-elif FLASK_ENV == "local_mysql":
-    DATABASE_URI = os.getenv("DB_MAIN_URI") 
-    print("使用本地 MySQL 資料庫")
-elif FLASK_ENV == "production":
-    DATABASE_URI =  os.getenv("AWS_MAIN_URI") 
+if FLASK_ENV == "production":
+    DATABASE_URI = os.getenv("AWS_MAIN_URI")
     print("使用雲端 MySQL 資料庫")
+elif FLASK_ENV == "local_mysql":
+    DATABASE_URI = os.getenv("DB_MAIN_URI")
+    print("使用本地 MySQL 資料庫")
+elif FLASK_ENV == "development":
+    DATABASE_URI = os.getenv("DB_MAIN_URI")
+    print("使用本地 MySQL 資料庫")
 else:
-    raise ValueError("所有環境比對失敗!!!未定義的 FLASK_ENV 環境變數，請重新檢查app.py或.env內設定")
+    raise ValueError("未定義的 FLASK_ENV，請檢查環境變數")
     
 # 統一配置 Flask 的 SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
@@ -105,7 +109,7 @@ if FLASK_ENV == "production":
         'news': os.getenv('AWS_NEWS_URI'),
     }
     print("綁定至雲端 MySQL 資料庫")
-elif FLASK_ENV in ["local_mysql", "development"]:
+elif FLASK_ENV == "local_mysql":
     # 本地 MySQL 資料庫
     app.config['SQLALCHEMY_BINDS'] = {
         'user': os.getenv('DB_USER_URI'),
