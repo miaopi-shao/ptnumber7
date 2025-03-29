@@ -27,7 +27,7 @@ def fetch_bbc_news():
             
             # 提取摘要
             summary_tag = article.find("p")
-            summary = summary_tag.text.strip() if summary_tag else "無摘要"
+            summary = summary_tag.text.strip() if summary_tag else "Maybe you should check it out ?"
             
             # 提取圖片連結
             image_tag = article.find("img", class_="sc-a34861b-0 efFcac")
@@ -74,9 +74,12 @@ def fetch_aljazeera_news():
             link_tag = article.find("a")
             link = "https://www.aljazeera.com" + link_tag["href"] if link_tag and link_tag.get("href") else "#"
             
+            summary = "Let's take a look at this report ! "
+            
             results.append({
                 "title": title,
                 "link": link,
+                "summary": summary,
                 "image_link": image_link,
             })
         return results
@@ -108,5 +111,6 @@ if __name__ == '__main__':
         print(f"新聞 {idx}:")
         print(f"標題: {article['title']}")
         print(f"連結: {article['link']}")
+        print(f"摘要: {article['summary']}")
         print(f"圖片: {article['image_link']}")
         print("==============================")
