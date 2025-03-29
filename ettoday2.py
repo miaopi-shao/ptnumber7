@@ -44,9 +44,11 @@ def fetch_ettoday2_news():
 
         # articles = soup.select(".clearfix")  # 使用正確的 CSS 選擇器
         print(f"共找到 {len(articles)} 則新聞文章")
+        
+        random_articles = random.sample(articles, min(len(articles), 5))
 
         news_nownews = []
-        for idx, article in enumerate(articles):
+        for idx, article in enumerate(random_articles):
             print(f"--- 提取第 {idx} 則新聞 ---")
 
             # 提取資訊
@@ -87,11 +89,7 @@ def fetch_ettoday2_news():
 @ettoday2_bp.route("/scrape", methods=["GET"])
 def fetch_news_api():
     """ 提供 API，手動觸發新聞爬取 """
-    ettoday2_items = fetch_ettoday2_news()
-    # 隨機選擇 5 則 ETtoday 新聞
-    if len(ettoday2_items) > 5:
-        ettoday2_items = random.sample(ettoday2_items, 5)
-    news = ettoday2_items
+    news = fetch_ettoday2_news()
     # 直接返回爬取的新聞數據 JSON，供頁面使用
     return jsonify({
         "message": f"成功抓取 {len(news)} 篇新聞",
