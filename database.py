@@ -12,9 +12,12 @@ Created on Mon Mar 24 04:04:13 2025
 # Importing Flask extensions
 from flask_sqlalchemy import SQLAlchemy  # 資料庫操作擴展
 
-from sqlalchemy import inspect  # 資料庫檢查表單
+from sqlalchemy import inspect, create_engine  # 資料庫檢查表單
 
 from flask_jwt_extended import JWTManager
+
+from sqlalchemy import create_engine
+
 
 # Database extension
 from flask_login import LoginManager  # 用戶登入管理擴展
@@ -24,6 +27,14 @@ from flask_mail import Mail  # 郵件處理擴展
 
 import logging
 logging.basicConfig(level=logging.INFO)  # 配置全局日誌級別
+
+def initialize_database(uri, sql_file):
+    engine = create_engine(uri)
+    with engine.connect() as connection:
+        with open(sql_file, "r") as file:
+            setup_script = file.read()
+            connection.execute(setup_script)
+
 
 
 # 初始化 Flask 擴展

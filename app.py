@@ -71,22 +71,35 @@ import os  # 程式庫模組，負責操作系統功能（例如文件路徑）
 # Load environment variables from .env file
 load_dotenv()  # 調用程式庫模組，用於將 .env 文件中的變數載入到系統環境
 
+# 配置多類型資料庫綁定
+FLASK_ENV = os.environ.get("FLASK_ENV", "development")
 
-# 配置多資料庫綁定
-# Configure multi-database bindings
-if os.environ.get("FLASK_ENV") == "development":  # 判斷環境是否是開發模式
-    base_path = "D:/PTtest/instance/"  # 開發模式下的資料庫路徑
+if FLASK_ENV == "development":
+    # 检查 SQLite 路徑是否存在
+    sqlite_path = 'D:/PTtest/instance/local_database.db'
+    if os.path.exists(sqlite_path):
+        DATABASE_URI = f"sqlite:///{sqlite_path}"
+        print("使用開發環境的 SQLite 資料庫")
+    else:
+        DATABASE_URI = os.getenv("DB_MAIN_URI")
+        print("開發環境的 SQLite 不存在，切換至本地 MySQL")
+elif FLASK_ENV == "local_mysql":
+    DATABASE_URI = os.getenv("DB_MAIN_URI") 
+    print("使用本地 MySQL 資料庫")
 else:
-    base_path = "instance/"  # 雲端環境下的資料庫路徑
+    DATABASE_URI = f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+    print("使用雲端 MySQL 資料庫")
+
+
 
 # 設定主資料庫與多綁定資料庫
 # Set main database and multi-bind databases
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Psy481705=..@localhost/main_database_name'  # 程式庫設定，主資料庫連接 URI
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_MAIN_URI') # 程式庫設定，主資料庫連接 URI
 app.config['SQLALCHEMY_BINDS'] = {  # 程式庫設定，其他綁定資料庫的連接 URI
-    'user': 'mysql+pymysql://root:Psy481705=..@localhost/user_database_name',  # 專案資料庫，預設執行檔案
-    'auth': 'mysql+pymysql://root:Psy481705=..@localhost/auth_database_name',  # 專案資料庫，帳號相關資料
-    'game': 'mysql+pymysql://root:Psy481705=..@localhost/game_database_name',  # 專案資料庫，遊戲分數相關資料
-    'news': 'mysql+pymysql://root:Psy481705=..@localhost/news_database_name'   # 專案資料庫，新聞爬蟲相關資料
+    'user': os.getenv('DB_USER_URI'),  # 專案資料庫，預設執行檔案
+    'auth': os.getenv('DB_AUTH_URI'),  # 專案資料庫，帳號相關資料
+    'game': os.getenv('DB_GAME_URI'),  # 專案資料庫，遊戲分數相關資料
+    'news': os.getenv('DB_NEWS_URI')   # 專案資料庫，新聞爬蟲相關資料 
 }
 
 CORS(app, supports_credentials=True)
@@ -100,9 +113,9 @@ app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'  # 替換成安全的 JWT 
 
 # 調整資料庫文件的讀寫權限
 # Adjust read/write permissions for database files
-db_files = ["auth.db", "game.db", "new.db"]  # 專案資料庫文件列表
+db_files = ["user.db", "auth.db", "game.db", "new.db"]  # 專案資料庫文件列表
 for db_file in db_files:  # 遍歷所有資料庫文件
-    db_path = os.path.join(base_path, db_file)  # 程式庫模組，用於拼接文件路徑
+    db_path = os.path.join(DATABASE_URI, db_file)  # 程式庫模組，用於拼接文件路徑
     if os.path.exists(db_path):  # 檢查文件是否存在
         os.chmod(db_path, 0o777)  # 程式庫模組，修改文件的權限
         print(f"已更改權限: {db_path}")  # 輸出更新權限的文件路徑
@@ -185,13 +198,13 @@ def load_user(user_id):
 
 with app.app_context():
     db.metadata.clear()  # 清理重複定義的表結構
-    for bind_key in app.config['SQLALCHEMY_BINDS']:
+    for DATABASE_URI in app.config['SQLALCHEMY_BINDS']:
         try:
-            engine = db.engines[bind_key]  # 使用新的方式獲取引擎
+            engine = db.engines[DATABASE_URI]  # 使用新的方式獲取引擎
             db.metadata.create_all(engine)  # 創建資料表
-            print(f"成功創建資料表 (綁定鍵: {bind_key})")
+            print(f"成功創建資料表 (綁定鍵: {DATABASE_URI})")
         except Exception as e:
-            print(f"創建資料表失敗 (綁定鍵: {bind_key}): {e}")
+            print(f"創建資料表失敗 (綁定鍵: {DATABASE_URI}): {e}")
 
 
 
