@@ -454,12 +454,14 @@
                                     {% if ettoday2_items %}
                                         {% for article in ettoday2_items %}
                                             <div class="clearfix">
-                                                <div class="box-2 maxheight clearfix">
-                                                    <img src="{{ article.image_link or url_for('static', filename='images/default.png') }}" alt="此文無附圖" class="img-ind">
-                                                    <div>
-                                                        <h3>{{ article.title or '未提供標題' }}</h3>
-                                                        <div>{{ article.content or '未提供摘要' }}</div>
-                                                        <a href="{{ article.link or '#' }}" class="btn-2">閱讀更多</a>
+                                                <div class="box-2 maxheight clearfix" style="height: auto;">
+                                                    <div class="box_inner">
+                                                        <img src="{{ article.image_link or url_for('static', filename='images/default.png') }}" alt="此文無附圖" class="img-ind">
+                                                        <div>
+                                                            <h3>{{ article.title or '未提供標題' }}</h3>
+                                                            <div>{{ article.content or '未提供摘要' }}</div>
+                                                            <a href="{{ article.link or '#' }}" class="btn-2">閱讀更多</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -474,12 +476,14 @@
                                     {% if news_items %}
                                         {% for article in news_items %}
                                             <div class="clearfix">
-                                                <div class="box-2 maxheight clearfix">
-                                                    <img src="{{ article.image_link or url_for('static', filename='images/default.png') }}" alt="" class="img-ind">
-                                                    <div>
-                                                        <h3>{{ article.title or '未提供標題' }}</h3>
-                                                        <div>{{ article.description or '未提供摘要' }}</div>
-                                                        <a href="{{ article.link or '#' }}" class="btn-2">閱讀更多</a>
+                                                <div class="box-2 maxheight clearfix" style="height: auto;">
+                                                    <div class="box_inner">
+                                                        <img src="{{ article.image_link or url_for('static', filename='images/default.png') }}" alt="" class="img-ind">
+                                                        <div>
+                                                            <h3>{{ article.title or '未提供標題' }}</h3>
+                                                            <div>{{ article.description or '未提供摘要' }}</div>
+                                                            <a href="{{ article.link or '#' }}" class="btn-2">閱讀更多</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
