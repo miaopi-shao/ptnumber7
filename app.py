@@ -12,6 +12,7 @@ Created on Sun Feb 23 17:07:53 2025
 # 引入 Flask 框架，用於建立 Web 應用
 # Import Flask framework for building web applications
 from flask import Flask, render_template, jsonify  # 程式庫的模組，提供輕量級的 Web 服務功能
+import random
 
 # 匯入資料庫模型，管理數據結構
 # Import database models to manage data structures
@@ -266,6 +267,19 @@ try:
 except Exception as e:
     print(f"⚠️ 錯誤: {e}")
     ettoday2_items = []  # 當爬取失敗時返回空資料
+    
+ettoday2_items = fetch_ettoday2_news()
+# 隨機選擇 5 則 ETtoday 新聞
+if len(ettoday2_items) > 5:
+    ettoday2_items = random.sample(ettoday2_items, 5)
+
+try:
+    # 匯入 fetch_international_news 函數
+    from international_news_scraper import fetch_international_news  # 確保檔案名稱正確
+    international_news = fetch_international_news()  # 調用函數獲取新聞資料
+except Exception as e:
+    print(f"⚠️ 錯誤: {e}")
+    international_news = []  # 當爬取失敗時返回空資料
 
 
 
@@ -277,7 +291,12 @@ except Exception as e:
 @app.route('/')
 def home():  # 程式庫邏輯，定義首頁路由
     print("首頁加載中")
-    return render_template('index.html', ettoday2_items=ettoday2_items, news_items=news_items)  # 專案邏輯，渲染首頁 HTML 文件
+    
+    return render_template(
+        'index.html', 
+        ettoday2_items=ettoday2_items, 
+        news_items=news_items, 
+        international_news =international_news)  # 專案邏輯，渲染首頁 HTML 文件
 
 # 其他靜態頁面路由
 @app.route('/index-1.html')
