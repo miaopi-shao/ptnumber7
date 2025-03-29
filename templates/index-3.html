@@ -236,8 +236,27 @@
                     </div>
                     <div class="shadow-block-wrapper p2">氣象新聞
                         <div class="shadow-block">
-                            <iframe src="/weather_news/news_block" style="width: 100%; hight: 100%; border: none;" height="500"></iframe>
-                        </div>
+                        <h2>{{ _('氣象特報') }}</h2>
+                        {% if news_items %}
+                            {% for news in news_items %}
+                                <div class="box-1 clearfix">
+                                    <img src="{{ news.img_url }}" alt="News Image" class="img-ind" style="width: 200px; height: auto;">
+                                    <div>
+                                        <h3>{{ news.title }}</h3>
+                                        <div class="short_info">
+                                            <span><a href="www.nownews.com">來源:www.nownews.com</a></span>
+                                            <span>{{ news.description }}</span>
+                                        </div>
+                                        <div>新聞內容<a href="{{ news.link }}" class="btn" target="_blank">前往</a></div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>
+                                資料喧染失敗，請直接點<a href="https://ptnumber7.onrender.com/weather_news/news_block" target="_blank">前往網站</a>前往氣象新聞頁面。
+                            </p>
+
+                        {% endif %}
                     </div>
                 </div>
                 <div class="grid_4">
