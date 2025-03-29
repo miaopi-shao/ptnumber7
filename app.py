@@ -79,7 +79,7 @@ else:
 load_dotenv()  # 調用程式庫模組，用於將 .env 文件中的變數載入到系統環境
 
 # 配置多類型資料庫綁定
-FLASK_ENV = os.environ.get("FLASK_ENV", "production")
+FLASK_ENV = os.environ.get("FLASK_ENV", "production")#-----------------------------------------------------注意替換-------------------------------
 print("*********************************")
 print(f"FLASK_ENV 設定為: {FLASK_ENV}")
 print("*********************************")
@@ -282,7 +282,11 @@ def index2():  # 程式庫邏輯，定義焦點新聞路由
 @app.route('/index-3.html')
 def index3():  # 程式庫邏輯，定義氣象新聞路由
     print("氣象新聞加載中")
-    response = requests.get("http://127.0.0.1:10000/weather_news/news_items")
+    if FLASK_ENV == "production":
+        response = requests.get("https://ptnumber7.onrender.com/weather_news/news_items")
+    else:
+        response = requests.get("http://127.0.0.1:10000/weather_news/news_items")
+    
     
     if response.status_code == 200:
         news_items = response.json()  # 將 JSON 資料轉為字典列表
