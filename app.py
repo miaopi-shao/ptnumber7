@@ -24,7 +24,7 @@ print(NewsArticle)  # 應該輸出 <class 'models.NewsArticle'>，確認模型�
 # Import HTTP request library for external API communication
 import requests  # 程式庫的模組，用於執行 HTTP 請求操作
 from flask_mail import Mail
-from flask_cors import CORS
+from flask_cors import CORS 
 
 # ========================================================
 # 專案模組匯入，所有Blueprint 模組
@@ -79,7 +79,7 @@ else:
 load_dotenv()  # 調用程式庫模組，用於將 .env 文件中的變數載入到系統環境
 
 # 配置多類型資料庫綁定
-FLASK_ENV = os.environ.get("FLASK_ENV", "development")
+FLASK_ENV = os.environ.get("FLASK_ENV", "production")
 print("*********************************")
 print(f"FLASK_ENV 設定為: {FLASK_ENV}")
 print("*********************************")
