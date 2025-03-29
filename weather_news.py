@@ -10,6 +10,18 @@ Created on Wed Mar 26 22:40:56 2025
 from flask import Blueprint, render_template, jsonify
 import requests
 from bs4 import BeautifulSoup
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,  # 預設日誌級別（可以改為 DEBUG 或 WARNING）
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',  # 日誌格式
+    handlers=[
+        logging.StreamHandler()  # 日誌輸出到控制台
+    ]
+)
+
+logger = logging.getLogger(__name__)  # 獲取日誌記錄器
+
 
 weather_news_bp = Blueprint('weather_news', __name__, template_folder='templates')
 
@@ -17,7 +29,7 @@ def fetch_weather_news():
     url = "https://www.nownews.com/cat/life/weatherforecast/"
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
 
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, timeout=15)
 
     
     if response.status_code == 200:
@@ -33,9 +45,11 @@ def fetch_weather_news():
                 list_block = ul_element.find_all('li')
                 # 確保抓到 li
             else:
-                print("找不到 <ul>")
+                logger.warning("找不到 <ul> 元素")
+                #print("找不到 <ul>")
         else:
-            print("找不到目標 <div> 元素")
+            logger.warning("找不到目標 <div> 元素")
+            #print("找不到目標 <div> 元素")
 
 
         #print(list_block)
@@ -66,10 +80,11 @@ def fetch_weather_news():
                 'description': description_text,
                 'publish_time': publish_time
             })
-        
+        logger.info("新聞爬取完成")
         return news_items
     else:
-        print("失敗")
+        logger.info("新聞爬取失敗")
+        #print("失敗")
         return []
 
 import time
@@ -82,22 +97,22 @@ print(f"爬取完成時間: {end - start} 秒")
 @weather_news_bp.route("/news_block")
 def fetch_news():
     news_items = fetch_weather_news()
-    print(f"fetch_news 路由抓取的資料: {news_items}")  # 調試輸出
+    logger.info(f"fetch_news 路由抓取的資料: {news_items}")
     return render_template('news_block.html', news_items=news_items)
-
 
 @weather_news_bp.route("/latest_news")
 def latest_news():
     news_items = fetch_weather_news()  # 爬取新聞資料
-    print(f"抓取到的新聞: {news_items}")  # 調試檢查
+    logger.info(f"抓取到的新聞: {news_items}")  # 調試檢查
     return render_template('index-3.html', news_items=news_items)  # 傳遞數據
 
 @weather_news_bp.route("/news_items")
 def get_news_items():
-    news_items = fetch_weather_news()  # 假設這是爬蟲函數
-    return jsonify(news_items)  # 將資料以 JSON 格式返回
+    news_items = fetch_weather_news()
+    logger.debug("以 JSON 格式返回新聞資料")
+    return jsonify(news_items)
 
 
-if __name__ == '__main__':
-    news = fetch_weather_news()
-    print(news)
+# if __name__ == '__main__':
+#     news = fetch_weather_news()
+#     print(news)
