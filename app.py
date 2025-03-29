@@ -258,6 +258,14 @@ try:
 except Exception as e:
     print(f"⚠️ 錯誤: {e}")
     news_items = []  # 當爬取失敗時返回空資料
+    
+try:
+    # 直接使用 fetch_weather_news 函數來獲取數據
+    from ettoday2 import fetch_ettoday2_news
+    ettoday2_items = fetch_ettoday2_news()
+except Exception as e:
+    print(f"⚠️ 錯誤: {e}")
+    ettoday2_items = []  # 當爬取失敗時返回空資料
 
 
 
@@ -269,7 +277,7 @@ except Exception as e:
 @app.route('/')
 def home():  # 程式庫邏輯，定義首頁路由
     print("首頁加載中")
-    return render_template('index.html')  # 專案邏輯，渲染首頁 HTML 文件
+    return render_template('index.html', ettoday2_items=ettoday2_items, news_items=news_items)  # 專案邏輯，渲染首頁 HTML 文件
 
 # 其他靜態頁面路由
 @app.route('/index-1.html')

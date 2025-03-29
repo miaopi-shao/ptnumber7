@@ -446,84 +446,47 @@
                             <li><a href="#">新聞快訊</a></li>
                             <ul class="tabs clearfix">
                                 <li><a href="#">ETtoday新聞</a></li>
-                                <li><a href="#">Yahoo焦點新聞</a></li>
+                                <li><a href="#">氣象新聞</a></li>
                             </ul>
                             <div class="tab_container bg-2 clearfix">
-                                <!-- 第一個頁籤內容 -->
-                                {% for article in news %}
+                                <!-- 第一個頁籤內容 (ETtoday新聞) -->
                                 <div class="tab_content">
-                                    <div class="clearfix">
-                                        <div class="box-2 maxheight clearfix">
-                                            <img src="{{ article.image_url or url_for('static', filename='images/default.png') }}" alt="" class="img-ind">
-                                            <div>
-                                                <h3>{{ article.title }}</h3>
-                                                <div>{{ article.content }}</div>
-                                                <a href="{{ article.url }}" class="btn-2">{{ article.title }}</a>
+                                    {% if ettoday2_items %}
+                                        {% for article in ettoday2_items %}
+                                            <div class="clearfix">
+                                                <div class="box-2 maxheight clearfix">
+                                                    <img src="{{ article.image_link or url_for('static', filename='images/default.png') }}" alt="" class="img-ind">
+                                                    <div>
+                                                        <h3>{{ article.title or '未提供標題' }}</h3>
+                                                        <div>{{ article.content or '未提供摘要' }}</div>
+                                                        <a href="{{ article.link or '#' }}" class="btn-2">閱讀更多</a>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="box-2 maxheight clearfix">
-                                            <img src="{{ article.image_url or url_for('static', filename='images/default.png') }}" alt="" class="img-ind">
-                                            <div>
-                                                <h3>{{ article.title }}</h3>
-                                                <div>{{ article.content }}</div>
-                                                <a href="{{ article.url }}" class="btn-2">{{ article.title }}</a>
-                                            </div>
-                                        </div>
-                                        <div class="box-2 maxheight clearfix">
-                                            <img src="{{ article.image_url or url_for('static', filename='images/default.png') }}" alt="" class="img-ind">
-                                            <div>
-                                                <h3>{{ article.title }}</h3>
-                                                <div>{{ article.content }}</div>
-                                                <a href="{{ article.url }}" class="btn-2">{{ article.title }}</a>
-                                            </div>
-                                        </div>
-                                        <div class="box-2 maxheight clearfix">
-                                            <img src="{{ article.image_url or url_for('static', filename='images/default.png') }}" alt="" class="img-ind">
-                                            <div>
-                                                <h3>{{ article.title }}</h3>
-                                                <div>{{ article.content }}</div>
-                                                <a href="{{ article.url }}" class="btn-2">{{ article.title }}</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p>目前沒有 ETtoday 新聞可顯示。</p>
+                                    {% endif %}
                                 </div>
-                                {% endfor %}
-                                <!-- 第二個頁籤內容 -->
+                            
+                                <!-- 第二個頁籤內容 (氣象新聞) -->
                                 <div class="tab_content">
-                                    <div class="clearfix">
-                                        <div class="box-2 maxheight clearfix">
-                                            <img src="{{ url_for('static', filename='images/breaking_news/breaking_news_4.png') }}" alt="" class="img-ind">
-                                            <div>
-                                                <h3>Yahoo焦點新聞</h3>
-                                                <div>Yahoo焦點新聞</div>
-                                                <a href="#" class="btn-2">前往連結</a>
+                                    {% if news_items %}
+                                        {% for article in news_items %}
+                                            <div class="clearfix">
+                                                <div class="box-2 maxheight clearfix">
+                                                    <img src="{{ article.image_link or url_for('static', filename='images/default.png') }}" alt="" class="img-ind">
+                                                    <div>
+                                                        <h3>{{ article.title or '未提供標題' }}</h3>
+                                                        <div>{{ article.content or '未提供摘要' }}</div>
+                                                        <a href="{{ article.link or '#' }}" class="btn-2">閱讀更多</a>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="box-2 maxheight clearfix">
-                                            <img src="{{ url_for('static', filename='images/breaking_news/breaking_news_4.png') }}" alt="" class="img-ind">
-                                            <div>
-                                                <h3>Yahoo焦點新聞</h3>
-                                                <div>Yahoo焦點新聞</div>
-                                                <a href="#" class="btn-2">前往連結</a>
-                                            </div>
-                                        </div>
-                                        <div class="box-2 maxheight clearfix">
-                                            <img src="{{ url_for('static', filename='images/breaking_news/breaking_news_4.png') }}" alt="" class="img-ind">
-                                            <div>
-                                                <h3>Yahoo焦點新聞</h3>
-                                                <div>Yahoo焦點新聞</div>
-                                                <a href="#" class="btn-2">前往連結</a>
-                                            </div>
-                                        </div>
-                                        <div class="box-2 maxheight clearfix">
-                                            <img src="{{ url_for('static', filename='images/breaking_news/breaking_news_4.png') }}" alt="" class="img-ind">
-                                            <div>
-                                                <h3>Yahoo焦點新聞</h3>
-                                                <div>Yahoo焦點新聞</div>
-                                                <a href="#" class="btn-2">前往連結</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p>目前沒有氣象新聞可顯示。</p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
