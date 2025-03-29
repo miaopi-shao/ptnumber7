@@ -87,20 +87,38 @@ elif FLASK_ENV == "local_mysql":
     DATABASE_URI = os.getenv("DB_MAIN_URI") 
     print("使用本地 MySQL 資料庫")
 else:
-    DATABASE_URI = f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+    DATABASE_URI =  os.getenv("DB_MAIN_URI") 
     print("使用雲端 MySQL 資料庫")
+# 統一配置 Flask 的 SQLAlchemy
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
+
+# 綁定多個資料庫（依據環境設定）
+if FLASK_ENV == "production":
+    app.config['SQLALCHEMY_BINDS'] = {
+        'user': os.getenv('AWS_USER_URI'),
+        'auth': os.getenv('AWS_AUTH_URI'),
+        'game': os.getenv('AWS_GAME_URI'),
+        'news': os.getenv('AWS_NEWS_URI'),
+    }
+else:
+    app.config['SQLALCHEMY_BINDS'] = {
+        'user': os.getenv('DB_USER_URI'),
+        'auth': os.getenv('DB_AUTH_URI'),
+        'game': os.getenv('DB_GAME_URI'),
+        'news': os.getenv('DB_NEWS_URI'),
+    }
 
 
 
-# 設定主資料庫與多綁定資料庫
+# 設定主資料庫與多綁定資料庫-因應雲端環境更改2025/03/29
 # Set main database and multi-bind databases
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_MAIN_URI') # 程式庫設定，主資料庫連接 URI
-app.config['SQLALCHEMY_BINDS'] = {  # 程式庫設定，其他綁定資料庫的連接 URI
-    'user': os.getenv('DB_USER_URI'),  # 專案資料庫，預設執行檔案
-    'auth': os.getenv('DB_AUTH_URI'),  # 專案資料庫，帳號相關資料
-    'game': os.getenv('DB_GAME_URI'),  # 專案資料庫，遊戲分數相關資料
-    'news': os.getenv('DB_NEWS_URI')   # 專案資料庫，新聞爬蟲相關資料 
-}
+#app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_MAIN_URI') # 程式庫設定，主資料庫連接 URI
+# app.config['SQLALCHEMY_BINDS'] = {  # 程式庫設定，其他綁定資料庫的連接 URI
+#     'user': os.getenv('DB_USER_URI'),  # 專案資料庫，預設執行檔案
+#     'auth': os.getenv('DB_AUTH_URI'),  # 專案資料庫，帳號相關資料
+#     'game': os.getenv('DB_GAME_URI'),  # 專案資料庫，遊戲分數相關資料
+#     'news': os.getenv('DB_NEWS_URI')   # 專案資料庫，新聞爬蟲相關資料 
+# }
 
 CORS(app, supports_credentials=True)
 # 配置 Session
