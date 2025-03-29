@@ -87,11 +87,11 @@ def fetch_weather_news():
         #print("失敗")
         return []
 
-import time
-start = time.time()
-fetch_weather_news()
-end = time.time()
-print(f"爬取完成時間: {end - start} 秒")
+# import time
+# start = time.time()
+# fetch_weather_news()
+# end = time.time()
+# print(f"爬取完成時間: {end - start} 秒")
 
 
 @weather_news_bp.route("/news_block")
@@ -113,6 +113,6 @@ def get_news_items():
     return jsonify(news_items)
 
 
-# if __name__ == '__main__':
-#     news = fetch_weather_news()
-#     print(news)
+if __name__ == '__main__':
+    news = fetch_weather_news()
+    print(news)

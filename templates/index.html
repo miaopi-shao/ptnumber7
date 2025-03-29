@@ -478,7 +478,7 @@
                                                     <img src="{{ article.image_link or url_for('static', filename='images/default.png') }}" alt="" class="img-ind">
                                                     <div>
                                                         <h3>{{ article.title or '未提供標題' }}</h3>
-                                                        <div>{{ article.content or '未提供摘要' }}</div>
+                                                        <div>{{ article.description or '未提供摘要' }}</div>
                                                         <a href="{{ article.link or '#' }}" class="btn-2">閱讀更多</a>
                                                     </div>
                                                 </div>
