@@ -5,6 +5,8 @@ Created on Wed Mar 26 22:40:56 2025
 @author: OAP-0001
 """
 
+# 程式名稱:weather_new.py 氣象新聞爬蟲
+
 from flask import Blueprint, render_template, jsonify
 import requests
 from bs4 import BeautifulSoup
@@ -20,8 +22,8 @@ def fetch_weather_news():
     
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
-        print(soup)
-        print("匯報完畢")
+        #print(soup)
+        #print("匯報完畢")
         news_items = []
         
         parent_div = soup.find('div', class_='listBlk horizontal')
@@ -36,15 +38,15 @@ def fetch_weather_news():
             print("找不到目標 <div> 元素")
 
 
-        print(list_block)
-        print("匯報完畢")
+        #print(list_block)
+        #print("匯報完畢")
         
 
         for item in list_block:
             link = item.find('a', class_='trace-click')['href'] if item.find('a', class_='trace-click') else None
             
             title = item.find('h2')
-            print(title)
+            #print(title)
             print("匯報完畢")
             title_text = title.text.strip() if title else "無標題"
             
@@ -69,6 +71,13 @@ def fetch_weather_news():
     else:
         print("失敗")
         return []
+
+import time
+start = time.time()
+fetch_weather_news()
+end = time.time()
+print(f"爬取完成時間: {end - start} 秒")
+
 
 @weather_news_bp.route("/news_block")
 def fetch_news():
