@@ -275,14 +275,14 @@ if len(ettoday2_items) > 5:
 
 try:
     # 匯入 fetch_international_news 函數
-    from international_new import fetch_international_news  # 確保檔案名稱正確
+    from international_news_scraper import fetch_international_news  # 確保檔案名稱正確
     international_news = fetch_international_news()  # 調用函數獲取新聞資料
 except Exception as e:
     print(f"⚠️ 錯誤: {e}")
     international_news = []  # 當爬取失敗時返回空資料
 try:
     # 匯入 fetch_international_news 函數
-    from taiwan_new import fetch_taiwan_news  # 確保檔案名稱正確
+    from taiwan_news import fetch_taiwan_news  # 確保檔案名稱正確
     taiwan_news = fetch_taiwan_news()  # 調用函數獲取新聞資料
 except Exception as e:
     print(f"⚠️ 錯誤: {e}")
@@ -302,8 +302,8 @@ def home():  # 程式庫邏輯，定義首頁路由
         'index.html', 
         ettoday2_items=ettoday2_items, 
         news_items=news_items, 
-        taiwan_news=taiwan_news,
-        international_news =international_news)  # 專案邏輯，渲染首頁 HTML 文件
+        international_news=international_news, 
+        taiwan_news=taiwan_news)  # 專案邏輯，渲染首頁 HTML 文件
 
 # 其他靜態頁面路由
 @app.route('/index-1.html')
