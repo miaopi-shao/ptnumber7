@@ -251,6 +251,14 @@ with app.app_context():
     else:
         print("跳過雲端資料表創建邏輯")
 
+try:
+    # 直接使用 fetch_weather_news 函數來獲取數據
+    from weather_news import fetch_weather_news
+    news_items = fetch_weather_news()
+except Exception as e:
+    print(f"⚠️ 錯誤: {e}")
+    news_items = []  # 當爬取失敗時返回空資料
+
 
 
 # ========================================================
@@ -282,16 +290,7 @@ def index2():  # 程式庫邏輯，定義焦點新聞路由
 @app.route('/index-3.html')
 def index3():  # 程式庫邏輯，定義氣象新聞路由
     print("氣象新聞加載中")
-    try:
-        # 直接使用 fetch_weather_news 函數來獲取數據
-        from weather_news import fetch_weather_news
-        news_items = fetch_weather_news()
-    except Exception as e:
-        print(f"⚠️ 錯誤: {e}")
-        news_items = []  # 當爬取失敗時返回空資料
-
-    # 渲染 index-3.html 並傳遞數據
-    return render_template('index-3.html', news_items=news_items)
+    return render_template('index-3.html', news_items=news_items)# 渲染 index-3.html 並傳遞數據
 
 
 @app.route('/index-4.html')
