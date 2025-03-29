@@ -33,16 +33,25 @@ def fetch_ettoday2_news():
 
         print("✅ 成功連接至 ETtoday News，開始解析 HTML...")
         soup = BeautifulSoup(response.text, 'html.parser')
-        articles = soup.select(".r1 .clearfix")  # 使用正確的 CSS 選擇器
+        # 限定範圍 - 從最外層父類逐步縮小範圍到最底層
+        parent_block = soup.select_one('.block_content .part_pictxt_3')  # 確保選擇正確的上層
+        if parent_block:
+            articles = parent_block.select('.piece.clearfix')  # 提取目標內容
+            for article in articles:
+                print(article.text)  # 或者提取你需要的其他屬性
+        else:
+            print("未找到指定的父元素")
+
+        # articles = soup.select(".clearfix")  # 使用正確的 CSS 選擇器
         print(f"共找到 {len(articles)} 則新聞文章")
 
         news_nownews = []
-        for idx, article in enumerate(articles, start=1):
+        for idx, article in enumerate(articles):
             print(f"--- 提取第 {idx} 則新聞 ---")
 
             # 提取資訊
             title = article.find("h3").text.strip() if article.find("h3") else "無標題"
-            link = article.find("a")["href"] if article.find("a") else "無連結"
+            link = article.find("a")["href"] if article.find("a", class_="pic") else "無連結"
             content = article.find("p", class_="summary").text.strip() if article.find("p", class_="summary") else random.choice(["點擊查看全文", "探索新聞詳情", "快速瞭解更多"])
             image_link_tag = article.find("img")
             image_link = image_link_tag["src"] if image_link_tag and "src" in image_link_tag.attrs else "無圖片連結"
@@ -70,12 +79,19 @@ def fetch_ettoday2_news():
     except Exception as e:
         print(f"❌ 發生錯誤：{e}")
         return []
+    
+
+
 
 # API 端點，手動觸發爬蟲
 @ettoday2_bp.route("/scrape", methods=["GET"])
 def fetch_news_api():
     """ 提供 API，手動觸發新聞爬取 """
-    news = fetch_ettoday2_news()
+    ettoday2_items = fetch_ettoday2_news()
+    # 隨機選擇 5 則 ETtoday 新聞
+    if len(ettoday2_items) > 5:
+        ettoday2_items = random.sample(ettoday2_items, 5)
+    news = ettoday2_items
     # 直接返回爬取的新聞數據 JSON，供頁面使用
     return jsonify({
         "message": f"成功抓取 {len(news)} 篇新聞",

@@ -267,11 +267,6 @@ try:
 except Exception as e:
     print(f"⚠️ 錯誤: {e}")
     ettoday2_items = []  # 當爬取失敗時返回空資料
-    
-ettoday2_items = fetch_ettoday2_news()
-# 隨機選擇 5 則 ETtoday 新聞
-if len(ettoday2_items) > 5:
-    ettoday2_items = random.sample(ettoday2_items, 5)
 
 try:
     # 匯入 fetch_international_news 函數
