@@ -445,12 +445,12 @@
                             <!-- 新聞快訊標題 -->
                             <li><a href="#">新聞快訊</a></li>
                             <ul class="tabs clearfix">
-                                <li><a href="#">ETtoday新聞</a></li>
+                                <li><a href="#" class="current">ETtoday新聞</a></li>
                                 <li><a href="#">氣象新聞</a></li>
                             </ul>
                             <div class="tab_container bg-2 clearfix">
                                 <!-- 第一個頁籤內容 (ETtoday新聞) -->
-                                <div class="tab_content">
+                                <div class="tab_content" style="display: block;">
                                     {% if ettoday2_items %}
                                         {% for article in ettoday2_items %}
                                             <div class="clearfix">
@@ -470,7 +470,7 @@
                                 </div>
                             
                                 <!-- 第二個頁籤內容 (氣象新聞) -->
-                                <div class="tab_content">
+                                <div class="tab_content" style="display: none;">
                                     {% if news_items %}
                                         {% for article in news_items %}
                                             <div class="clearfix">
