@@ -256,48 +256,48 @@
                 <div class="grid_12">
                     <h2>今日頭條</h2>
                     <div class="camera_wrap camera_emboss" id="camera_wrap_3">
-                        <div data-thumb="{{ url_for('static', filename='images/headline/thumb-slide-1.jpg') }}" 
-                             data-src="{{ url_for('static', filename='images/headline/slide-1.jpg') }}" 
+                        <div data-thumb="{{ taiwan_news[0]['image_urls']['thumb'] }}" 
+                             data-src="{{ taiwan_news[0]['image_urls']['large'] }}" 
                              data-time="1500" data-trasPeriod="4000" data-link="http://www.google.com/" data-target="_blank">
                             <div class="camera_caption fadeIn">
                                 <div class="slider-text">
-                                    <div class="inside">新聞等待中 <a href="#">去看看</a></div>
+                                    <div class="inside">{{ taiwan_news[0].title }} <a href="{{ taiwan_news[0].link }}">去看看</a></div>
                                 </div>
                             </div>
                         </div>
-                        <div data-thumb="{{ url_for('static', filename='images/headline/thumb-slide-2.jpg') }}" 
-                             data-src="{{ url_for('static', filename='images/headline/slide-2.jpg') }}" 
+                        <div data-thumb="{{ taiwan_news[1]['image_urls']['thumb'] }}" 
+                             data-src="{{ taiwan_news[1]['image_urls']['large'] }}" 
                              data-time="1500" data-trasPeriod="4000" data-link="http://www.google.com/" data-target="_blank">
                             <div class="camera_caption fadeIn">
                                 <div class="slider-text">
-                                    <div class="inside">蔡英文剃光頭 <a href="#">去看看</a></div>
+                                    <div class="inside">{{ taiwan_news[1].title }} <a href="{{ taiwan_news[1].link }}">去看看</a></div>
                                 </div>
                             </div>
                         </div>
-                        <div data-thumb="{{ url_for('static', filename='images/headline/thumb-slide-3.jpg') }}" 
-                             data-src="{{ url_for('static', filename='images/headline/slide-3.jpg') }}" 
+                        <div data-thumb="{{ taiwan_news[2]['image_urls']['thumb'] }}" 
+                             data-src="{{ taiwan_news[2]['image_urls']['large'] }}" 
                              data-time="1500" data-trasPeriod="4000" data-link="http://www.google.com/" data-target="_blank">
                             <div class="camera_caption fadeIn">
                                 <div class="slider-text">
-                                    <div class="inside">馬英九來握手 <a href="#">去看看</a></div>
+                                    <div class="inside">{{ taiwan_news[2].title }} <a href="{{ taiwan_news[2].link }}">去看看</a></div>
                                 </div>
                             </div>
                         </div>
-                        <div data-thumb="{{ url_for('static', filename='images/headline/thumb-slide-4.jpg') }}" 
-                             data-src="{{ url_for('static', filename='images/headline/slide-4.jpg') }}" 
+                        <div data-thumb="{{ taiwan_news[3]['image_urls']['thumb'] }}" 
+                             data-src="{{ taiwan_news[3]['image_urls']['large'] }}"
                              data-time="1500" data-trasPeriod="4000" data-link="http://www.google.com/" data-target="_blank">
                             <div class="camera_caption fadeIn">
                                 <div class="slider-text">
-                                    <div class="inside">朱立倫來猜拳 <a href="#">去看看</a></div>
+                                    <div class="inside">{{ taiwan_news[3].title }} <a href="{{ taiwan_news[3].link }}">去看看</a></div>
                                 </div>
                             </div>
                         </div>
-                        <div data-thumb="{{ url_for('static', filename='images/headline/thumb-slide-5.jpg') }}" 
-                             data-src="{{ url_for('static', filename='images/headline/slide-5.jpg') }}" 
+                        <div data-thumb="{{ taiwan_news[4]['image_urls']['thumb'] }}" 
+                             data-src="{{ taiwan_news[4]['image_urls']['large'] }}" 
                              data-time="1500" data-trasPeriod="4000" data-link="http://www.google.com/" data-target="_blank">
                             <div class="camera_caption fadeIn">
                                 <div class="slider-text">
-                                    <div class="inside">宋楚瑜消失了 <a href="#">去看看</a></div>
+                                    <div class="inside">{{ taiwan_news[4].title }} <a href="{{ taiwan_news[4].link }}">去看看</a></div>
                                 </div>
                             </div>
                         </div>

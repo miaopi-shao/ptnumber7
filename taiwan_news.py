@@ -5,7 +5,7 @@ Created on Wed Oct 16 21:23:02 2024
 @author: USER
 """
 #====================
-# 三立新聞爬蟲程式
+# 新聞綜合爬蟲程式-三立，TVBS
 #====================
 
 import requests                         # 匯入 requests 模組，用於發送 HTTP 請求
@@ -14,18 +14,20 @@ from bs4 import BeautifulSoup           # 從 bs4 模組匯入 BeautifulSoup，�
 
 
 from flask import Blueprint, jsonify
-from models import db, NewsArticle
-from database import db
-from datetime import datetime            # 解析時間格式，並替換 datetime.utcnow()內函式
+from datetime import datetime, timezone            # 解析時間格式，並替換 datetime.utcnow()內函式
 import random                            # 用於啟用隨機模式
 
-setn_bp = Blueprint(' setn', __name__)
+published_at = datetime.now(timezone.utc).replace(tzinfo=None)
+taiwan_news_bp = Blueprint(' taiwan_news ', __name__)
 
-import requests
-from bs4 import BeautifulSoup
-from datetime import datetime
-import random
-from flask import jsonify
+PRESET_IMAGES = [
+    {"thumb": "static/images/headline/thumb-slide-1.jpg", "large": "static/images/headline/slide-1.jpg"},
+    {"thumb": "static/images/headline/thumb-slide-2.jpg", "large": "static/images/headline/slide-2.jpg"},
+    {"thumb": "static/images/headline/thumb-slide-3.jpg", "large": "static/images/headline/slide-3.jpg"},
+    {"thumb": "static/images/headline/thumb-slide-4.jpg", "large": "static/images/headline/slide-4.jpg"},
+    {"thumb": "static/images/headline/thumb-slide-5.jpg", "large": "static/images/headline/slide-5.jpg"}
+]
+
 
 def fetch_setn_news():
     """
@@ -80,7 +82,10 @@ def fetch_setn_news():
             link = "https://www.setn.com" + link
 
         # 設置預設圖片
-        photo = "https://attach.setn.com/images/2018_logo_B.png"
+        selected_image = random.choice(PRESET_IMAGES)
+        photo = selected_image["large"]  # 使用大圖 URL
+        thumb = selected_image["thumb"]  # 使用縮圖 URL
+
 
         # 隨機內文或摘要
         ran_texts = ["前往觀看", "深入瞭解", "來去看看"]
@@ -93,7 +98,10 @@ def fetch_setn_news():
             "content": content,
             "source": source,
             "category": category,
-            "image_url": photo,
+            "image_url":{  # 包含大小圖
+                "large": photo,  # 大圖
+                "thumb": thumb   # 縮圖
+            },
             "url": link,
             "published_at": published_at
         })
@@ -102,18 +110,111 @@ def fetch_setn_news():
     return random.sample(all_fetched_news, min(len(all_fetched_news), 5))
 
 
-@setn_bp.route("/scrape", methods=["GET"])
+def fetch_tvbs_news():
+    """
+    爬取 TVBS 即時新聞，隨機抽取 5 則
+    """
+    # 設定目標網址與 Headers
+    url = "https://news.tvbs.com.tw/realtime"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+    }
+
+    # 發送 GET 請求並解析網頁
+    response = requests.get(url, headers=headers)
+    response.encoding = 'utf-8'
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    # 定位到新聞列表的區塊
+    newslist = soup.find(class_='news_list')
+    if not newslist:
+        print("❌ 無法找到新聞列表區塊")
+        return []
+
+    # 定位到具體新聞內容
+    news_section = newslist.find(class_='list')
+    if not news_section:
+        print("❌ 無法找到具體新聞內容")
+        return []
+
+    # 取得所有新聞項目
+    li_items = news_section.find_all('li')
+    if not li_items:
+        print("❌ 無法找到任何新聞項目")
+        return []
+
+    all_fetched_news = []
+    source = "TVBS"
+
+    for row in li_items:
+        # 取得新聞連結與圖片
+        link_tag = row.find('a')
+        if not link_tag:
+            continue
+        link = "https://news.tvbs.com.tw" + link_tag.get('href')
+        if row.find('img'):
+            # 如果有找到圖片，使用新聞中的圖片
+            photo = row.find('img').get('data-original')
+            thumb = photo  # 如果大圖與縮圖相同
+        else:
+            # 如果沒有找到圖片，從 PRESET_IMAGES 隨機選取一組大小圖
+            preset_image = random.choice(PRESET_IMAGES)
+            photo = preset_image['large']  # 大圖
+            thumb = preset_image['thumb']  # 縮圖
+
+
+        # 取得新聞標題與摘要
+        title = row.find('h2').text.strip() if row.find('h2') else "無標題"
+        content_tag = row.find('p')
+        content = content_tag.text.strip() if content_tag else random.choice(["點擊查看更多", "瞭解詳情", "快速瀏覽"])
+
+        # 發布時間處理
+        time_tag = row.find('time')
+        try:
+            published_at = datetime.strptime(time_tag.text.strip(), "%Y-%m-%d %H:%M:%S") if time_tag else datetime.utcnow()
+        except ValueError:
+            published_at = datetime.utcnow()
+
+        # 儲存抓取的新聞資料
+        all_fetched_news.append({
+            "title": title,
+            "content": content,
+            "source": source,
+            "image_urls": {  # 包含大小圖
+                "large": photo,  # 大圖
+                "thumb": thumb   # 縮圖
+            },
+            "url": link,
+            "published_at": published_at
+        })
+
+    # 隨機選取 5 則新聞
+    return random.sample(all_fetched_news, min(len(all_fetched_news), 5))
+
+
+
+# 整合隨機抓取各兩則新聞
+def fetch_taiwan_news():
+    # 從 BBC 和 Al Jazeera 各抓取兩則新聞
+    setn_news = fetch_setn_news()
+    tvbs_news = fetch_tvbs_news()
+    all_taiwan_news = setn_news + tvbs_news
+    fetch_taiwan_news= random.sample(all_taiwan_news, min(len(all_taiwan_news), 5))
+    return fetch_taiwan_news
+
+
+@taiwan_news_bp.route("/scrape", methods=["GET"])
 def fetch_news_api():
     """
     提供 API，手動觸發新聞爬取
     """
-    news = fetch_setn_news()
+    news = fetch_taiwan_news
     return jsonify({"message": f"成功存入 {len(news)} 篇新聞", "data": news}), 200
 
 
 if __name__ == '__main__':
     # 測試輸出
-    news = fetch_setn_news()
+    news = fetch_taiwan_news()
     print("=== 隨機抓取 5 則新聞 ===")
     for idx, article in enumerate(news, start=1):
         print(f"新聞 {idx}:")

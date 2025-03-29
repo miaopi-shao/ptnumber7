@@ -31,7 +31,7 @@ def fetch_bbc_news():
             
             # 提取圖片連結
             image_tag = article.find("img", class_="sc-a34861b-0 efFcac")
-            image_link = image_tag["src"] if image_tag and image_tag.get("src") else "https://via.placeholder.com/150"
+            image_link = image_tag["src"] if image_tag and image_tag.get("src") else "{{ url_for('static', filename='images/international/international2.jpg') }}"
 
             # 提取新聞連結
             link_tag = article.find("a")
@@ -68,7 +68,7 @@ def fetch_aljazeera_news():
 
             # 提取圖片連結
             image_tag = article.find("img", class_="article-card__image")
-            image_link = image_tag["src"] if image_tag and image_tag.get("src") else "https://via.placeholder.com/150"
+            image_link = image_tag["src"] if image_tag and image_tag.get("src") else "{{ url_for('static', filename='images/international/international1.jpg') }}"
 
             # 提取新聞連結
             link_tag = article.find("a")

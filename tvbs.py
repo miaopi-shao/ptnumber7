@@ -120,6 +120,16 @@ def fetch_tvbs_api():
     """
     news = fetch_tvbs_news()
     return jsonify({"message": f"成功存入 {len(news)} 篇新聞", "data": news}), 200
+# 運行程式並打印結果
+if __name__ == '__main__':
+    news = fetch_tvbs_news()
+    print("=== 隨機抓取各兩則新聞 ===")
+    for idx, article in enumerate(news, start=1):
+        print(f"新聞 {idx}:")
+        print(f"標題: {article['title']}")
+        print(f"連結: {article['link']}")
+        print(f"圖片: {article['image_link']}")
+        print("==============================")
 
 """
 程式功能總結：
