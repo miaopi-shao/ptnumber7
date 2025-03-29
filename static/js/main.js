@@ -204,80 +204,117 @@ document.addEventListener("DOMContentLoaded", () => {
                     switch (conditionCode) {
                         case 1: // 晴天
                             weatherImage.src = 'static/images/weather/sunny.png';
-                            //Image by <a href="https://pixabay.com/users/pixaline-1569622/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1987414">Sabine Kroschel</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1987414">Pixabay</a>
+                            break;
+                        case 2: // 晴時多雲
+                            weatherImage.src = 'static/images/weather/mostly_clear.png';
+                            break; 
+                        case 3: // 多雲時晴
+                            weatherImage.src = 'static/images/weather/partly_clear.png';
                             break;
                         case 4: // 多雲
-                        case 8: // 陰天
-                            weatherImage.src = 'static/images/weather/cloudy.png';
-                            //Image by <a href="https://pixabay.com/users/openicons-28911/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=98536">OpenIcons</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=98536">Pixabay</a>
-                            break;
-                        case 5: // 晴間多雲
-                        case 6: // 晴間多雲 
                             weatherImage.src = 'static/images/weather/partly_cloudy.png';
-                            //Image by <a href="https://pixabay.com/users/theujulala-59978/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1265202">TheUjulala</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1265202">Pixabay</a>
                             break;
-                        case 7: // 大部多雲
+                        case 5: // 多雲時陰
                             weatherImage.src = 'static/images/weather/mostly_cloudy.png';
-                            //Image by <a href="https://pixabay.com/users/openclipart-vectors-30363/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=159378">OpenClipart-Vectors</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=159378">Pixabay</a>
                             break;
-                        case 15: // 大雨
-                            weatherImage.src = 'static/images/weather/heavy_rain.png';
-                            //Image by <a href="https://pixabay.com/users/openicons-28911/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=98538">OpenIcons</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=98538">Pixabay</a>
+                        case 6: // 陰時多雲
+                            weatherImage.src = 'static/images/weather/mostly_cloudy2.png';
                             break;
-                        case 17: // 大暴雨
-                            weatherImage.src = 'static/images/weather/heavy_storm.png';
-                            //Image by <a href="https://pixabay.com/users/openclipart-vectors-30363/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=159389">OpenClipart-Vectors</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=159389">Pixabay</a>
+                        case 7: // 陰天
+                            weatherImage.src = 'static/images/weather/cloudy.png';
                             break;
-                        case 18: // 特大暴雨
-                            weatherImage.src = 'static/images/weather/severe_storm.png';
-                            //Image by <a href="https://pixabay.com/users/openicons-28911/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=98539">OpenIcons</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=98539">Pixabay</a>
-                            break;
-                        case 3: // 雷陣雨
-                            weatherImage.src = 'static/images/weather/thunderstorm.png';
-                            //Image by <a href="https://pixabay.com/users/clker-free-vector-images-3736/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=29949">Clker-Free-Vector-Images</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=29949">Pixabay</a>
-                            break;
-                        case 10: // 小雨 (新增)
-                        case 11: // 中雨 (新增)
-                            weatherImage.src = 'static/images/weather/light_rain.png';
-                            //Image by <a href="https://pixabay.com/users/theujulala-59978/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1265201">TheUjulala</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1265201">Pixabay</a>
-                            break;
-                        case 9: // 陣雨 
+                        case 8: // 陣雨 (多種情況統一)
                             weatherImage.src = 'static/images/weather/showers.png';
-                            //no
                             break;
-                        case 19: // 雪
-                            weatherImage.src = 'static/images/weather/snow.png';
-                            //Image by <a href="https://pixabay.com/users/openclipart-vectors-30363/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=149829">OpenClipart-Vectors</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=149829">Pixabay</a>
+                        case 9: // 多雲時陰短暫雨
+                            weatherImage.src = 'static/images/weather/mostly_cloudy_with_rain.png';
                             break;
-                        case 20: // 小雪
-                            weatherImage.src = 'static/images/weather/light_snow.png';
+                        case 10: // 陰時多雲短暫雨
+                            weatherImage.src = 'static/images/weather/mostly_cloudy_with_rain2.png';
                             break;
-                        case 21: // 中雪
-                            weatherImage.src = 'static/images/weather/moderate_snow.png';
+                        case 11: // 雨天
+                            weatherImage.src = 'static/images/weather/rainy.png';
                             break;
-                        case 22: // 大雪
+                        case 12: // 多雲時陰有雨
+                            weatherImage.src = 'static/images/weather/mostly_cloudy_with_rain3.png';
+                            break;
+                        case 13: // 陰時多雲有雨
+                            weatherImage.src = 'static/images/weather/mostly_cloudy_with_rain4.png';
+                            break;
+                        case 14: // 陰有陣雨
+                            weatherImage.src = 'static/images/weather/showers2.png';
+                            break;
+                        case 15: // 短暫陣雨或雷雨
+                            weatherImage.src = 'static/images/weather/thundershowers.png';
+                            break;
+                        case 16: // 晴陣雨或雷雨
+                            weatherImage.src = 'static/images/weather/showers_thunderstorms.png';
+                            break;
+                        case 17: // 陰雷陣雨
+                            weatherImage.src = 'static/images/weather/cloudy_thundershowers.png';
+                            break;
+                        case 18: // 雷雨
+                            weatherImage.src = 'static/images/weather/thunderstorms.png';
+                            break;
+                        case 19: // 晴午後陣雨
+                            weatherImage.src = 'static/images/weather/afternoon_showers.png';
+                            break;
+                        case 20: // 多雲午後陣雨
+                            weatherImage.src = 'static/images/weather/partly_cloudy_afternoon_showers.png';
+                            break;
+                        case 21: // 晴雷陣雨
+                            weatherImage.src = 'static/images/weather/thundershowers2.png';
+                            break;
+                        case 22: // 多雲雷陣雨
+                            weatherImage.src = 'static/images/weather/cloudy_thundershowers2.png';
+                            break;
+                        case 23: // 雨或雪
+                            weatherImage.src = 'static/images/weather/rain_or_snow.png';
+                            break;
+                        case 24: // 晴霧
+                            weatherImage.src = 'static/images/weather/fog.png';
+                            break;
+                        case 25: // 多雲霧
+                            weatherImage.src = 'static/images/weather/cloudy_fog.png';
+                            break;
+                        case 26: // 多雲時晴有霧
+                            weatherImage.src = 'static/images/weather/partly_clear_fog.png';
+                            break;
+                        case 27: // 有霧
+                            weatherImage.src = 'static/images/weather/fog2.png';
+                            break;
+                        case 28: // 陰有霧
+                            weatherImage.src = 'static/images/weather/cloudy_fog.png';
+                            break;
+                        case 29: // 局部雨
+                            weatherImage.src = 'static/images/weather/local_rain.png';
+                            break;
+                        case 30: // 局部陣雨
+                            weatherImage.src = 'static/images/weather/local_showers.png';
+                            break;
+                        case 31: // 局部雨和霧
+                            weatherImage.src = 'static/images/weather/fog_local_rain.png';
+                            break;
+                        case 32: // 陰短暫陣雨有霧
                             weatherImage.src = 'static/images/weather/heavy_snow.png';
                             break;
-                        case 23: // 霧
-                            weatherImage.src = 'static/images/weather/fog.png';
-                            //Image by <a href="https://pixabay.com/users/openclipart-vectors-30363/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=159381">OpenClipart-Vectors</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=159381">Pixabay</a>
+                        case 33: // 多雲局部雷陣雨
+                            weatherImage.src = 'static/images/weather/moderate_snow.png';
                             break;
-                        case 24: // 霜
-                            weatherImage.src = 'static/images/weather/frost.png';
-                            //Image by <a href="https://pixabay.com/users/inspire-studio-22128832/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7234858">J S</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7234858">Pixabay</a>
+                        case 34: // 陰局部短暫雷陣雨 
+                            weatherImage.src = 'static/images/weather/light_snow.png';
                             break;
-                        case 26: // 沙塵暴 (新增)
-                            weatherImage.src = 'static/images/weather/dust_storm.png';
-                            //<a href="https://www.flaticon.com/free-icons/sand-storm" title="sand storm icons">Sand storm icons created by IconBaandar - Flaticon</a>
-                            break;
-                        case 28: // 強風 (新增)
-                            weatherImage.src = 'static/images/weather/strong_wind.png';
-                            //Image by <a href="https://pixabay.com/users/inspire-studio-22128832/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7126916">J S</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7126916">Pixabay</a>
-                            break;
-                        case 29: // 暴風雪 (新增)
-                            weatherImage.src = 'static/images/weather/blizzard.png';
-                            //Image by <a href="https://pixabay.com/users/openclipart-vectors-30363/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1292857">OpenClipart-Vectors</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1292857">Pixabay</a>
-                            break;
+                        case 35:
+                        case 36:
+                        case 37:
+                        case 38:
+                        case 39:
+                        case 40:
+                        case 41: // 多雲局部短暫陣雨或雷雨有霧 
+                            weatherImage.src = 'static/images/weather/snow.png'; break;
+                            
+                        case 42: // 暴風雪 (新增)
+                            weatherImage.src = 'static/images/weather/blizzard.png';break;
                         default:
                             console.log("沒有匹配到代碼:", data.conditionValue);
                             weatherImage.src = 'static/images/preloader.gif'; // 若無匹配的天氣代碼，使用預設圖
