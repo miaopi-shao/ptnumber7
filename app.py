@@ -86,28 +86,43 @@ if FLASK_ENV == "development":
 elif FLASK_ENV == "local_mysql":
     DATABASE_URI = os.getenv("DB_MAIN_URI") 
     print("使用本地 MySQL 資料庫")
-else:
-    DATABASE_URI =  os.getenv("DB_MAIN_URI") 
+elif FLASK_ENV == "production":
+    DATABASE_URI =  os.getenv("AWS_MAIN_URI") 
     print("使用雲端 MySQL 資料庫")
+else:
+    raise ValueError("所有環境比對失敗!!!未定義的 FLASK_ENV 環境變數，請重新檢查app.py或.env內設定")
+    
 # 統一配置 Flask 的 SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 
 # 綁定多個資料庫（依據環境設定）
 if FLASK_ENV == "production":
+    # 雲端 MySQL 資料庫
     app.config['SQLALCHEMY_BINDS'] = {
         'user': os.getenv('AWS_USER_URI'),
         'auth': os.getenv('AWS_AUTH_URI'),
         'game': os.getenv('AWS_GAME_URI'),
         'news': os.getenv('AWS_NEWS_URI'),
     }
-else:
+    print("綁定至雲端 MySQL 資料庫")
+elif FLASK_ENV in ["local_mysql", "development"]:
+    # 本地 MySQL 資料庫
     app.config['SQLALCHEMY_BINDS'] = {
         'user': os.getenv('DB_USER_URI'),
         'auth': os.getenv('DB_AUTH_URI'),
         'game': os.getenv('DB_GAME_URI'),
         'news': os.getenv('DB_NEWS_URI'),
     }
-
+    print("綁定至本地 MySQL 資料庫")
+else:
+    # 預設綁定本地 MySQL（包含開發環境）
+    app.config['SQLALCHEMY_BINDS'] = {
+        'user': os.getenv('DB_USER_URI'),
+        'auth': os.getenv('DB_AUTH_URI'),
+        'game': os.getenv('DB_GAME_URI'),
+        'news': os.getenv('DB_NEWS_URI'),
+    }
+    print("綁定至本地 MySQL（默認環境） 資料庫")
 
 
 # 設定主資料庫與多綁定資料庫-因應雲端環境更改2025/03/29
@@ -129,14 +144,18 @@ app.config["SESSION_TYPE"] = "filesystem"  # 使用文件系統來存儲 Session
 app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'  # 替換成安全的 JWT 密鑰
 
 
-# 調整資料庫文件的讀寫權限
+# 調整資料庫文件的讀寫權限-本地開發時
 # Adjust read/write permissions for database files
-db_files = ["user.db", "auth.db", "game.db", "new.db"]  # 專案資料庫文件列表
-for db_file in db_files:  # 遍歷所有資料庫文件
-    db_path = os.path.join(DATABASE_URI, db_file)  # 程式庫模組，用於拼接文件路徑
-    if os.path.exists(db_path):  # 檢查文件是否存在
-        os.chmod(db_path, 0o777)  # 程式庫模組，修改文件的權限
-        print(f"已更改權限: {db_path}")  # 輸出更新權限的文件路徑
+if FLASK_ENV in ["development", "local_mysql"]:
+    db_files = ["user.db", "auth.db", "game.db", "new.db"]  # 專案資料庫文件列表
+    for db_file in db_files:
+        db_path = os.path.join(DATABASE_URI, db_file)  # 拼接文件路徑
+        if os.path.exists(db_path):
+            os.chmod(db_path, 0o777)  # 修改文件的權限
+            print(f"已更改權限: {db_path}")
+else:
+    print("雲端環境，不需處理本地資料庫文件的權限")
+
 
 # 禁用資料庫追蹤修改，提高效能
 # Disable database modification tracking to enhance performance
@@ -213,17 +232,20 @@ def load_user(user_id):
 
 # 建立資料表（僅執行一次）
 # Create tables (execute only once)
-
+# 建立資料表（僅執行一次，適用於綁定資料庫）
 with app.app_context():
     db.metadata.clear()  # 清理重複定義的表結構
-    for DATABASE_URI in app.config['SQLALCHEMY_BINDS']:
-        try:
-            engine = db.engines[DATABASE_URI]  # 使用新的方式獲取引擎
-            db.metadata.create_all(engine)  # 創建資料表
-            print(f"成功創建資料表 (綁定鍵: {DATABASE_URI})")
-        except Exception as e:
-            print(f"創建資料表失敗 (綁定鍵: {DATABASE_URI}): {e}")
-
+    if FLASK_ENV in ["development", "local_mysql"]:
+        # 僅在本地環境中創建資料表
+        for bind_key, bind_uri in app.config['SQLALCHEMY_BINDS'].items():
+            try:
+                engine = db.create_engine(bind_uri)
+                db.metadata.create_all(engine)
+                print(f"成功創建資料表 (綁定鍵: {bind_key})")
+            except Exception as e:
+                print(f"創建資料表失敗 (綁定鍵: {bind_key}): {e}")
+    else:
+        print("跳過雲端資料表創建邏輯")
 
 
 
