@@ -496,7 +496,7 @@
                                             <div class="clearfix">
                                                 <div class="box-2 maxheight clearfix" style="height: auto;">
                                                     <div class="box_inner">
-                                                        <img src="{{ article.image_link or url_for('static', filename='images/default.png') }}" alt="此文無附圖" class="img-ind">
+                                                        <img src="{{ article.image_link or url_for('static', filename='images/default.png') }}" alt="此文無附圖" class="img-ind" style="width: 150px; height: 70px;">
                                                         <div>
                                                             <h3>{{ article.title or '未提供標題' }}</h3>
                                                             <div><a href="{{ article.link }}" style="font-size: 16px !important;">{{ article.content or '未提供摘要' }}</a></div>
@@ -520,7 +520,7 @@
                                             <div class="clearfix">
                                                 <div class="box-2 maxheight clearfix" style="height: auto;">
                                                     <div class="box_inner">
-                                                        <img src="{{ article.image_link or url_for('static', filename='images/default.png') }}" alt="" class="img-ind">
+                                                        <img src="{{ article.image_link or url_for('static', filename='images/default.png') }}" alt="" class="img-ind" style="width: 150px; height: 70px;">
                                                         <div>
                                                             <h3>{{ article.title or '未提供標題' }}</h3>
                                                             <div> <a href="{{ article.link }}" style="font-size: 16px !important;">{{ article.description or '未提供摘要' }}</a></div>
