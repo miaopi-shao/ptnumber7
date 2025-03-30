@@ -55,8 +55,21 @@ def fetch_ettoday2_news():
             title = article.find("h3").text.strip() if article.find("h3") else "無標題"
             link = article.find("a")["href"] if article.find("a", class_="pic") else "無連結"
             content = article.find("p", class_="summary").text.strip() if article.find("p", class_="summary") else random.choice(["點擊查看全文", "探索新聞詳情", "快速瞭解更多"])
-            image_link_tag = article.find("img")
-            image_link = image_link_tag["src"] if image_link_tag and "src" in image_link_tag.attrs else "無圖片連結"
+            raw_image_link = article.find("img")["data-original"] if article.find("img") else None
+
+            if raw_image_link:
+                # 判斷並修正前綴
+                if raw_image_link.startswith("//"):
+                    image_link = "http:" + raw_image_link
+                else:
+                    image_link = raw_image_link
+            else:
+                image_link = "無圖片"
+
+
+
+
+
             publish_time = datetime.now(timezone.utc).isoformat()
 
             print(f"標題：{title}")
