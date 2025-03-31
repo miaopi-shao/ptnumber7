@@ -57,13 +57,53 @@
 
     <!-- 載入 通用腳本 檔案，如網站的主要邏輯或互動功能 -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-     <script>
+    <script>
+        // 等待 DOM 加載完成
         $(document).ready(function() {
+            // 啟用圖片放大效果
             $('.magnifier').touchTouch();
-            
+    
+            // 啟用返回頂部按鈕
             $().UItoTop({ easingType: 'easeOutQuart' });
+    
+            // 查看排行榜按鈕邏輯
+            const showLeaderboardButton = document.getElementById('show-leaderboard');
+            const leaderboardDisplay = document.getElementById('leaderboard-display');
+            const leaderboardTableBody = document.getElementById('leaderboard-table-body');
+    
+            if (showLeaderboardButton && leaderboardDisplay && leaderboardTableBody) {
+                showLeaderboardButton.addEventListener('click', function(event) {
+                    event.preventDefault();
+    
+                    // 顯示排行榜表格
+                    leaderboardDisplay.style.display = 'block';
+    
+                    // 發送 Ajax 請求獲取排行榜數據
+                    fetch('/leaderboard-data')
+                        .then(response => response.json())
+                        .then(data => {
+                            // 清空表格
+                            leaderboardTableBody.innerHTML = '';
+    
+                            // 插入新數據
+                            data.scores.forEach(score => {
+                                const row = `<tr>
+                                    <td>${score.username}</td>
+                                    <td>${score.game_name}</td>
+                                    <td>${score.score}</td>
+                                    <td>${score.created_at}</td>
+                                </tr>`;
+                                leaderboardTableBody.innerHTML += row;
+                            });
+                        })
+                        .catch(error => {
+                            console.error('獲取排行榜失敗：', error);
+                            leaderboardTableBody.innerHTML = '<tr><td colspan="4">無法獲取排行榜數據</td></tr>';
+                        });
+                });
+            }
         });
-     </script>
+    </script>
      
      <!-- 舊版IE判斷後更改運行模式 -->
     <div id="browser-warning" style="display: none; text-align:center; position: relative;">
@@ -212,15 +252,45 @@
                 <div class="grid_4">
                     <div class="shadow-block-wrapper">
                         <div class="shadow-block maxheight">
-                            <h2>Overview</h2>
-                            <a href="images/page-2_img-1-b.jpg" class="magnifier">
-                                <img src="images/page-2_img-1.jpg" alt="" class="wrapper">
+                            <h2>遊戲排行榜</h2>
+                            <a href="/leaderboard" class="magnifier">
+                                <img src="images/page-2_img-2.jpg" alt="---排行榜---" class="wrapper">
                             </a>
                             <ul class="list-1">
-                                <li><a href="#">About Weather Stations</a></li>
-                                <li><a href="#">Map of Weather Stations</a></li>
-                                <li><a href="#">Sign Up Your Station</a></li>
-                                <li><a href="#">My Weather Channel</a></li>
+                                <li><a href="#" id="show-leaderboard">查看排行榜</a></li>
+                                <li><a href="/">返回首頁</a></li>
+                                <li><a href="/tetris">俄羅斯方塊</a></li>
+                                <li><a href="/parkour">跑酷遊戲</a></li>
+                            </ul>
+                            <div id="leaderboard-display" style="display: none; margin-top: 20px;">
+                                <table border="1">
+                                    <thead>
+                                        <tr>
+                                            <th>使用者名稱</th>
+                                            <th>遊戲名稱</th>
+                                            <th>分數</th>
+                                            <th>時間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="leaderboard-table-body">
+                                        <!-- 動態插入排行榜數據 -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid_4">
+                    <div class="shadow-block-wrapper">
+                        <div class="shadow-block maxheight">
+                            <h2>俄羅斯方塊</h2>
+                            <a href="/tetris" class="magnifier">
+                                <img src="images/page-2_img-1.jpg" alt="---俄羅斯方塊---" class="wrapper">
+                            </a>
+                            <ul class="list-1">
+                                <li><a href="/tetris">進入俄羅斯方塊</a></li>
+                                <li><a href="/leaderboard">查看排行榜</a></li>
+                                <li><a href="/">返回首頁</a></li>
                             </ul>
                         </div>
                     </div>
@@ -228,15 +298,15 @@
                 <div class="grid_4">
                     <div class="shadow-block-wrapper">
                         <div class="shadow-block maxheight">
-                            <h2>Weather History</h2>
-                            <a href="images/page-2_img-2-b.jpg" class="magnifier">
-                                <img src="images/page-2_img-2.jpg" alt="" class="wrapper">
+                            <h2>跑酷遊戲</h2>
+                            <a href="/parkour" class="magnifier">
+                                <img src="images/page-2_img-1.jpg" alt="---跑酷遊戲---" class="wrapper">
                             </a>
                             <ul class="list-1">
-                                <li><a href="#">Airport Weather History</a></li>
-                                <li><a href="#">Hurricane Archive</a></li>
-                                <li><a href="#">Record Extremes</a></li>
-                                <li><a href="#">Travel Planner</a></li>
+                                <li><a href="/parkour">進入跑酷遊戲</a></li>
+                                <li><a href="/leaderboard">查看排行榜</a></li>
+                                <li><a href="/save_score">儲存分數</a></li>
+                                <li><a href="/">返回首頁</a></li>
                             </ul>
                         </div>
                     </div>
@@ -244,32 +314,15 @@
                 <div class="grid_4">
                     <div class="shadow-block-wrapper">
                         <div class="shadow-block maxheight">
-                            <h2>Travel</h2>
-                            <a href="images/page-2_img-3-b.jpg" class="magnifier">
-                                <img src="images/page-2_img-3.jpg" alt="" class="wrapper">
-                            </a>
-                            <ul class="list-1">
-                                <li><a href="#">Road Trip Planner</a></li>
-                                <li><a href="#">Travel Planner</a></li>
-                                <li><a href="#">Beach Weather</a></li>
-                                <li><a href="#">US National Parks</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid_4">
-                    <div class="shadow-block-wrapper">
-                        <div class="shadow-block maxheight">
-                            <h2>Activities</h2>
+                            <h2>一箭穿心</h2>
                             <a href="images/page-2_img-4-b.jpg" class="magnifier">
                                 <img src="images/page-2_img-4.jpg" alt="" class="wrapper">
                             </a>
                             <ul class="list-1">
-                                <li><a href="#">Ski &amp; Snow</a></li>
-                                <li><a href="#">Sports</a></li>
-                                <li><a href="#">General Aviation</a></li>
-                                <li><a href="#">Sailing &amp; Boating</a></li>
-                                <li><a href="#">Agriculture</a></li>
+                                <li><a href="#">遊戲尚未完成</a></li>
+                                <li><a href="#">研發中</a></li>
+                                <li><a href="#">敬請不要期待</a></li>
+                                <li><a href="/">返回首頁</a></li>
                             </ul>
                         </div>
                     </div>
@@ -277,16 +330,17 @@
                 <div class="grid_4">
                     <div class="shadow-block-wrapper">
                         <div class="shadow-block maxheight">
-                            <h2>Downloads</h2>
+                            <h2>OAP瞭望者協會</h2>
                             <a href="images/page-2_img-5-b.jpg" class="magnifier">
                                 <img src="images/page-2_img-5.jpg" alt="" class="wrapper">
                             </a>
                             <ul class="list-1">
-                                <li><a href="#">Wunderground Apps</a></li>
-                                <li><a href="#">Weather ™ API for Developers</a></li>
-                                <li><a href="#">Weather Stickers</a></li>
-                                <li><a href="#">Daily Forecast Flyer</a></li>
-                                <li><a href="#">Astronomy</a></li>
+                                <li><a href="#">遊戲模式思考中</a></li>
+                                <li><a href="#">敬請不要期待</a></li>
+                                <li><a href="https://oaplookout.onrender.com">網站架設中</a></li>
+                                <li><a href="https://www.facebook.com/profile.php?id=100075816832121">Face Book</a></li>
+                                <li><a href="https://x.com/a175805">X</a></li>
+                                <li><a href="/">返回首頁</a></li>
                             </ul>
                         </div>
                     </div>
@@ -294,15 +348,15 @@
                 <div class="grid_4">
                     <div class="shadow-block-wrapper">
                         <div class="shadow-block maxheight">
-                            <h2>Health</h2>
-                            <a href="images/page-2_img-6-b.jpg" class="magnifier">
-                                <img src="images/page-2_img-6.jpg" alt="" class="wrapper">
+                            <h2>YouTube</h2>
+                            <a href="https://www.youtube.com/" class="magnifier">
+                                <img src="images/youtube.png" alt="" class="wrapper">
                             </a>
                             <ul class="list-1">
-                                <li><a href="#">Air Quality</a></li>
-                                <li><a href="#">Pollen &amp; Allergies</a></li>
-                                <li><a href="#">UV Index</a></li>
-                                <li><a href="#">Flu Tracker</a></li>
+                                <li><a href="https://www.youtube.com/news" target="_blank">新聞</a></li>
+                                <li><a href="https://www.youtube.com/music" target="_blank">音樂</a></li>
+                                <li><a href="https://www.youtube.com/gaming" target="_blank">遊戲</a></li>
+                                <li><a href="https://www.youtube.com/live" target="_blank">直播</a></li>
                             </ul>
                         </div>
                     </div>
@@ -382,5 +436,8 @@
     
 <!-- 載入 帳號處理 檔案 -->
 <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+<script>
+
+</script>
 </body>
 </html>

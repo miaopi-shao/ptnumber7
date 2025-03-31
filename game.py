@@ -14,17 +14,17 @@ from database import db
 save_score_bp = Blueprint('save_score', __name__)
 
 # 遊戲頁面 - 顯示俄羅斯方塊遊戲頁面
-@save_score_bp.route('/game/tetris')
+@save_score_bp.route('/tetris')
 def tetris_game():
     return render_template('tetris_game.html')
 
 # 遊戲頁面 - 顯示跑酷遊戲頁面
-@save_score_bp.route('/game/parkour')
+@save_score_bp.route('/parkour')
 def parkour_game():
     return render_template('parkour_game.html')
 
 # 儲存分數
-@save_score_bp.route('/game/save_score', methods=['POST'])
+@save_score_bp.route('/save_score', methods=['POST'])
 def save_score():
     # 從表單中獲取分數
     score = request.form.get('score', type=int)
@@ -59,7 +59,7 @@ def save_score():
     return redirect(url_for('save_score.leaderboard'))
 
 # 排行榜頁面 - 顯示最高分前 10 名
-@save_score_bp.route('/game/leaderboard')
+@save_score_bp.route('/leaderboard')
 def leaderboard():
     scores = Score.query.order_by(Score.score.desc()).limit(10).all()
     leaderboard_data = []
@@ -80,8 +80,29 @@ def leaderboard():
     
     return render_template('leaderboard.html', scores=leaderboard_data)
 
+@save_score_bp.route('/leaderboard-data')
+def leaderboard_data():
+    scores = Score.query.order_by(Score.score.desc()).limit(10).all()
+    leaderboard_data = []
+
+    for score in scores:
+        if score.user_id:
+            user = User.query.get(score.user_id)
+            username = user.username if user else "未知用戶"
+        else:
+            username = f"(未登入) {score.guest_nickname}"
+
+        leaderboard_data.append({
+            "username": username,
+            "game_name": score.game_name,
+            "score": score.score,
+            "created_at": score.created_at.strftime('%Y-%m-%d %H:%M:%S')
+        })
+
+    return jsonify({"scores": leaderboard_data})
+
 # 檢查暱稱是否撞名
-@save_score_bp.route('/game/check_name', methods=['GET'])
+@save_score_bp.route('/check_name', methods=['GET'])
 def check_name():
     nickname = request.args.get('nickname')
     if not nickname:
