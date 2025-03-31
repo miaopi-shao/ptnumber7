@@ -65,11 +65,11 @@ mail = None  # 保留可選使用 flask_mail 的空參數
 
 
 # -------------------------------- 工具函式 --------------------------------------
-def phrase_to_password(phrase):
+def password_to_password(password):
     """ 將使用者輸入的密碼進行加密 """
-    if len(phrase) < 8 or len(phrase) > 16:
+    if len(password) < 8 or len(password) > 16:
         return None, "密碼長度必須在 8 至 16 個字元之間"
-    hashed_password = generate_password_hash(phrase, method='pbkdf2:sha256')
+    hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
     return hashed_password, None
 
 def encode_morse(text):
@@ -110,11 +110,11 @@ def login():
         username = data.get('username')
         logging.info(f"收到的 JSON 資料: {username}")
 
-        phrase = data.get('phrase')
-        logging.info(f"收到的 JSON 資料: {phrase}")
+        password = data.get('password')
+        logging.info(f"收到的 JSON 資料: {password}")
         
     
-        if not username or not phrase:
+        if not username or not password:
             return jsonify({"error": "請提供使用者名稱和密碼"}), 400
     
         hashed_username = encode_morse(username)
@@ -129,7 +129,7 @@ def login():
             logging.warning(f"使用者未找到: {hashed_username}")
             return jsonify({"error": "未找到該使用者"}), 404
     
-        if not check_password_hash(user.password, phrase):
+        if not check_password_hash(user.password, password):
             logging.warning(f"密碼錯誤: 使用者 {hashed_username}")
             return jsonify({"error": "密碼錯誤"}), 401
     
@@ -208,33 +208,45 @@ def register():
         # 進行用戶註冊邏輯
         logging.info("開始執行註冊流程")
 
-        if not request.is_json:
-            return jsonify({"error": "請傳遞 JSON 格式資料"}), 400
+        try:
+            data = request.get_json(force=True)
+            logging.info(f"收到的 JSON 資料: {data}")
+            if not data:
+                logging.error("接收資料為空")
+                return jsonify({"error": "請提供資料"}), 400
         
-        data = request.json
-        logging.info(f"收到的 JSON 資料: {data}")
+            username = data.get('username')
+            password = data.get('password')
+            email = data.get('email')
+        
+            if not username or not password or not email:
+                logging.error("接收資料不完整")
+                return jsonify({"error": "請填寫完整資訊"}), 400
+        except Exception as e:
+            logging.error(f"JSON 解析失敗: {e}")
+            return jsonify({"error": "請傳遞有效的 JSON 資料"}), 400
         
         username = data.get('username')
         logging.info(f"收到的 帳號 資料: {username}")
         
-        phrase = data.get('phrase')
-        logging.info(f"收到的 密碼 資料: {phrase}")
+        password = data.get('password')
+        logging.info(f"收到的 密碼 資料: {password}")
         
         email = data.get('email')
         logging.info(f"收到的 信箱 資料: {email}")
     
-        if not username or not phrase or not email:
+        if not username or not password or not email:
             return jsonify({"error": "請提供完整資訊"}), 400
     
         if AuthUser.query.filter_by(email=email).first():
             return jsonify({"error": "該電子郵件已被註冊"}), 400
     
-        if not re.match(r'^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,16}$', phrase):
+        if not re.match(r'^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,16}$', password):
             return jsonify({"error": "密碼長度須在 8 至 16 且需包含數字和字母"}), 400
     
     
         hashed_username = encode_morse(username)
-        hashed_password, error = phrase_to_password(phrase)
+        hashed_password, error = password_to_password(password)
         if error:
             return jsonify({"error": error}), 400
     
@@ -246,6 +258,10 @@ def register():
             db.session.rollback()
             print(f"資料庫錯誤：{e}")  # 記錄到伺服器日誌中
             return jsonify({"error": "資料庫操作失敗"}), 500
+        if not data:
+            logging.error("收到的資料為空")
+            return jsonify({"error": "請提供資料"}), 400
+
         
         try:
             if not re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', email):

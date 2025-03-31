@@ -139,7 +139,7 @@
                             <!-- 帳號的欄位 -->
                             <div class="login-area">
                                 <div class="login-form-1  clearfix">
-                                <form id="login-form"><!-- 套版注意 -->
+                                <form id="login-form" action="/auth/login" method="POST"><!-- 套版注意 -->
                                     {% if current_user.is_authenticated %}
                                         <!-- 登入後的顯示方式 -->
                                         <div id="account-info">
@@ -160,7 +160,7 @@
                                                 <div class="input-group">
                                                     <!-- 帳號輸入框 -->
                                                     <div class="username-wrapper">
-                                                        <input type="username" id="username" name="username" placeholder="使用者名稱" autocomplete="new-password">
+                                                        <input type="username" id="username" name="username" placeholder="使用者名稱" autocomplete="username">
                                                         <div id="username-error" class="error-message"></div><!-- 帳號錯誤顯示欄 -->
                                                     </div>
                                                     <!-- 密碼輸入框 -->
@@ -170,6 +170,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="button-group">
+                                                    <div id="general-error" class="error-message"></div>
                                                     <button type="submit" id="login-btn">登入</button>
                                                     <button type="button" id="forgot-password-btn">忘記密碼？</button>
                                                 </div>
@@ -188,9 +189,9 @@
             <div class="modal1-overlay" id="modal-overlay"></div>
             <div class="modal1" id="register-modal">
                 <h2>註冊帳號</h2>
-                <form id="register-form">
+                <form id="register-form" action="/auth/register" method="POST">
                     <input type="text" id="register-username" name="username" placeholder="使用者名稱" required>
-                    <input type="password" id="register-password" name="password" placeholder="習慣用語" required>
+                    <input type="password" id="register-password" name="password" placeholder="使用者密碼" required>
                     <input type="email" id="register-email" name="email" placeholder="電子郵件" required>
                     <button type="submit">註冊</button>
                 </form>
@@ -228,7 +229,7 @@
                     <div class="search-block">
                         <form id="search-category" class="search" action="/search/internal_search" method="GET">
                             <label for="s">站內搜尋</label>
-                            <select name="category" id="category">
+                            <select name="category" id="category" aria-label="搜尋類型">
                               <option value="all">綜合查詢</option>
                               <option value="images">單純圖片</option>
                             </select>

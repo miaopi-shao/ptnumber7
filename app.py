@@ -31,7 +31,7 @@ from flask_cors import CORS
 # 專案模組匯入，所有Blueprint 模組
 # Import all Blueprint modules for modular routing within the project
 # ========================================================
-from auth import auth_bp
+from auth import auth_bp                                  # 負責帳戶資訊
 from external_search import external_search_bp            # 負責站外搜尋
 from news_fetch import news_fetch_bp                      # 負責站內搜尋
 from search_engine import search_engine_bp
@@ -82,7 +82,7 @@ else:
 load_dotenv()  # 調用程式庫模組，用於將 .env 文件中的變數載入到系統環境
 
 # 配置多類型資料庫綁定
-FLASK_ENV = os.environ.get("FLASK_ENV", "production")#-----------------------------------------------------注意替換-------------------------------
+FLASK_ENV = os.environ.get("FLASK_ENV", "local_mysql")#-----------------------------------------------------注意替換-------------------------------
 print("*********************************")
 print(f"FLASK_ENV 設定為: {FLASK_ENV}")
 print("*********************************")

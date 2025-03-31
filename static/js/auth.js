@@ -9,28 +9,37 @@ async function apiRequest(endpoint, method, body) {
         headers: { 'Content-Type': 'application/json' },
         body: body ? JSON.stringify(body) : null,
     };
+    console.log("註冊請求 Body:", JSON.stringify({ username, password, email }));
+    console.log("JSON.stringify(body):", JSON.stringify(body));
+    console.log("API 請求 Headers:", options.headers);
+    console.log("API 請求 Body:", options.body);
     if (token) {
-        options.headers["Authorization"] = `Bearer ${localStorage.getItem("token")}`; // 加入 Authorization 標頭
+        options.headers["Authorization"] = `Bearer ${token}`; // 加入 Authorization 標頭
     }
     try {
         const response = await fetch(endpoint, options);
         
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || `HTTP 錯誤！狀態碼: ${response.status}`);
+            let errorMessage = `HTTP 錯誤！狀態碼: ${response.status}`;
+            try {
+                const errorData = await response.json();
+                errorMessage = errorData.error || errorMessage;
+            } catch (parseError) {
+                console.error("無法解析伺服器回應：", parseError.message);
+            }
+            throw new Error(errorMessage);
         }
-    
         return await response.json();
     } catch (error) {
         if (error.message.includes("Failed to fetch")) {
-            console.error("API 錯誤：伺服器無法連接。");
-            throw new Error("無法連接伺服器，請檢查網路連線。");
+            console.error("API 錯誤：伺服器無法連接或跨域問題。");
+            throw new Error("無法連接伺服器，請檢查網路連線或跨域設置。");
         } else {
             console.error("API 請求錯誤:", error.message);
             throw error; // 傳遞原始錯誤
         }
-    }};
-
+    }
+}
 
 
 document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執行函式（IIFE），避免全域變數污染
@@ -111,43 +120,29 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
     
     // 取得 DOM 元素
     const modalOverlay = document.getElementById("modal-overlay");  // 2. 取得 modal 背景
-    const registerModal = document.getElementById("register-modal");  // 3. 取得註冊視窗
-    const registerBtn = document.getElementById("register-btn");  // 4. 取得註冊按鈕
-    const closeBtn = document.getElementById("close-register-modal");  // 5. 取得關閉註冊視窗按鈕
-    const registerForm = document.getElementById("register-form");  // 6. 取得註冊表單
     const loginForm = document.getElementById("login-form");  // 7. 取得登入表單
     const forgotPasswordBtn = document.getElementById("forgot-password-btn");  // 7. 取得忘記帳密表單
     const confirmDeletebtn = document.getElementById("delete-account-btn");  // 7. 取得刪除帳密表單
-        
-        
-        
-        
-        
-        
+         
     // ===== 登入帳號 =====
     loginForm.addEventListener("submit", async (event) => {
         event.preventDefault(); // 防止表單提交後頁面重新整理
     
         let username = document.getElementById("username").value.trim();
-        let phrase = document.getElementById("password").value.trim();
-        const usernameError = document.getElementById("username-error");
-        const passwordError = document.getElementById("password-error");
-    
-        // 清除錯誤訊息
-        usernameError.innerText = "";
-        passwordError.innerText = "";
+        let password = document.getElementById("password").value.trim();
     
         // 檢查是否有輸入帳號和密碼
-        if (!username || !phrase) {
+        if (!username || !password) {
             if (!username) usernameError.innerText = "請輸入使用者名稱！";
-            if (!phrase) passwordError.innerText = "請輸入密碼！";
+            if (!password) passwordError.innerText = "請輸入密碼！";
+            generalError.innerText = "";
             return;
         }
     
         try {
             // 發送登入請求
             let data = await apiRequest("/auth/login", "POST", {
-                body: { username, phrase } // 正確封裝 Body
+                body: { username, password: password } // 正確封裝 Body
             });
             console.log("後端回應資訊:", data); // 打印 data 檢查內容是否包含 token
     
@@ -176,19 +171,26 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
                 }, 2000);
             } else if (data?.error) {
                 // 處理錯誤訊息
-                if (data.error.username) {
-                    usernameError.innerText = data.error.username;
-                }
-                if (data.error.password) {
-                    passwordError.innerText = data.error.password;
-                }
-                if (typeof data.error === "string") {
-                    alert(data.error);
+                const usernameError = document.getElementById("username-error");
+                const passwordError = document.getElementById("password-error");
+                const generalError = document.getElementById("general-error");
+                // 清除錯誤訊息
+                usernameError.innerText = "";
+                passwordError.innerText = "";
+                if (data.error === "未找到該使用者") {
+                    usernameError.innerText = data.error;
+                } else {
+                    generalError.innerText = data.error;
                 }
             }
         } catch (error) {
             console.error("登入請求失敗:", error.message);
-            alert("伺服器出現問題，請稍後再試！");
+        
+            // 顯示錯誤訊息到指定區域，而不是彈出視窗
+            const generalError = document.getElementById("general-error");
+            if (generalError) {
+                generalError.innerText = error.message;
+            }
         }
     });
 
@@ -234,15 +236,19 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
     
             // 取得輸入值
             let username = document.getElementById("register-username").value;
-            let phrase = document.getElementById("register-password").value;
+            let password = document.getElementById("register-password").value;
             let email = document.getElementById("register-email").value;
             let errorMsg = document.getElementById("register-error-msg");
+            
+            console.log("使用者名稱:", username);
+            console.log("密碼:", password);
+            console.log("電子郵件:", email);
 
-    
+            
             errorMsg.innerText = "";  // 清空錯誤訊息
             
             // ===== 驗證輸入值是否完整 =====
-            if (!username || !phrase || !email) {  // 核心邏輯在這裡
+            if (!username || !password || !email) {  // 核心邏輯在這裡
                 errorMsg.innerText = "請填寫完整資訊！";
                 errorMsg.style.color = "red";
                 return;  // 停止後續處理
@@ -251,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
             // 發送註冊請求
              try {
                 // 發送 API 請求
-                let data = await apiRequest("/auth/register", "POST", { username, phrase, email });
+                let data = await apiRequest("/auth/register", "POST", { username, password, email });
                 if (data.error) {
                     // 顯示後端返回的錯誤訊息
                     errorMsg.innerText = data.error;
@@ -269,14 +275,14 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
                 errorMsg.style.color = "red";
             }
         });
-    
+        
         // =====  即時清除錯誤訊息 =====
         ["register-username", "register-password", "register-email"].forEach((id) => {
             document.getElementById(id).addEventListener("input", () => {
                 errorMsg.innerText = "";
             });
         });
-    
+        
     })();
 
     // ===== 忘記密碼功能 =====
