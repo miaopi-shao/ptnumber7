@@ -69,7 +69,6 @@ app = Flask(__name__)  # 程式庫的模組，主應用程序初始化
 from database import login_manager, init_extensions, db  # 專案的模組，用於統一初始化資料庫、登入管理等擴展功能
 from dotenv import load_dotenv  # 程式庫的模組，用於加載 .env 環境變數
 import os  # 程式庫模組，負責操作系統功能（例如文件路徑）
-os.chdir(r'D:\PTtest')
 # 加載 .env 文件中的變數
 # Load environment variables from .env file
 load_dotenv()  # 調用程式庫模組，用於將 .env 文件中的變數載入到系統環境
