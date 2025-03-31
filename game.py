@@ -7,7 +7,7 @@ Created on Wed Feb 26 15:52:56 2025
 
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from flask_login import current_user
-from models import db, User, AuthUser, Score  # 假設有 Score 模型用來儲存分數
+from models import User, AuthUser, Score  # 假設有 Score 模型用來儲存分數
 from database import db
 
 
@@ -24,45 +24,76 @@ def parkour_game():
     return render_template('parkour_game.html')
 
 # 儲存分數
-@save_score_bp.route('/save_score', methods=['POST'])
+@save_score_bp.route('/game/save_score', methods=['POST'])
 def save_score():
-    score = request.form['score']
-    user = current_user.username if current_user.is_authenticated else request.form.get('nickname')
+    # 從表單中獲取分數
+    score = request.form.get('score', type=int)
+    if not score or score < 0:  # 驗證分數
+        return 'Invalid score', 400
 
-    # 驗證暱稱是否符合要求
-    if not user or len(user.strip()) < 2 or not user.isalnum():
-        return 'Invalid nickname', 400
+    game_name = request.form.get('game_name') or "Tetris"  # 默認遊戲名稱
 
-    # 未登入用戶加上標註
-    if not current_user.is_authenticated:
-        user = f"(未登錄) {user}"
-
-    new_score = Score(username=user, score=score)
+    user_id = None
+    guest_nickname = None
+    
+    if current_user.is_authenticated:  # 如果用戶已登入
+        user_id = current_user.id
+    else:  # 未登入用戶
+        nickname = request.form.get('nickname')  # 從表單中獲取暱稱
+        if not nickname or len(nickname.strip()) < 2 or not nickname.isalnum():
+            return 'Invalid nickname', 400  # 驗證暱稱
+        guest_nickname = nickname.strip()
+    
+    # 創建新的分數記錄
+    new_score = Score(
+        user_id=user_id,
+        guest_nickname=guest_nickname,
+        game_name= game_name,
+        score=score
+    )
+    
+    # 儲存到資料庫
     db.session.add(new_score)
     db.session.commit()
-    
+
     return redirect(url_for('save_score.leaderboard'))
 
 # 排行榜頁面 - 顯示最高分前 10 名
 @save_score_bp.route('/game/leaderboard')
 def leaderboard():
     scores = Score.query.order_by(Score.score.desc()).limit(10).all()
-    return render_template('leaderboard.html', scores=scores)
+    leaderboard_data = []
+
+    for score in scores:
+        if score.user_id:  # 登入用戶
+            user = User.query.get(score.user_id)
+            username = user.username if user else "未知用戶"
+        else:  # 未登入用戶
+            username = f"(未登入) {score.guest_nickname}"
+
+        leaderboard_data.append({
+            "username": username,
+            "game_name": score.game_name,
+            "score": score.score,
+            "created_at": score.created_at
+        })
+    
+    return render_template('leaderboard.html', scores=leaderboard_data)
 
 # 檢查暱稱是否撞名
-@save_score_bp.route('/check_name', methods=['GET'])
+@save_score_bp.route('/game/check_name', methods=['GET'])
 def check_name():
     nickname = request.args.get('nickname')
     if not nickname:
         return jsonify({"error": "暱稱為空"}), 400
 
-    # 檢查已登入用戶是否存在相同名稱
-    registered_user = Score.query.filter_by(username=nickname).first()
+   # 檢查已登入用戶是否存在相同名稱
+    registered_user = User.query.filter_by(username=nickname).first()  # 查 User 模型
     if registered_user:
         return jsonify({"collision": True, "type": "registered", "message": "該名稱已被註冊用戶使用"})
-
+    
     # 檢查未登入用戶是否存在相同名稱
-    guest_user = Score.query.filter_by(username=f"(未登錄) {nickname}").first()
+    guest_user = Score.query.filter_by(guest_nickname=nickname).first()  # 查 Score 中的 guest_nickname
     if guest_user:
         return jsonify({"collision": True, "type": "guest", "message": "該暱稱已被其他未登入用戶使用，請更改暱稱"})
 

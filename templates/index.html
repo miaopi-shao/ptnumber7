@@ -73,11 +73,6 @@
     
     <!-- 載入 通用腳本 檔案，如網站的主要邏輯或互動功能 -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
-
-
-    
-
     
     <!-- 初始化相機輪播與其他插件 -->
     <script>
@@ -231,20 +226,20 @@
                     
                     <!-- 站內搜尋表單 -->
                     <div class="search-block">
-                        <form id="search-category" class="search" action="search.js" method="GET">
+                        <form id="search-category" class="search" action="/search/internal_search" method="GET">
                             <label for="s">站內搜尋</label>
                             <select name="category" id="category">
                               <option value="all">綜合查詢</option>
                               <option value="images">單純圖片</option>
                             </select>
-                            <input id="s" type="text" name="s" value="">
-                            <a onClick="document.getElementById('search1').submit()" class="button1"></a>
+                            <input id="s" type="text" name="query" value="" style="width: 200px; height: 30px;" maxlength="50">
+                            <a onClick="document.getElementById('search-category').submit()" class="button1"></a>
                         </form>
                     </div>
                     <!-- 站外搜尋表單 -->
                     <div class="search-block">
                         <form id="search1" class="search" action="https://duckduckgo.com/" method="GET">
-                            <input type="text" name="q" id="external-search-input" placeholder="外側搜尋引擎">
+                            <input type="text" name="q" id="external-search-input" placeholder="外側搜尋引擎" style="width: 100px; height: 30px;" maxlength="30">
                             <button type="submit" id="external-search-btn">站外搜尋</button>
                         </form>
                     </div>

@@ -32,8 +32,8 @@ from flask_cors import CORS
 # Import all Blueprint modules for modular routing within the project
 # ========================================================
 from auth import auth_bp
-from external_search import external_search_bp
-from news_fetch import news_fetch_bp
+from external_search import external_search_bp            # 負責站外搜尋
+from news_fetch import news_fetch_bp                      # 負責站內搜尋
 from search_engine import search_engine_bp
 from user_scrape import user_scrape_bp
 from weather import weather_bp                            # 負責氣象資訊
@@ -50,7 +50,7 @@ from worldnews import worldnews_bp
 from udn import udn_bp
 from yahoo import yahoo_bp
 from database import mail
-from scrape_news import scrape_news_bp    
+from scrape_news import scrape_news_bp                     # 負責運行定時任務    
 from datetime import timedelta
 
 from game import save_score_bp
@@ -220,7 +220,7 @@ app.register_blueprint(udn_bp, url_prefix="/udn")
 app.register_blueprint(yahoo_bp, url_prefix="/yahoo")
 app.register_blueprint(scrape_news_bp, url_prefix="/scrape_news") # 啟動定時任務
 
-app.register_blueprint(scrape_news_bp, url_prefix="/save_score_bp") #遊戲酷邏輯
+app.register_blueprint(save_score_bp, url_prefix="/game") #遊戲酷邏輯
 
 # 登入管理的加載回調函數，根據用戶 ID 查找用戶
 # Login manager's user loader callback function to find a user by ID

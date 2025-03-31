@@ -9,7 +9,7 @@ Created on Sun Mar 23 17:03:02 2025
 
 from flask import Blueprint, jsonify
 from apscheduler.schedulers.background import BackgroundScheduler
-from models import NewsArticle, db
+from models import NewsArticle
 from database import db
 from cts import fetch_cts_news
 from ettoday import fetch_ettoday_news

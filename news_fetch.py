@@ -1,4 +1,5 @@
-# news_fetch.py
+
+# 程式名稱: news_fetch.py 版面喧染
 # 此檔案用來從資料庫中提取新聞資料，並提供給前端模板進行渲染
 # 我們使用 Flask 的 Blueprint 來定義路由，並延遲導入模型以避免循環依賴
 
@@ -6,6 +7,9 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from flask import Blueprint, render_template, jsonify
+
+from database import db
+from models import NewsArticle
 
 # 建立 Blueprint，設定路徑前綴為 /news_fetch
 news_fetch_bp = Blueprint('news_fetch', __name__)
@@ -22,8 +26,6 @@ def fetch_individual_news(source_name, limit=10):
     :param limit: 返回新聞數量上限，預設 10 篇
     :return: 一個列表，每篇新聞以字典形式儲存所需資訊
     """
-    # 延遲導入 NewsArticle 模型，避免循環依賴
-    from ..models import NewsArticle
     news_articles = NewsArticle.query.filter_by(source=source_name)\
                                        .order_by(NewsArticle.published_at.desc())\
                                        .limit(limit).all()
@@ -44,10 +46,6 @@ def fetch_random_news(limit=10):
     :param limit: 返回新聞數量上限，預設 10 篇
     :return: 一個包含隨機新聞的列表，每篇新聞以字典形式儲存
     """
-    from models import NewsArticle
-    # 從 app 中延遲導入 db 以避免循環依賴
-    from app import db
-    # 使用 db.func.random()（適用於 SQLite，若換 MySQL 可改用 db.func.rand()）
     news_articles = NewsArticle.query.order_by(db.func.rand()).limit(limit).all()
     return [{
         "title": article.title,
@@ -65,7 +63,6 @@ def fetch_news_with_images(limit=10):
     :param limit: 返回新聞數量上限，預設 10 篇
     :return: 一個包含有圖片新聞的列表，每篇新聞以字典形式儲存
     """
-    from models import NewsArticle
     # 檢查 image_url 既非 None 亦非空字串
     news_articles = NewsArticle.query.filter(
         NewsArticle.image_url.isnot(None),

@@ -67,12 +67,13 @@ class AuthUser(db.Model):
 class Score(db.Model):
     """ 定義遊戲分數資料模型 """
     __bind_key__ = 'game'
-    __tablename__ = 'game_articles'
+    __tablename__ = 'game_scores'  # 修改表名稱更具描述性
     
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, nullable=False)
-    game_name = db.Column(db.String(50), nullable=False)
-    score = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, nullable=True)  # 登入用戶 ID，可以為 null
+    guest_nickname = db.Column(db.String(50), nullable=True)  # 未登入用戶暱稱
+    game_name = db.Column(db.String(50), nullable=False)  # 遊戲名稱
+    score = db.Column(db.Integer, nullable=False)  # 分數
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 

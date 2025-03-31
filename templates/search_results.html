@@ -1,67 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
-    <title>運動新聞</title>
+    <title>搜尋結果展示</title><!-- 搜尋成果search_results.html -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name = "format-detection" content = "telephone=no" />
-      
-    <!-- 載入網站圖標 -->
+   
+    <!-- 網站圖標 -->
     <link rel="icon" href="{{ url_for('static', filename='images/weather/favicon.ico') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/weather/favicon.ico') }}" type="image/x-icon">
-    
-    <!-- 載入 CSS 檔案 -->
-    
-    <!-- 載入 清除預設 檔案 -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
-    <!-- 載入 主要框架 檔案 -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">
-    
-   <!-- 載入 清除預設 檔案，下拉菜單應用-->
-   <link rel="stylesheet" href="{{ url_for('static', filename='css/superfish.css') }}">
-   
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/contacts.css') }}">
-    
-   <!-- 載入 Google Fonts -->
-   <link href="//fonts.googleapis.com/css?family=Domine:400,700" rel="stylesheet" type="text/css">
-   
-   <!-- 載入 文字 檔案 -->
-   <link rel="stylesheet" href="{{ url_for('static', filename='css/font/font-awesome.css') }}" type="text/css" media="screen">
-    
-    
-    <!-- 載入 JavaScript 檔案 -->
-    <!-- 載入 jQuery主庫 檔案，不用理他 -->
-    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
-    
-    <!-- 載入 jQuery遷移插件-舊版本間容 檔案 -->
-    <script src="{{ url_for('static', filename='js/jquery-migrate-1.1.1.js') }}"></script>
 
-      
-    <!-- 載入 平滑動畫 檔案，如幻燈片或滾動特效 -->
-    <script src="{{ url_for('static', filename='js/jquery.easing.1.3.js') }}"></script>  
+    
+    <!-- CSS 檔案 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/superfish.css') }}">
+    <link href='//fonts.googleapis.com/css?family=Domine:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font/font-awesome.css') }}" type="text/css" media="screen">
+    
+    <!-- 載入 舊版IE應對 檔案 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ie.css') }}">
+    
+    <!-- JavaScript 檔案 -->
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-migrate-1.1.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.easing.1.3.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.equalheights.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/superfish.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.mobilemenu.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.ui.totop.js') }}"></script>
+    
+    <!-- 載入 自訂類型 檔案 -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
     
     <!-- 載入 通用腳本 檔案，如網站的主要邏輯或互動功能 -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     
-    <script src="{{ url_for('static', filename='js/jquery.equalheights.js') }}"></script>
-    <!-- 載入 多層下拉式菜單 檔案 -->
-    <script src="{{ url_for('static', filename='js/superfish.js') }}"></script>
-    
-    <script src="{{ url_for('static', filename='js/jquery.mobilemenu.js') }}"></script>
-    
-    <script src="{{ url_for('static', filename='js/forms.js') }}"></script>
-    
-    <script src="{{ url_for('static', filename='js/jquery.ui.totop.js') }}"></script>
-    <!-- 載入 自訂類型 檔案 -->
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!-- 調用了 jQuery 的  插件方法，用於初始化「返回頂部」按鈕。 -->
     <script>
-        $(document).ready(function() {
-            $('form').forms({
-                ownerEmail:'#'
-            });
-            $().UItoTop({ easingType: 'easeOutQuart' });
-        });
+       $(document).ready(function() {
+       $().UItoTop({ easingType: 'easeOutQuart' });
+       });
     </script>
+    
     <!-- 舊版IE判斷後更改運行模式 -->
     <div id="browser-warning" style="display: none; text-align:center; position: relative;">
         <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
@@ -69,6 +51,7 @@
         </a>
     </div>
 </head>
+<body>
 <body>
     <!-- ============================== Header 區塊 ============================== -->
     <header>
@@ -82,7 +65,7 @@
                         <div class="left-area">
                             <div class="h1-1">
                             <h1>
-                                <a href="index.html">新聞搜尋網-娛樂新聞</a>
+                                <a href="index.html">新聞搜尋網</a>
                                 <div class="subtitle">- 第七組專題</div>
                             </h1>
                             </div>
@@ -101,8 +84,8 @@
                                         <!-- 登入後的顯示方式 -->
                                         <div id="account-info">
                                             <strong>{{ current_user.username }}</strong>
-                                            <button type="button" id="delete-account-btn">刪除帳戶</button>
-                                            <button type="button" id="logout-btn" onclick="location.href='{{ url_for('logout') }}'">登出</button>
+                                        <button type="button" id="delete-account-btn">刪除帳戶</button>
+                                        <button type="button" id="logout-btn" onclick="location.href='{{ url_for('logout') }}'">登出</button>
                                         </div>
                                     {% else %}
                                         <!-- 登入前的顯示方式：登入表單 -->
@@ -161,7 +144,9 @@
                     <!-- 導航列 -->
                     <nav class="full-width">
                         <ul class="sf-menu clearfix">
-                            <li class="current"><a href="/">Home</a></li>
+                            <li class="current">
+                                <a href="/">首頁</a>
+                            </li>
                             <li><a href="index-1.html">休息園地</a>
                                 <ul>
                                     <li><a href="/game/parkour">跑酷小遊戲</a></li>
@@ -178,95 +163,45 @@
                             <li><a href="https://monsterone.com/graphics/logo-templates/">框架來源</a></li>
                         </ul>
                     </nav>
-                    
-                    <!-- 站內搜尋表單 -->
-                    <div class="search-block">
-                        <form id="search-category" class="search" action="/search/internal_search" method="GET">
-                            <label for="s">站內搜尋</label>
-                            <select name="category" id="category">
-                              <option value="all">綜合查詢</option>
-                              <option value="images">單純圖片</option>
-                            </select>
-                            <input id="s" type="text" name="query" value="" style="width: 200px; height: 30px;" maxlength="50">
-                            <a onClick="document.getElementById('search-category').submit()" class="button1"></a>
-                        </form>
-                    </div>
                     <!-- 站外搜尋表單 -->
                     <div class="search-block">
                         <form id="search1" class="search" action="https://duckduckgo.com/" method="GET">
-                            <input type="text" name="q" id="external-search-input" placeholder="外側搜尋引擎" style="width: 100px; height: 30px;" maxlength="30">
+                            <input type="text" name="q" id="external-search-input" placeholder="外側搜尋引擎">
                             <button type="submit" id="external-search-btn">站外搜尋</button>
                         </form>
                     </div>
                 </div>
-            </div>        
+            </div>
         </div>
     </header>
-    <!--=======content================================-->
-    <!--=======content================================-->
+    
+    <!-- ========================== 中央區塊 (Content) ========================== -->
     <div class="content">
-        <div class="container_12">
+        <div class="container_12 p-privacy">
             <div class="row">
-                <div class="map_wrapper grid_8">
+                <div class="grid_12">
                     <div class="shadow-block-wrapper">
                         <div class="shadow-block">
-                            <h2>Contact info</h2>
-                            <div class="img-wrapper-1 events img-bord1">
-                                <iframe id="map_canvas" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Brooklyn,+New+York,+NY,+United+States&amp;aq=0&amp;sll=37.0625,-95.677068&amp;sspn=61.282355,146.513672&amp;ie=UTF8&amp;hq=&amp;hnear=Brooklyn,+Kings,+New+York&amp;ll=40.649974,-73.950005&amp;spn=0.01628,0.025663&amp;z=14&amp;iwloc=A&amp;output=embed">
-                                </iframe>
-                                <div>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit varius mi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla dui. Fusce feugiat malesuada odio. Morbi nunc odio, gravida at, cursus nec, luctus a, lorem. Maecenas tristique orci ac sem. Duis ultricies pharetra magna.</div>
+                            <h2>搜尋結果</h2>
+                            <form id="search-category" class="search" action="/search/internal_search" method="GET">
+                                <label for="s">站內搜尋</label>
+                                <select name="category" id="category">
+                                  <option value="all">綜合查詢</option>
+                                  <option value="images">單純圖片</option>
+                                </select>
+                                <input id="s" type="text" name="query" value="">
+                                <a onClick="document.getElementById('search-category').submit()" class="button1"></a>
+                            </form>
+                            <div id="search-results">
+                                <!-- 搜尋結果將動態插入此區塊 -->
                             </div>
-                            <dl class="address">
-                                <dt>8901 Marmora Road, Glasgow, D04 89GR.</dt>
-                                <dd><span>Freephone:</span>+1 800 559 6580</dd>
-                                <dd><span>Telephone:</span>+1 800 603 6035</dd>
-                                <dd><span>FAX:</span>+1 800 889 9898</dd>
-                                <dd><span class="e-mail">E-mail: <a href="#" class="demo color-4">mail@demolink.org</a></span></dd>
-                            </dl>
                         </div>
                     </div>
                 </div>
-                <article class="grid_4">
-                    <div class="shadow-block-wrapper cont-form">
-                        <div class="shadow-block">
-                            <h2>Feedback</h2>
-                            <form id="contact-form">
-                                <div class="success">Contact form submitted!<br>
-                                    <strong>We will be in touch soon.</strong>
-                                </div>
-                                <fieldset>
-                                    <label class="name">
-                                        <input type="text" value="Name">
-                                        <span class="error">*This is not a valid name.</span> 
-                                        <span class="empty">*This field is required.</span>
-                                    </label>
-                                    <label class="email">
-                                        <input type="email" value="E-mail">
-                                        <span class="error">*This is not a valid email address.</span> 
-                                        <span class="empty">*This field is required.</span>
-                                    </label>
-                                    <label class="phone">
-                                        <input type="tel" value="Phone">
-                                        <span class="error">*This is not a valid phone number.</span> 
-                                        <span class="empty">*This field is required.</span>
-                                    </label>
-                                    <label class="message">
-                                        <textarea>Message</textarea>
-                                        <span class="error">*The message is too short.</span> 
-                                        <span class="empty">*This field is required.</span>
-                                    </label>
-                                    <div class="form_buttons">
-                                        <a href="#" class="btn-1" data-type="submit"><span>send message</span></a>
-                                    </div>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
-                </article>
             </div>
         </div>
     </div>
-    <!-- ============================== 頁尾區塊 ============================== -->
+    <!-- ============================== Footer 區塊 ============================== -->
     <footer>
         <div class="container_12 border-bot">
             <!-- 小組成員區 -->
@@ -334,10 +269,9 @@
             </div>
         </div>
     </footer>
+    
+    
 <!-- 載入 帳號處理 檔案 -->
 <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
-<script src="{{ url_for('static', filename='js/search.js') }}"></script>
-<script src="{{ url_for('static', filename='js/search2.js') }}"></script>
-
 </body>
 </html>
