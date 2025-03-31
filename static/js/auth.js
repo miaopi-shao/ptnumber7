@@ -114,8 +114,28 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
     }
     
     // 當頁面加載完成後初始化用戶資訊
+    async function fetchUserProfile() {
+        try {
+            let data = await apiRequest("/auth/profile", "GET");
+            console.log("個人資訊回應:", data);
+            // ...顯示用戶資訊...
+        } catch (error) {
+            if (error.message.includes("401")) {
+                console.warn("用戶未登入，跳過用戶資訊加載！");
+            } else {
+                console.error("獲取用戶資訊失敗:", error.message);
+            }
+        }      
+    }
     document.addEventListener("DOMContentLoaded", () => {
-        fetchUserProfile();
+        const token = localStorage.getItem("token");
+        if (token) {
+            // 若有 token，執行用戶資訊加載
+            fetchUserProfile();
+        } else {
+            console.log("未登入，用戶資訊加載跳過！");
+        }
+        
     });
     
     // 取得 DOM 元素
@@ -235,9 +255,9 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
             event.preventDefault();  // 防止表單提交後頁面重新整理
     
             // 取得輸入值
-            let username = document.getElementById("register-username").value;
-            let password = document.getElementById("register-password").value;
-            let email = document.getElementById("register-email").value;
+            let username = document.getElementById("register-username").value.trim();
+            let password = document.getElementById("register-password").value.trim();
+            let email = document.getElementById("register-email").value.trim();
             let errorMsg = document.getElementById("register-error-msg");
             
             console.log("使用者名稱:", username);
@@ -248,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
             errorMsg.innerText = "";  // 清空錯誤訊息
             
             // ===== 驗證輸入值是否完整 =====
-            if (!username || !password || !email) {  // 核心邏輯在這裡
+            if (!username || !password || !email) {  // 核心邏輯
                 errorMsg.innerText = "請填寫完整資訊！";
                 errorMsg.style.color = "red";
                 return;  // 停止後續處理
@@ -257,7 +277,8 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
             // 發送註冊請求
              try {
                 // 發送 API 請求
-                let data = await apiRequest("/auth/register", "POST", { username, password, email });
+                let data = await apiRequest("/auth/register", "POST", { 
+                body: { username, password, email } }); // 正確封裝 Body
                 if (data.error) {
                     // 顯示後端返回的錯誤訊息
                     errorMsg.innerText = data.error;

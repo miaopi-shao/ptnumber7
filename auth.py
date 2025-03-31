@@ -54,14 +54,14 @@ logging.warning("這是一條來在auth.py測試的 WARNING 日誌！")
 # 建立 Blueprint，讓 `auth` API 具有獨立的路由（這部分是與 app.py 聯繫）
 auth_bp = Blueprint('auth', __name__ ) #, url_prefix="/api/auth" # 17. 初始化 auth 藍圖
 
-mail = Mail()
-# 載入環境變數
-load_dotenv()  # 從 .env 文件載入環境變數
-SECRET_KEY = os.getenv("JWT_SECRET", "default_secret")  # JWT 秘密金鑰（默認值）
-EMAIL_USER = os.getenv("EMAIL_USER")  # 郵件發送的使用者帳號
-EMAIL_PASS = os.getenv("EMAIL_PASS")  # 郵件發送密碼
-SMTP_SERVER = os.getenv("SMTP_SERVER", "smtp.gmail.com")  # SMTP 伺服器
-mail = None  # 保留可選使用 flask_mail 的空參數
+# mail = Mail()
+# # 載入環境變數
+# load_dotenv()  # 從 .env 文件載入環境變數
+# SECRET_KEY = os.getenv("JWT_SECRET", "default_secret")  # JWT 秘密金鑰（默認值）
+# EMAIL_USER = os.getenv("EMAIL_USER")  # 郵件發送的使用者帳號
+# EMAIL_PASS = os.getenv("EMAIL_PASS")  # 郵件發送密碼
+# SMTP_SERVER = os.getenv("SMTP_SERVER", "smtp.gmail.com")  # SMTP 伺服器
+# mail = None  # 保留可選使用 flask_mail 的空參數
 
 
 # -------------------------------- 工具函式 --------------------------------------
@@ -117,7 +117,7 @@ def login():
         if not username or not password:
             return jsonify({"error": "請提供使用者名稱和密碼"}), 400
     
-        hashed_username = encode_morse(username)
+        hashed_username = username
         logging.info(f"收到的 JSON 資料: {hashed_username}")
         
         # 驗證用戶是否存在
@@ -237,26 +237,41 @@ def register():
     
         if not username or not password or not email:
             return jsonify({"error": "請提供完整資訊"}), 400
-    
+        
+        # 檢查電子郵件格式
+        if not re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', email):
+            logging.error("電子郵件格式無效")
+            return jsonify({"error": "無效的電子郵件格式"}), 400
+        
         if AuthUser.query.filter_by(email=email).first():
+            logging.error("郵件已被註冊")
             return jsonify({"error": "該電子郵件已被註冊"}), 400
     
         if not re.match(r'^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,16}$', password):
+            logging.error("密碼不符合要求")
             return jsonify({"error": "密碼長度須在 8 至 16 且需包含數字和字母"}), 400
     
     
-        hashed_username = encode_morse(username)
+        hashed_username = username
         hashed_password, error = password_to_password(password)
         if error:
+            logging.error("密碼加密失敗")
             return jsonify({"error": error}), 400
-    
-        user = AuthUser(username=hashed_username, password=hashed_password, email=email)
+        
+        from datetime import datetime
+        user = AuthUser(
+            username=hashed_username,
+            password=hashed_password,
+            email=email,
+            created_at=datetime.utcnow(),
+            updated_at=datetime.utcnow()
+        )
         try:
             db.session.add(user)
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            print(f"資料庫錯誤：{e}")  # 記錄到伺服器日誌中
+            logging.error(f"資料庫操作失敗: {e}")
             return jsonify({"error": "資料庫操作失敗"}), 500
         if not data:
             logging.error("收到的資料為空")
@@ -267,26 +282,29 @@ def register():
             if not re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', email):
                 return jsonify({"error": "無效的電子郵件格式"}), 400
             
-            # 發送註冊成功郵件
-            from app import mail
-            msg = Message(
-                subject="註冊成功通知",
-                sender="oaplookout@gmail.com",
-                recipients=[email],
-                body="恭喜您成功註冊！請使用您的帳號登入。"
-            )
-            mail.send(msg)
-            print("郵件已成功發送！")
+            try:
+                from app import mail
+                msg = Message(
+                    subject="註冊成功通知",
+                    sender=os.getenv('EMAIL_USER'),
+                    recipients=[email],
+                    body=f"恭喜您成功註冊！\n\n您的帳號為：{username}\n您的密碼為：{password[0]}***********\n\n請妥善保管密碼，並盡快登入後更改密碼以提高安全性。\n登入網址：<登入頁面 URL>"
+                )
+                mail.send(msg)
+                logging.info("郵件已成功發送！")
+            except Exception as e:
+                logging.error(f"郵件發送失敗，錯誤訊息: {e}")
+                return jsonify({"error": "郵件發送失敗"}), 500
+    
+            # 返回成功訊息
+            return jsonify({"message": "註冊成功"}), 201
         except Exception as e:
-            logging.error(f"郵件發送失敗，錯誤訊息: {e}")
-            print(f"郵件發送失敗: {e}")
-            return jsonify({"error": "郵件發送失敗"}), 500
+            logging.error(f"第二階註冊發生錯誤: {e}")
+            return jsonify({"error": "內層伺服器錯誤"}), 500
         
-            # 最後才返回成功訊息
-        return jsonify({"message": "註冊成功"}), 201
     except Exception as e:
         logging.error(f"註冊發生錯誤: {e}")
-        return jsonify({"error": "伺服器錯誤"}), 500
+        return jsonify({"error": "外層伺服器錯誤"}), 500
 
 
         

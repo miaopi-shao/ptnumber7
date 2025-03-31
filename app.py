@@ -69,6 +69,10 @@ app = Flask(__name__)  # 程式庫的模組，主應用程序初始化
 from database import login_manager, init_extensions, db  # 專案的模組，用於統一初始化資料庫、登入管理等擴展功能
 from dotenv import load_dotenv  # 程式庫的模組，用於加載 .env 環境變數
 import os  # 程式庫模組，負責操作系統功能（例如文件路徑）
+os.chdir(r'D:\PTtest')
+# 加載 .env 文件中的變數
+# Load environment variables from .env file
+load_dotenv()  # 調用程式庫模組，用於將 .env 文件中的變數載入到系統環境
 
 # 嘗試加載 .env 文件
 if load_dotenv():
@@ -76,13 +80,8 @@ if load_dotenv():
 else:
     print("⚠️ 無法加載 .env 文件，請檢查路徑或文件格式")
 
-
-# 加載 .env 文件中的變數
-# Load environment variables from .env file
-load_dotenv()  # 調用程式庫模組，用於將 .env 文件中的變數載入到系統環境
-
 # 配置多類型資料庫綁定
-FLASK_ENV = os.environ.get("FLASK_ENV", "local_mysql")#-----------------------------------------------------注意替換-------------------------------
+FLASK_ENV = os.environ.get("FLASK_ENV", "production")#-----------------------------------------------------注意替換-------------------------------
 print("*********************************")
 print(f"FLASK_ENV 設定為: {FLASK_ENV}")
 print("*********************************")
@@ -174,17 +173,16 @@ app.secret_key = os.getenv("FLASK_SECRET_KEY", "default_secret_key")  # 程式�
 
 # ========================================================
 # E-mail功能擴建
-# 
 # ========================================================
 
 # 配置 Flask-Mail 的參數-注意!!!正式上線的服務不能直接使用.evn的數據，會影響保密程度
-app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')          # SMTP 伺服器
+app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER', "smtp.gmail.com")          # SMTP 伺服器
 app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT', 587))    # SMTP 埠，默認 587
 app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS', 'true').lower() == 'true'  # 是否啟用 TLS
 app.config['MAIL_USE_SSL'] = os.getenv('MAIL_USE_SSL', 'false').lower() == 'true' # 是否啟用 SSL
-app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')      # 發送郵件的帳號
-app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')      # 發送郵件的密碼
-app.config['MAIL_DEFAULT_SENDER'] = os.getenv('oaplookout@gmail.com')  # 預設的寄件人
+app.config['MAIL_USERNAME'] = os.getenv('EMAIL_USER', 'oaplookout@gmail.com')      # 發送郵件的帳號
+app.config['MAIL_PASSWORD'] = os.getenv('EMAIL_PASS')      # 發送郵件的密碼
+app.config['MAIL_DEFAULT_SENDER'] = os.getenv('EMAIL_USER', 'oaplookout@gmail.com')  # 預設的寄件人
 
 
 # 統一初始化
