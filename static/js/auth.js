@@ -45,6 +45,7 @@ async function apiRequest(endpoint, method, body) {
 document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執行函式（IIFE），避免全域變數污染
 
     // 檢查使用者登入狀態
+    const token = localStorage.getItem("token");
     async function fetchUserProfile() {
         console.log("初始化用戶資訊加載...");
     
@@ -54,79 +55,24 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
     
             console.log("個人資訊回應:", data); // 確認回應方便調試
     
-            // 確保 DOM 中的 `account-info` 區域存在
-            let userInfoElement = document.getElementById("account-info") || (() => {
-                const element = document.createElement("div");
-                element.id = "account-info";
-                document.body.appendChild(element);
-                return element;
-            })();
-    
+            // 確保 DOM 中的 `login-form` 區域存在
+            let userInfoElement = document.getElementById("login-form");
             userInfoElement.innerHTML = `
                 <p>歡迎，${data.username}</p>
-                <p>Email: ${data.email}</p>
-                <p>角色: ${data.role}</p>
+                <button id="logout-btn" onclick="logout()">登出</button>
             `;
         } catch (error) {
             console.error("獲取用戶資訊失敗:", error.message);
-            alert("無法獲取用戶資訊，請稍後再試！");
-        }
-
-    }
     
-    // API 請求封裝函數
-    async function apiRequest(endpoint, method, options = {}) {
-        const token = localStorage.getItem("token"); // 確保正確取得 token
-        const headers = {
-            'Content-Type': 'application/json',
-            ...options.headers, // 合併自定義 headers
-        };
-        if (token) {
-            headers["Authorization"] = `Bearer ${token}`; // 添加 Authorization 標頭
-        }
-    
-        console.log("發送請求到:", endpoint);
-        console.log("附帶標頭:", headers);
-    
-        try {
-            const response = await fetch(endpoint, {
-                method: method,
-                headers: headers,
-                body: options.body ? JSON.stringify(options.body) : null,
-            });
-            
-            if (response.status === 401) {
-                alert("您的登入已過期，請重新登入！");
-                window.location.href = "/login";
-                return; // 提前退出，避免繼續處理錯誤
-            }
-            
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || `HTTP 錯誤！狀態碼: ${response.status}`);
-            }
-    
-            return await response.json();
-        } catch (error) {
-            console.error("API 請求錯誤:", error.message);
-            throw error; // 傳遞原始錯誤
+            let userInfoElement = document.getElementById("login-form");
+            userInfoElement.innerHTML = `
+                <p>您尚未登入</p>
+                <button id="login-btn" onclick="location.href='/login.html'">登入</button>
+            `;
         }
     }
     
-    // 當頁面加載完成後初始化用戶資訊
-    async function fetchUserProfile() {
-        try {
-            let data = await apiRequest("/auth/profile", "GET");
-            console.log("個人資訊回應:", data);
-            // ...顯示用戶資訊...
-        } catch (error) {
-            if (error.message.includes("401")) {
-                console.warn("用戶未登入，跳過用戶資訊加載！");
-            } else {
-                console.error("獲取用戶資訊失敗:", error.message);
-            }
-        }      
-    }
+    
     document.addEventListener("DOMContentLoaded", () => {
         const token = localStorage.getItem("token");
         if (token) {
@@ -134,8 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
             fetchUserProfile();
         } else {
             console.log("未登入，用戶資訊加載跳過！");
+            document.getElementById("login-form").innerHTML = `
+                <p>您尚未登入</p>
+                <button id="login-btn" onclick="location.href='/login.html'">登入</button>
+            `;
         }
-        
     });
     
     // 取得 DOM 元素
@@ -172,12 +121,12 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
                 console.log("存入的 Token:", localStorage.getItem("token"));
     
                 if (data?.username) {
-                    let accountInfoElement = document.getElementById("account-info");
+                    let accountInfoElement = document.getElementById("login-form");
     
                     if (!accountInfoElement) {
-                        console.warn("'account-info' 不存在，動態創建！");
+                        console.warn("'login-form' 不存在，動態創建！");
                         accountInfoElement = document.createElement("div");
-                        accountInfoElement.id = "account-info";
+                        accountInfoElement.id = "login-form";
                         document.body.appendChild(accountInfoElement); // 動態添加到頁面
                     }
     
@@ -212,17 +161,15 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
                 generalError.innerText = error.message;
             }
         }
+    });    
+    // =====  登出帳號 =====
+    // 54. 當點擊登出按鈕時，清除 Token 並重新載入頁面
+    document.getElementById("logout-btn")?.addEventListener("click", () => {
+        localStorage.removeItem("token");  // 55. 清除 Token
+        alert("已登出！");  // 56. 顯示登出成功訊息
+        window.location.reload();  // 57. 重新載入頁面
     });
-
      
-    
-
-    
-        
-           
-              
-    
-    
     // =====  註冊帳號區域 =====
     (() => {
         // 取得 DOM 元素
@@ -363,17 +310,6 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
         });
     });
     
-        
-        
-    // =====  登出帳號 =====
-    // 54. 當點擊登出按鈕時，清除 Token 並重新載入頁面
-    document.getElementById("logout-btn")?.addEventListener("click", () => {
-        localStorage.removeItem("token");  // 55. 清除 Token
-        alert("已登出！");  // 56. 顯示登出成功訊息
-        window.location.reload();  // 57. 重新載入頁面
-    });
-    
-    
     // =====  刪除帳號 =====
     // 54. 當點擊刪除帳戶按鈕時，清除後臺帳戶數據，並跳轉回未登入狀態
      if (confirmDeletebtn) {
@@ -412,3 +348,41 @@ document.addEventListener('DOMContentLoaded', () => {  // 1. 包裹成立即執�
     }
 });  
     
+// API 請求封裝函數
+async function apiRequest(endpoint, method, options = {}) {
+    const token = localStorage.getItem("token"); // 確保正確取得 token
+    const headers = {
+        'Content-Type': 'application/json',
+        ...options.headers, // 合併自定義 headers
+    };
+    if (token) {
+        headers["Authorization"] = `Bearer ${token}`; // 添加 Authorization 標頭
+    }
+
+    console.log("發送請求到:", endpoint);
+    console.log("附帶標頭:", headers);
+
+    try {
+        const response = await fetch(endpoint, {
+            method: method,
+            headers: headers,
+            body: options.body ? JSON.stringify(options.body) : null,
+        });
+        
+        if (response.status === 401) {
+            alert("您的登入已過期，請重新登入！");
+            window.location.href = "/login";
+            return; // 提前退出，避免繼續處理錯誤
+        }
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `HTTP 錯誤！狀態碼: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("API 請求錯誤:", error.message);
+        throw error; // 傳遞原始錯誤
+    }
+}
