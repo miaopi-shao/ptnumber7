@@ -53,6 +53,8 @@ from database import mail
 from scrape_news import scrape_news_bp    
 from datetime import timedelta
 
+from game import save_score_bp
+
 # ========================================================
 # 初始化應用及配置
 # Application initialization and configuration
@@ -218,6 +220,8 @@ app.register_blueprint(udn_bp, url_prefix="/udn")
 app.register_blueprint(yahoo_bp, url_prefix="/yahoo")
 app.register_blueprint(scrape_news_bp, url_prefix="/scrape_news") # 啟動定時任務
 
+app.register_blueprint(scrape_news_bp, url_prefix="/save_score_bp") #遊戲酷邏輯
+
 # 登入管理的加載回調函數，根據用戶 ID 查找用戶
 # Login manager's user loader callback function to find a user by ID
 # @login_manager.user_loader
@@ -331,6 +335,8 @@ def index4():  # 程式庫邏輯，定義娛樂新聞 HTML 文件
 def index5():# 程式庫邏輯，定義運動新聞 HTML 文件
     print("創建資料表加載中")
     return render_template('index-5.html')  # 專案邏輯，渲染運動新聞 HTML 文件
+
+
 
 from flask_mail import Message
 

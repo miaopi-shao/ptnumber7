@@ -1,3 +1,4 @@
+//各式瀏覽器調整
 $(function(){
 
     $('.sf-menu li:has(ul)').find('> a').append('<span>&nbsp;&nbsp;&raquo;</span>');

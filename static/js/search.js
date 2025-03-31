@@ -1,4 +1,6 @@
-$(function(){
+//站外搜尋邏輯
+
+(function(){
 	var s=location.search.replace(/^\?.*s=([^&]+)/,'$1')
 		,form=$('#search-form')
 		,input=$('input[type=text]',form)
