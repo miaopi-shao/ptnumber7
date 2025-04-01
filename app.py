@@ -53,6 +53,9 @@ from database import mail
 from scrape_news import scrape_news_bp                     # 負責運行定時任務    
 from datetime import timedelta
 
+import Page_Noiser                                         # 三網站爬蟲混合展示
+import udn2                                                # 聯合新聞網爬蟲
+
 from game import save_score_bp
 
 # ========================================================
@@ -80,7 +83,7 @@ else:
     print("⚠️ 無法加載 .env 文件，請檢查路徑或文件格式")
 
 # 配置多類型資料庫綁定
-FLASK_ENV = os.environ.get("FLASK_ENV", "production")#-----------------------------------------------------注意替換-------------------------------
+FLASK_ENV = os.environ.get("FLASK_ENV", "local_mysql")#-----------------------------------------------------注意替換-------------------------------
 print("*********************************")
 print(f"FLASK_ENV 設定為: {FLASK_ENV}")
 print("*********************************")
@@ -253,6 +256,9 @@ with app.app_context():
     else:
         print("跳過雲端資料表創建邏輯")
 
+Page_Noiser_news = Page_Noiser.fetch_news()
+udn2_news = udn2.fetch_udn2_news()
+
 try:
     # 直接使用 fetch_weather_news 函數來獲取數據
     from weather_news import fetch_weather_news
@@ -299,7 +305,8 @@ def home():  # 程式庫邏輯，定義首頁路由
         ettoday2_items=ettoday2_items, 
         news_items=news_items, 
         international_news=international_news, 
-        taiwan_news=taiwan_news)  # 專案邏輯，渲染首頁 HTML 文件
+        taiwan_news=taiwan_news,
+        udn2_news=udn2_news)  # 專案邏輯，渲染首頁 HTML 文件
 
 # 其他靜態頁面路由
 @app.route('/index-1.html')
@@ -315,7 +322,7 @@ def index11():  # 程式庫邏輯，定義原始網站路由
 @app.route('/index-2.html')
 def index2():  # 程式庫邏輯，定義焦點新聞路由
     print("焦點新聞加載中")
-    return render_template('index-2.html')  # 專案邏輯，渲染焦點新聞 HTML 文件
+    return render_template('index-2.html', Page_Noiser_news=Page_Noiser_news)  # 專案邏輯，渲染焦點新聞 HTML 文件
 
 @app.route('/index-3.html')
 def index3():  # 程式庫邏輯，定義氣象新聞路由

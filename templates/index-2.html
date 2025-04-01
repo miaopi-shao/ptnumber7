@@ -281,17 +281,12 @@
                     </div>
                 </div>
                 <div class="grid_4">
-                    <h2>國際快訊</h2>
+                    <h2>各方新聞</h2>
                     <div class="bg-4 p5">
                         <ul class="list-1">
-                            <li><a href="#">第一則</a></li>
-                            <li><a href="#">第二則</a></li>
-                            <li><a href="#">第三則</a></li>
-                            <li><a href="#">第四則</a></li>
-                            <li><a href="#">第五則</a></li>
-                            <li><a href="#">第六則 </a></li>
-                            <li><a href="#">第七則</a></li>
-                            <li><a href="#">第八則</a></li>
+                            {% for item in Page_Noiser_news %}
+                                <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                     <h2>今日熱門影片</h2>

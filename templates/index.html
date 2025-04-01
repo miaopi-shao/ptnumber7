@@ -542,15 +542,18 @@
                         <h2 class="p1">新聞來源</h2>
                         <div class="bg-3">
                             <ul class="list-1">
-                                <li><a href="https://news.pts.org.tw" style="color: #BE1E2D;">公視新聞台</a></li>
-                                <li><a href="https://www.eracom.com.tw" style="color: #0072BC;">年代新聞台</a></li>
-                                <li><a href="https://www.nownews.com/" style="color: #FFFFB9;">今日新聞台</a></li>
-                                <li><a href="https://news.tvbs.com.tw" style="color: #5C2681;">TVBS 新聞台</a></li>
-                                <li><a href="https://www.setn.com" style="color: #1E90FF;">三立新聞台</a></li>
-                                <li><a href="https://news.cts.com.tw" style="color: #009966;">華視新聞台</a></li>
-                                <li><a href="https://www.ftvnews.com.tw" style="color: #E60012;">民視新聞台</a></li>
-                                <li><a href="https://www.ttv.com.tw/news" style="color: #FF0000;">台視新聞台</a></li>
+                            {% for item in udn2_news %}
+                                <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+                            {% endfor %}
                             </ul>
+                            <li><a href="https://news.pts.org.tw" style="color: #BE1E2D;">公視新聞台</a></li>
+                            <li><a href="https://www.eracom.com.tw" style="color: #0072BC;">年代新聞台</a></li>
+                            <li><a href="https://www.nownews.com/" style="color: #FFFFB9;">今日新聞台</a></li>
+                            <li><a href="https://news.tvbs.com.tw" style="color: #5C2681;">TVBS 新聞台</a></li>
+                            <li><a href="https://www.setn.com" style="color: #1E90FF;">三立新聞台</a></li>
+                            <li><a href="https://news.cts.com.tw" style="color: #009966;">華視新聞台</a></li>
+                            <li><a href="https://www.ftvnews.com.tw" style="color: #E60012;">民視新聞台</a></li>
+                            <li><a href="https://www.ttv.com.tw/news" style="color: #FF0000;">台視新聞台</a></li>
                         </div>
                     </div>
                 </div>
