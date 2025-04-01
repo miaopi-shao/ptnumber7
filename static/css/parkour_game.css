@@ -158,7 +158,8 @@ label[for="city-select"] {
 /* 中央內容區（遊戲功能區域）：至少占 75% 寬度 */
 /* ────────────────────────────── */
 .center {
-    flex: 0 0 75%;
+    width: 100%;
+    max-width: 1800px;   /* 限制最大寬度 */
     padding: 20px;
     background-color: rgba(135, 115, 115, 0.4)!important; /* 白色，30% 透明 */
     display: flex;
@@ -170,17 +171,20 @@ label[for="city-select"] {
 /* 遊戲畫布容器：方便控制畫布尺寸與位置 */
 #gameContainer {
     width: 100%;
-    max-width: 3000px;       /* 最大寬度限制 */
-    max-height: 2000px;      /* 最大高度限制 */
-    margin-bottom: 20px;    /* 與控制按鈕間距 */
-    background-color: #fff; /* 畫布容器背景色 */
-    border: 2px solid #333; /* 邊框效果 */
+    max-width: 900px;
+    height: 600px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 2px solid #333;
 }
 
 /* 遊戲畫布樣式 */
 #gameCanvas {
-    width: 100%;
-    height: auto;
+    width: 1000px;  /* 設定寬度 */
+    height: 750px; /* 設定高度 */
     display: block;
 }
 
@@ -227,4 +231,15 @@ label[for="city-select"] {
     margin-bottom: 5px;
     font-size: 14px;
     color: #93F5F0;
+}
+
+@media (max-width: 600px) {
+    #gameContainer {
+        max-width: 95%;
+        max-height: 500px;
+    }
+
+    #gameCanvas {
+        width: 100%;
+    }
 }
