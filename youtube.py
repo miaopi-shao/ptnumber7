@@ -10,7 +10,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from flask import Blueprint
-import os
 from selenium.webdriver.chrome.options import Options
 
 
@@ -29,15 +28,8 @@ def youtube_search(query="快訊", max_results=2):
     chrome_options.add_argument("--no-sandbox")  # 避免沙盒環境限制（部分系統需要）
     chrome_options.add_argument("--disable-dev-shm-usage")  # 避免共享內存空間問題
     
-    # 使用相對路徑取得 chromedriver 的位置，假設 chromedriver 放在專案中的 drivers 資料夾內
-    basedir = os.path.abspath(os.path.dirname(__file__))
-    chromedriver_path = os.path.join(basedir, 'drivers', 'chromedriver.exe')
-    
-    # 如果你希望用本地的 chromedriver，就建立 Service(chromedriver_path)
-    # 否則，你可以用 webdriver_manager 自動下載（但這樣會下載適合當前平台的 chromedriver）
-    service = Service(chromedriver_path)
-    # 或者如果你希望自動管理就用下面這行（注意：不要同時指定本地路徑）
-    # service = Service(ChromeDriverManager().install())
+    # 使用 webdriver_manager 自動下載並安裝適合的 ChromeDriver
+    service = Service(ChromeDriverManager().install())
     
     # 正確初始化 WebDriver，傳入正確的 options 變數
     driver = webdriver.Chrome(service=service, options=chrome_options)
