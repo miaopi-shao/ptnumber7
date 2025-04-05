@@ -127,8 +127,8 @@
                             <h1>
                                 <a href="index.html">新聞搜尋網</a>
                                 <div class="subtitle">- 第七組專題</div>
-                                    <div>更新時間:2025/04/06</div>
-                                    <div>第5版</div>
+                                    <div style="font-size: 8px">更新時間:2025/04/06</div>
+                                    <div style="font-size: 6px">第5版</div>
                             </h1>
                             </div>
                         </div>
@@ -423,11 +423,11 @@
                             <h2>國際新聞</h2>
                             <!-- 第一則新聞 -->
                             <div class="box-1 clearfix" style="height: 150px;">
-                                <img src="{{ international_news[0].image_link or url_for('static', filename='images/international/international1.jpg') }}" style="width: 180px; height: 120px;" alt="國際新聞" class="img-ind">
+                                <img src="{{ international_news[0].image_link}}" style="width: 180px; height: 120px;" alt="國際新聞" class="img-ind">
                                 <div>
                                     <h3 style="font-size: 18px !important;">{{ international_news[0].title }}</h3>
-                                    <div style="font-size: 6px">
-                                        <a href="{{ international_news[0].link }}" class="btn" style="font-size: 12px !important;">
+                                    <div style="font-size: 12px">
+                                        <a href="{{ international_news[0].link }}" class="btn" style="font-size: 14px !important;">
                                         {{ international_news[0].summary }}
                                         </a>
                                         {{ international_news[0].source }}
@@ -436,11 +436,11 @@
                             </div>
                             <!-- 第二則新聞 -->
                             <div class="box-1 clearfix" style="height: 150px;">
-                                <img src="{{ international_news[1].image_link or url_for('static', filename='images/international/international2.jpg') }}" style="width: 180px; height: 120px;" alt="國際新聞" class="img-ind">
+                                <img src="{{ international_news[1].image_link}}" style="width: 180px; height: 120px;" alt="國際新聞" class="img-ind">
                                 <div>
                                     <h3 style="font-size: 18px !important;">{{ international_news[1].title }}</h3>
-                                    <div style="font-size: 6px" >
-                                        <a href="{{ international_news[1].link }}" class="btn" style="font-size: 12px !important;">
+                                    <div style="font-size: 126px" >
+                                        <a href="{{ international_news[1].link }}" class="btn" style="font-size: 14px !important;">
                                         {{ international_news[1].summary }}
                                         </a>
                                         {{ international_news[1].source }}
@@ -449,11 +449,11 @@
                             </div>
                             <!-- 第三則新聞 -->
                             <div class="box-1 clearfix" style="height: 150px;">
-                                <img src="{{ international_news[2].image_link or url_for('static', filename='images/international/international3.jpg') }}" style="width: 180px; height: 120px;" alt="國際新聞" class="img-ind">
+                                <img src="{{ international_news[2].image_link }}" style="width: 180px; height: 120px;" alt="國際新聞" class="img-ind">
                                 <div>
                                     <h3 style="font-size: 18px !important;">{{ international_news[2].title }}</h3>
-                                    <div style="font-size: 6px">
-                                        <a href="{{ international_news[2].link }}" class="btn" style="font-size: 12px !important;">
+                                    <div style="font-size: 12px">
+                                        <a href="{{ international_news[2].link }}" class="btn" style="font-size: 14px !important;">
                                         {{ international_news[2].summary }}
                                         </a>
                                         {{ international_news[2].source }}
@@ -462,7 +462,7 @@
                             </div>
                             <!-- 第四則新聞 -->
                             <div class="box-1 clearfix" style="height: 150px;">
-                                <img src="{{ international_news[3].image_link or url_for('static', filename='images/international/international4.jpg') }}" style="width: 180px; height: 120px;" alt="國際新聞" class="img-ind">
+                                <img src="{{ international_news[3].image_link}}" style="width: 180px; height: 120px;" alt="國際新聞" class="img-ind">
                                 <div>
                                     <h3 style="font-size: 18px !important;">{{ international_news[3].title }}</h3>
                                     <div style="font-size: 12px">
