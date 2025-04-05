@@ -8,7 +8,7 @@ Created on Sat Apr  5 17:06:59 2025
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+#from webdriver_manager.chrome import ChromeDriverManager
 from flask import Blueprint
 from selenium.webdriver.chrome.options import Options
 
@@ -28,11 +28,11 @@ def youtube_search(query="快訊", max_results=2):
     chrome_options.add_argument("--no-sandbox")  # 避免沙盒環境限制（部分系統需要）
     chrome_options.add_argument("--disable-dev-shm-usage")  # 避免共享內存空間問題
     
-    # 使用 webdriver_manager 自動下載並安裝適合的 ChromeDriver
-    service = Service(ChromeDriverManager().install())
+    # 指定 Chrome binary 的位置
+    chrome_options.binary_location = '/usr/bin/google-chrome'
     
-    # 正確初始化 WebDriver，傳入正確的 options 變數
-    driver = webdriver.Chrome(service=service, options=chrome_options)
+    # 初始化 WebDriver
+    driver = webdriver.Chrome(service=Service('/usr/local/bin/chromedriver'), options=chrome_options)
     
     # 打開 YouTube 搜尋結果頁面
     search_url = f"https://www.youtube.com/results?search_query={query}"
