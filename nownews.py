@@ -112,8 +112,8 @@ def fetch_news_api():
     news = fetch_nownews_news()
     print(news)
     return jsonify({"message": f"成功存入 {len(news)} 篇新聞"}), 200
-nownews_news = fetch_nownews_news()
-print(nownews_news)
+# nownews_news = fetch_nownews_news()
+# print(nownews_news)
 
 
 """
