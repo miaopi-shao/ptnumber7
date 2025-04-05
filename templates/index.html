@@ -210,19 +210,18 @@
                             <li class="current">
                                 <a href="/">首頁</a>
                             </li>
-                            <li><a href="index-1.html">休息園地</a>
-                                <ul>
-                                    <li><a href="/game/parkour">跑酷小遊戲</a></li>
-                                    <li><a href="/game/tetris">俄羅斯方塊</a></li>
-                                    <!-- 修改積分計算連結，導向 leaderboard.html -->
-                                    <li><a href="leaderboard.html">積分計算</a></li>
-                                    <li><a href="https://www.youtube.com/">YouTube</a></li>
-                               </ul>
-                            </li>
                             <li><a href="index-2.html">焦點新聞</a></li>
                             <li><a href="index-3.html">氣象特報</a></li>
                             <li><a href="index-4.html">娛樂新聞</a></li>
                             <li><a href="index-5.html">運動新聞</a></li>
+                            <li><a href="index-1.html">外部網站</a>
+                                <ul>
+                                    <li><a href="https://www.bing.com/search?q=HTML+Color+Picker">顏色查找</a></li>
+                                    <li><a href="https://duckduckgo.com/">外部搜尋引擎使用型</a></li>
+                                    <li><a href="https://www.google.com/">積分計算</a></li>
+                                    <li><a href="https://www.youtube.com/">YouTube</a></li>
+                               </ul>
+                            </li>
                             <li><a href="https://monsterone.com/graphics/logo-templates/">框架來源</a></li>
                         </ul>
                     </nav>
@@ -421,54 +420,54 @@
                         <div class="shadow-block">
                             <h2>國際新聞</h2>
                             <!-- 第一則新聞 -->
-                            <div class="box-1 clearfix">
-                                <img src="{{ international_news[0].image_link or url_for('static', filename='images/international/international1.jpg') }}" style="width: 150px; height: 70px;" alt="國際新聞">
+                            <div class="box-1 clearfix" style="height: 150px;">
+                                <img src="{{ international_news[0].image_link or url_for('static', filename='images/international/international1.jpg') }}" style="width: 180px; height: 120px;" alt="國際新聞" class="img-ind">
                                 <div>
                                     <h3 style="font-size: 18px !important;">{{ international_news[0].title }}</h3>
                                     <div style="font-size: 6px">
                                         <a href="{{ international_news[0].link }}" class="btn" style="font-size: 12px !important;">
                                         {{ international_news[0].summary }}
                                         </a>
-                                        英國廣播公司
+                                        {{ international_news[0].source }}
                                     </div>
                                 </div>
                             </div>
                             <!-- 第二則新聞 -->
-                            <div class="box-1 clearfix">
-                                <img src="{{ international_news[1].image_link or url_for('static', filename='images/international/international2.jpg') }}" style="width: 150px; height: 70px;" alt="國際新聞">
+                            <div class="box-1 clearfix" style="height: 150px;">
+                                <img src="{{ international_news[1].image_link or url_for('static', filename='images/international/international2.jpg') }}" style="width: 180px; height: 120px;" alt="國際新聞" class="img-ind">
                                 <div>
                                     <h3 style="font-size: 18px !important;">{{ international_news[1].title }}</h3>
                                     <div style="font-size: 6px" >
                                         <a href="{{ international_news[1].link }}" class="btn" style="font-size: 12px !important;">
                                         {{ international_news[1].summary }}
                                         </a>
-                                        Al Jazeera 半島電視台
+                                        {{ international_news[0].source }}
                                     </div>
                                 </div>
                             </div>
                             <!-- 第三則新聞 -->
-                            <div class="box-1 clearfix">
-                                <img src="{{ international_news[2].image_link or url_for('static', filename='images/international/international3.jpg') }}" style="width: 150px; height: 70px;" alt="國際新聞">
+                            <div class="box-1 clearfix" style="height: 150px;">
+                                <img src="{{ international_news[2].image_link or url_for('static', filename='images/international/international3.jpg') }}" style="width: 180px; height: 120px;" alt="國際新聞" class="img-ind">
                                 <div>
                                     <h3 style="font-size: 18px !important;">{{ international_news[2].title }}</h3>
                                     <div style="font-size: 6px">
                                         <a href="{{ international_news[2].link }}" class="btn" style="font-size: 12px !important;">
                                         {{ international_news[2].summary }}
                                         </a>
-                                        英國廣播公司
+                                        {{ international_news[0].source }}
                                     </div>
                                 </div>
                             </div>
                             <!-- 第四則新聞 -->
-                            <div class="box-1 clearfix">
-                                <img src="{{ international_news[3].image_link or url_for('static', filename='images/international/international4.jpg') }}" style="width: 150px; height: 70px;" alt="國際新聞">
+                            <div class="box-1 clearfix" style="height: 150px;">
+                                <img src="{{ international_news[3].image_link or url_for('static', filename='images/international/international4.jpg') }}" style="width: 180px; height: 120px;" alt="國際新聞" class="img-ind">
                                 <div>
                                     <h3 style="font-size: 18px !important;">{{ international_news[3].title }}</h3>
-                                    <div style="font-size: 6px">
-                                        <a href="{{ international_news[3].link }}" class="btn" style="font-size: 12px !important;">
+                                    <div style="font-size: 12px">
+                                        <a href="{{ international_news[3].link }}" class="btn" style="font-size: 14px !important;">
                                         {{ international_news[3].summary }}
                                         </a>
-                                        Al Jazeera 半島電視台
+                                        {{ international_news[0].source }}
                                     </div>
                                 </div>
                             </div>
@@ -497,7 +496,7 @@
                                                         <img src="{{ article.image_link or url_for('static', filename='images/game_back.png') }}" alt="此文無附圖" class="img-ind" style="width: 150px; height: 70px;">
                                                         <div>
                                                             <h3>{{ article.title or '未提供標題' }}</h3>
-                                                            <div><a href="{{ article.link }}" style="font-size: 16px !important;">{{ article.content or '未提供摘要' }}</a></div>
+                                                            <div><a href="{{ article.link }}" style="font-size: 16px !important;">{{ article.summary or '未提供摘要' }}</a></div>
                                                                 <a href="{{ article.link or '#' }}" class="btn-2"  style="font-size: 8px">
                                                                 ETtoday新聞
                                                                 </a>
@@ -510,18 +509,18 @@
                                         <p>目前沒有 ETtoday 新聞可顯示。</p>
                                     {% endif %}
                                 </div>
-                            
+                                
                                 <!-- 第二個頁籤內容 (氣象新聞) -->
                                 <div class="tab_content" style="display: none;">
-                                    {% if news_items %}
-                                        {% for article in news_items %}
+                                    {% if weather_news %}
+                                        {% for article in weather_news %}
                                             <div class="clearfix">
                                                 <div class="box-2 maxheight clearfix" style="height: auto;">
                                                     <div class="box_inner">
                                                         <img src="{{ article.image_link or url_for('static', filename='images/game_back.png') }}" alt="" class="img-ind" style="width: 150px; height: 70px;">
                                                         <div>
                                                             <h3>{{ article.title or '未提供標題' }}</h3>
-                                                            <div> <a href="{{ article.link }}" style="font-size: 16px !important;">{{ article.description or '未提供摘要' }}</a></div>
+                                                            <div> <a href="{{ article.link }}" style="font-size: 16px !important;">{{ article.summary or '未提供摘要' }}</a></div>
                                                                 <a href="{{ article.link or '#' }}" class="btn-2" style="font-size: 8px;">
                                                                 今日新聞
                                                                 </a>

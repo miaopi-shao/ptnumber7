@@ -86,7 +86,7 @@ def fetch_setn_news():
             "content": content,
             "source": source,
             "category": category,
-            "image_url": photo,
+            "image_link": photo,
             "url": link,
             "published_at": published_at
         })
@@ -156,7 +156,7 @@ def fetch_tvbs_news():
             "title": title,
             "content": content,
             "source": source,
-            "image_url": photo,
+            "image_link": photo,
             "url": link,
             "published_at": published_at
         })
@@ -193,7 +193,7 @@ if __name__ == '__main__':
         print(f"新聞 {idx}:")
         print(f"標題: {article['title']}")
         print(f"連結: {article['url']}")
-        print(f"圖片: {article['image_url']}")
+        print(f"圖片: {article['image_link']}")
         print("==============================")
 
 

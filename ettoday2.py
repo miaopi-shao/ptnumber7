@@ -38,18 +38,21 @@ def fetch_ettoday2_news():
         if parent_block:
             articles = parent_block.select('.piece.clearfix')  # 提取目標內容
             for article in articles:
-                print(article.text)  # 或者提取你需要的其他屬性
+                print("成功找到指定的父元素")
+                # print(article.text)  # 或者提取你需要的其他屬性
         else:
             print("未找到指定的父元素")
 
         # articles = soup.select(".clearfix")  # 使用正確的 CSS 選擇器
-        print(f"共找到 {len(articles)} 則新聞文章")
+        # print(f"共找到 {len(articles)} 則新聞文章")
         
         random_articles = random.sample(articles, min(len(articles), 5))
+        
+        source="ETtoday"                          # 新聞來源
 
         news_nownews = []
         for idx, article in enumerate(random_articles):
-            print(f"--- 提取第 {idx} 則新聞 ---")
+            # print(f"--- 提取第 {idx} 則新聞 ---")
 
             # 提取資訊
             title = article.find("h3").text.strip() if article.find("h3") else "無標題"
@@ -72,23 +75,24 @@ def fetch_ettoday2_news():
 
             publish_time = datetime.now(timezone.utc).isoformat()
 
-            print(f"標題：{title}")
-            print(f"連結：{link}")
-            print(f"摘要：{content}")
-            print(f"圖片連結：{image_link}")
-            print(f"發布時間：{publish_time}")
+            # print(f"標題：{title}")
+            # print(f"連結：{link}")
+            # print(f"摘要：{content}")
+            # print(f"圖片連結：{image_link}")
+            # print(f"發布時間：{publish_time}")
 
             # 整理新聞資料
             news_data = {
                 "title": title,
                 "link": link,
                 "content": content,
+                "source":source,
                 "image_link": image_link,
                 "publish_time": publish_time,
             }
             news_nownews.append(news_data)
 
-        print(f"✅ 成功抓取 {len(news_nownews)} 則新聞")
+        # print(f"✅ 成功抓取 {len(news_nownews)} 則新聞")
         return news_nownews
 
     except Exception as e:
@@ -110,14 +114,14 @@ def fetch_news_api():
     }), 200
 
 
-# 運行程式並打印結果
-if __name__ == '__main__':
-    news = fetch_ettoday2_news()
-    print("=== 爬取結果 ===")
-    for idx, article in enumerate(news, start=1):
-        print(f"{idx}. 標題: {article['title']}")
-        print(f"   連結: {article['link']}")
-        print(f"   圖片: {article['image_link']}")
-        print(f"   摘要: {article['content']}")
-        print(f"   發布時間: {article['publish_time']}")
-        print("================================")
+# # 運行程式並打印結果
+# if __name__ == '__main__':
+#     news = fetch_ettoday2_news()
+#     print("=== 爬取結果 ===")
+#     for idx, article in enumerate(news, start=1):
+#         print(f"{idx}. 標題: {article['title']}")
+#         print(f"   連結: {article['link']}")
+#         print(f"   圖片: {article['image_link']}")
+#         print(f"   摘要: {article['content']}")
+#         print(f"   發布時間: {article['publish_time']}")
+#         print("================================")

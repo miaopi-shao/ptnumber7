@@ -73,10 +73,13 @@ def fetch_weather_news():
             time = item.find('p', class_='time')
             publish_time = time.text.strip() if time else "無發布時間"
             
+            source = "nownews"
+            
             news_items.append({
                 'title': title_text,
                 'link': link,
-                'img_url': img_url,
+                'image_link': img_url,
+                'source': source,
                 'description': description_text,
                 'publish_time': publish_time
             })
@@ -113,6 +116,6 @@ def get_news_items():
     return jsonify(news_items)
 
 
-if __name__ == '__main__':
-    news = fetch_weather_news()
-    print(news)
+# if __name__ == '__main__':
+#     news = fetch_weather_news()
+#     print(news)

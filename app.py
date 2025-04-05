@@ -52,9 +52,11 @@ from yahoo import yahoo_bp
 from database import mail
 from scrape_news import scrape_news_bp                     # 負責運行定時任務    
 from datetime import timedelta
+from youtube import youtube_search
 
 import Page_Noiser                                         # 三網站爬蟲混合展示
 import udn2                                                # 聯合新聞網爬蟲
+
 
 from game import save_score_bp
 
@@ -83,7 +85,7 @@ else:
     print("⚠️ 無法加載 .env 文件，請檢查路徑或文件格式")
 
 # 配置多類型資料庫綁定
-FLASK_ENV = os.environ.get("FLASK_ENV", "production")#-----------------------------------------------------注意替換-------------------------------
+FLASK_ENV = os.environ.get("FLASK_ENV", "local_mysql")#-----------------------------------------------------注意替換-------------------------------
 print("*********************************")
 print(f"FLASK_ENV 設定為: {FLASK_ENV}")
 print("*********************************")
@@ -262,10 +264,10 @@ udn2_news = udn2.fetch_udn2_news()
 try:
     # 直接使用 fetch_weather_news 函數來獲取數據
     from weather_news import fetch_weather_news
-    news_items = fetch_weather_news()
+    weather_news = fetch_weather_news()
 except Exception as e:
     print(f"⚠️ 錯誤: {e}")
-    news_items = []  # 當爬取失敗時返回空資料
+    weather_news = []  # 當爬取失敗時返回空資料
     
 try:
     # 直接使用 fetch_weather_news 函數來獲取數據
@@ -289,7 +291,58 @@ try:
 except Exception as e:
     print(f"⚠️ 錯誤: {e}")
     taiwan_news = []  # 當爬取失敗時返回空資料
+    
+def normalize_news(news_list):
+    """標準化新聞欄位名稱"""
+    for news in news_list:
+        # 確保圖片欄位完整
+        news.setdefault("image_link", news.get("photo", news.get("image_link", news.get("url", "static/images/default_news.png"))))
 
+        # 統一時間欄位
+        news.setdefault("published_at", news.get("publish_time", news.get("time", {}).get("date", "未知時間")))
+
+        # 確保摘要存在
+        news.setdefault("summary", news.get("content", news.get("description", news.get("paragraph", "沒有摘要"))))
+
+        # 確保新聞連結完整
+        news.setdefault("url", news.get("link", news.get("titleLink", "#")))
+
+        # 增加新聞來源
+        news.setdefault("source", news.get("source", "未知來源"))
+
+        # 增加瀏覽次數（如果存在）
+        news.setdefault("views", news.get("view", 0))
+
+        # 確保分類存在
+        news.setdefault("category", news.get("story_list", "未分類"))
+
+        # 確保內容可讀等級
+        news.setdefault("content_level", news.get("content_level", "未知狀態"))
+        
+normalize_news(ettoday2_items)
+normalize_news(weather_news)
+normalize_news(taiwan_news)
+normalize_news(udn2_news)
+
+"""
+{
+    "title": "新聞標題",
+    "url": "新聞連結",
+    "image_link": "新聞圖片",
+    "summary": "新聞摘要",
+    "published_at": "發布時間",
+    "source": "新聞來源"
+}
+"""
+
+new2 = ettoday2_items + weather_news + taiwan_news + udn2_news
+
+if len(new2) >= 6:
+    selected_news = random.sample(new2, 6)  # 隨機選 8 則
+else:
+    selected_news = new2  # 若新聞數量不足 8 則，直接使用全部新聞
+
+print(selected_news)
 
 # ========================================================
 # 路由及功能
@@ -303,7 +356,7 @@ def home():  # 程式庫邏輯，定義首頁路由
     return render_template(
         'index.html', 
         ettoday2_items=ettoday2_items, 
-        news_items=news_items, 
+        weather_news=weather_news, 
         international_news=international_news, 
         taiwan_news=taiwan_news,
         udn2_news=udn2_news)  # 專案邏輯，渲染首頁 HTML 文件
@@ -322,12 +375,13 @@ def index11():  # 程式庫邏輯，定義原始網站路由
 @app.route('/index-2.html')
 def index2():  # 程式庫邏輯，定義焦點新聞路由
     print("焦點新聞加載中")
-    return render_template('index-2.html', Page_Noiser_news=Page_Noiser_news)  # 專案邏輯，渲染焦點新聞 HTML 文件
+    youtube = youtube_search()
+    return render_template('index-2.html', Page_Noiser_news=Page_Noiser_news, new2=selected_news, youtube = youtube)  # 專案邏輯，渲染焦點新聞 HTML 文件
 
 @app.route('/index-3.html')
 def index3():  # 程式庫邏輯，定義氣象新聞路由
     print("氣象新聞加載中")
-    return render_template('index-3.html', news_items=news_items)# 渲染 index-3.html 並傳遞數據
+    return render_template('index-3.html', weather_news=weather_news)# 渲染 index-3.html 並傳遞數據
 
 
 @app.route('/index-4.html')
@@ -338,7 +392,8 @@ def index4():  # 程式庫邏輯，定義娛樂新聞 HTML 文件
 @app.route('/index-5.html')
 def index5():# 程式庫邏輯，定義運動新聞 HTML 文件
     print("創建資料表加載中")
-    return render_template('index-5.html')  # 專案邏輯，渲染運動新聞 HTML 文件
+    return render_template('index-5.html', 
+    ettoday2_items=ettoday2_items,)  # 專案邏輯，渲染運動新聞 HTML 文件
 
 
 

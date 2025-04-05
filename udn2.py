@@ -20,8 +20,15 @@ def fetch_udn2_news():
         news_data = response.json()  # 解析 JSON 數據
         articles = [
             {
-                "title": news.get("title", "無標題"),
-                "url": "https://udn.com" + news.get("url", "")
+                "title": news.get("title", "無標題"),  # 新聞標題
+                "source": "udn",
+                "url": "https://udn.com" + news.get("titleLink", ""),  # 新聞連結
+                "image_link": news.get("url", ""),  # 新聞圖片網址
+                "summary": news.get("paragraph", "沒有摘要"),  # 新聞摘要
+                "published_at": news.get("time", {}).get("date", "未知時間"),  # 發布時間
+                "views": news.get("view", 0),  # 瀏覽次數
+                "content_level": news.get("content_level", "未知狀態"),  # 開放閱讀等級
+                "category": news.get("story_list", "未分類")  # 新聞分類
             }
             for news in news_data.get("lists", [])[:10]
         ]

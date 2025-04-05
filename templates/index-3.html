@@ -174,20 +174,21 @@
                     <!-- 導航列 -->
                     <nav class="full-width">
                         <ul class="sf-menu clearfix">
-                            <li class="current"><a href="/">Home</a></li>
-                            <li><a href="index-1.html">休息園地</a>
-                                <ul>
-                                    <li><a href="/game/parkour">跑酷小遊戲</a></li>
-                                    <!-- 修改積分計算連結，導向 leaderboard.html -->
-                                    <li><a href="leaderboard.html">積分計算</a></li>
-                                    <li><a href="/game/tetris">俄羅斯方塊</a></li>
-                                    <li><a href="https://www.youtube.com/">YouTube</a></li>
-                               </ul>
+                            <li class="current">
+                                <a href="/">首頁</a>
                             </li>
                             <li><a href="index-2.html">焦點新聞</a></li>
                             <li><a href="index-3.html">氣象特報</a></li>
                             <li><a href="index-4.html">娛樂新聞</a></li>
-                            <li><a href="index-5.html">運動新聞</a></li>
+                            <li><a href="index-5.html">綜合新聞</a></li>
+                            <li><a href="index-1.html">外部網站</a>
+                                <ul>
+                                    <li><a href="https://www.bing.com/search?q=HTML+Color+Picker">顏色查找</a></li>
+                                    <li><a href="https://duckduckgo.com/">外部搜尋引擎使用型</a></li>
+                                    <li><a href="https://www.google.com/">積分計算</a></li>
+                                    <li><a href="https://www.youtube.com/">YouTube</a></li>
+                               </ul>
+                            </li>
                             <li><a href="https://monsterone.com/graphics/logo-templates/">框架來源</a></li>
                         </ul>
                     </nav>
@@ -236,17 +237,17 @@
                     <div class="shadow-block-wrapper p2">氣象新聞
                         <div class="shadow-block">
                         <h2>氣象特報</h2>
-                        {% if news_items %}
-                            {% for news in news_items %}
+                        {% if weather_news %}
+                            {% for news in weather_news %}
                                 <div class="box-1 clearfix">
-                                    <img src="{{ news.img_url }}" alt="News Image" class="img-ind" style="width: 200px; height: auto;">
+                                    <img src="{{ news.image_link }}" alt="News Image" class="img-ind" style="width: 200px; height: auto;">
                                     <div>
                                         <h3>{{ news.title }}</h3>
                                         <div class="short_info">
                                             <span><a href="www.nownews.com">來源:www.nownews.com</a></span>
                                             <span>{{ news.description }}</span>
                                         </div>
-                                        <div>新聞內容<a href="{{ news.link }}" class="btn" target="_blank">前往</a></div>
+                                        <div><a href="{{ news.link }}" class="btn" target="_blank">前往</a></div>
                                     </div>
                                 </div>
                             {% endfor %}
@@ -335,8 +336,8 @@
                             <h3><a href="#">最新消息</a></h3>
                             <div>
                                 <ul>
-                                    {% for news in news_items %}
-                                        <li><a href="{{ news.link }}" target="_blank">{{ news.title }}</a></li>
+                                    {% for article in weather_news %}
+                                        <li><a href="{{ article.link }}" target="_blank">{{ article.title or '未提供標題' }}</a></li>
                                     {% endfor %}
                                 </ul>
                             </div>

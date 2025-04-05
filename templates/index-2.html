@@ -161,20 +161,21 @@
                     <!-- 導航列 -->
                     <nav class="full-width">
                         <ul class="sf-menu clearfix">
-                            <li class="current"><a href="/">Home</a></li>
-                            <li><a href="index-1.html">休息園地</a>
-                                <ul>
-                                    <li><a href="/game/parkour">跑酷小遊戲</a></li>
-                                    <!-- 修改積分計算連結，導向 leaderboard.html -->
-                                    <li><a href="leaderboard.html">積分計算</a></li>
-                                    <li><a href="/game/tetris">俄羅斯方塊</a></li>
-                                    <li><a href="https://www.youtube.com/">YouTube</a></li>
-                               </ul>
+                            <li class="current">
+                                <a href="/">首頁</a>
                             </li>
                             <li><a href="index-2.html">焦點新聞</a></li>
                             <li><a href="index-3.html">氣象特報</a></li>
                             <li><a href="index-4.html">娛樂新聞</a></li>
-                            <li><a href="index-5.html">運動新聞</a></li>
+                            <li><a href="index-5.html">綜合新聞</a></li>
+                            <li><a href="index-1.html">外部網站</a>
+                                <ul>
+                                    <li><a href="https://www.bing.com/search?q=HTML+Color+Picker">顏色查找</a></li>
+                                    <li><a href="https://duckduckgo.com/">外部搜尋引擎使用型</a></li>
+                                    <li><a href="https://www.google.com/">積分計算</a></li>
+                                    <li><a href="https://www.youtube.com/">YouTube</a></li>
+                               </ul>
+                            </li>
                             <li><a href="https://monsterone.com/graphics/logo-templates/">框架來源</a></li>
                         </ul>
                     </nav>
@@ -209,74 +210,26 @@
                 <div class="grid_8">
                     <div class="shadow-block-wrapper p-news">
                         <div class="shadow-block">
-                            <h2>今日焦點</h2>
-                            <div class="box-1 clearfix">
-                                <img src="{{ url_for('static', filename='images/page-3_img-1.jpg') }}" alt="" class="img-ind">
-                                <div>
-                                    <h3>第一則新聞</h3>
-                                    <div class="short_info">
-                                        <span>來自 <a class="h-underline" href="發文者主頁">發文者</a></span>
-                                        <span>文章日期</span>
-                                    </div>  
-                                    <div>文章內容 <a href="文章網址" class="btn">前往</a></div>
+                            {% if new2 %}
+                                <h2>今日焦點</h2>
+                                <div class="box-1 clearfix">
+                                {% for article in new2 %}
+                                    <div style="margin-bottom: 20px; padding: 15px;">
+                                        <img src="{{ article.image_link or url_for('static', filename='images/game_back.png') }}" alt="此文無附圖" class="img-ind" width="200" height="150">
+                                        <div style="height: 150px;">
+                                            <h3>{{ article.title or '未提供標題' }}</h3>
+                                            <div class="short_info">
+                                                <span><b>新聞來源 : </b><a class="h-underline" href="{{ article.url }}">{{ article.source or '不明來源' }}</a></span>
+                                                <span>{{ article.published_at or '三天內' }}</span>
+                                            </div>  
+                                            <div>{{ article.summary or '未提供摘要' }} <a href="{{ article.url }}" class="btn">前往</a></div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
                                 </div>
-                            </div>
-                            <div class="box-1 clearfix">
-                                <img src="{{ url_for('static', filename='images/page-3_img-2.jpg') }}" alt="" class="img-ind">
-                                <div>
-                                    <h3>第二則新聞</h3>
-                                    <div class="short_info">
-                                        <span>來自 <a class="h-underline" href="發文者主頁">發文者</a></span>
-                                        <span>文章日期</span>
-                                    </div>  
-                                    <div>文章內容 <a href="文章網址" class="btn">前往</a></div>
-                                </div>
-                            </div>
-                            <div class="box-1 clearfix">
-                                <img src="{{ url_for('static', filename='images/page-3_img-3.jpg') }}" alt="" class="img-ind">
-                                <div>
-                                    <h3>第三則新聞</h3>
-                                    <div class="short_info">
-                                        <span>來自 <a class="h-underline" href="發文者主頁">發文者</a></span>
-                                        <span>文章日期</span>
-                                    </div>  
-                                    <div>文章內容 <a href="文章網址" class="btn">前往</a></div>
-                                </div>
-                            </div>
-                            
-                            <div class="box-1 clearfix">
-                                <img src="{{ url_for('static', filename='images/page-3_img-4.jpg') }}" alt="" class="img-ind">
-                                <div>
-                                    <h3>第四則新聞<br> 標題太長就分段 </h3>
-                                    <div class="short_info">
-                                        <span>來自 <a class="h-underline" href="發文者主頁">發文者</a></span>
-                                        <span>文章日期</span>
-                                    </div>  
-                                    <div>文章內容 <a href="文章網址" class="btn">前往</a></div>
-                                </div>
-                            </div>
-                            <div class="box-1 clearfix">
-                                <img src="{{ url_for('static', filename='images/page-3_img-5.jpg') }}" alt="" class="img-ind">
-                                <div>
-                                    <h3>第五則新聞<br> 標題太長就分段 </h3>
-                                    <div class="short_info">
-                                        <span>來自 <a class="h-underline" href="發文者主頁">發文者</a></span>
-                                        <span>文章日期</span>
-                                    </div>  
-                                    <div>文章內容 <a href="文章網址" class="btn">前往</a></div>
-                                </div>
-                            </div>
-                            <div class="box-1 clearfix">
-                                <img src="{{ url_for('static', filename='images/page-3_img-6.jpg') }}" alt="" class="img-ind">
-                                <div>
-                                    <h3>第六則新聞<br> 標題太長就分段 </h3>
-                                    <div class="short_info">
-                                        <span>來自 <a class="h-underline" href="發文者主頁">發文者</a></span>
-                                        <span>文章日期</span>
-                                    </div>  
-                                    <div>文章內容 <a href="文章網址" class="btn">前往</a></div>
-                                </div>
-                            </div>
+                            {% else %}
+                                <p>新聞載入出錯。</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -291,18 +244,14 @@
                     </div>
                     <h2>今日熱門影片</h2>
                     <div class="b-video">
-                        <div class="box-3">
-                            <a class="various iframe" href="http://www.youtube.com/embed/2kodXWejuy0?rel=0"><img src="{{ url_for('static', filename='images/page-3_img-7.jpg') }}" alt="" class="wrapper"></a>
-                            <h3><a class="a-hov" href="#">Aenean nonummy hendrerit mauris phasellus <span>porta</span></a></h3>
-                        </div>
-                        <div class="box-3">
-                            <a class="various iframe" href="http://www.youtube.com/embed/2kodXWejuy0?rel=0"><img src="{{ url_for('static', filename='images/page-3_img-8.jpg') }}" alt="" class="wrapper"></a>
-                            <h3><a class="a-hov" href="#">Ultrices posuere cubilia curae aug Suspendisse sollicitudin velit sed leou pharetra <span>augue </span></a></h3>
-                        </div>
-                        <div class="box-3">
-                            <a class="various iframe" href="http://www.youtube.com/embed/2kodXWejuy0?rel=0"><img src="{{ url_for('static', filename='images/page-3_img-9.jpg') }}" alt="" class="wrapper"></a>
-                            <h3><a class="a-hov" href="#">Vestibulum ante ipsum primis inmo faucibus orci luctus <span>et</span></a></h3>
-                        </div>
+                        {% for video in youtube %}
+                            <div class="box-3">
+                                <a class="various iframe" href="{{ video.url }}">
+                                    <img src="{{ video.image_link }}" alt="youtube" class="wrapper">
+                                </a>
+                                <h3><a class="a-hov" href="{{ video.url }}">{{ video.title }}</a></h3>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
