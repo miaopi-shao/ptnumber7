@@ -26,4 +26,4 @@ seaborn==0.13.2
 requests==2.32.3
 flask-cors==5.0.1
 apscheduler==3.11.0
-Version==4.0.2
+webdriver-manager==4.0.2
