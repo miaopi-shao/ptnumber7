@@ -246,9 +246,7 @@
                     <div class="b-video">
                         {% for video in youtube %}
                             <div class="box-3">
-                                <a class="various iframe" href="{{ video.url }}">
-                                    <img src="{{ video.image_link }}" alt="youtube" class="wrapper">
-                                </a>
+                                <a class="various iframe" href="{{ video.url }}"></a>
                                 <h3><a class="a-hov" href="{{ video.url }}">{{ video.title }}</a></h3>
                             </div>
                         {% endfor %}

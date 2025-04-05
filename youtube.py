@@ -20,7 +20,7 @@ youtube_bp = Blueprint('youtube', __name__)
 
 
 
-def youtube_search(query="快訊", max_results=2):
+def youtube_search(query="快訊", max_results=6):
     """使用 yt-dlp 爬取 YouTube 影片標題、連結與縮圖"""
     ydl_opts = {
         'quiet': True,
@@ -35,10 +35,11 @@ def youtube_search(query="快訊", max_results=2):
         video_data = []
         if 'entries' in result:
             for video in result['entries']:
+                thumbnail_url = video.get('thumbnail')
                 video_data.append({
                     'title': video.get('title'),
                     'url': video.get('url'),
-                    'image_link': video.get('thumbnail'),
+                    'image_link': thumbnail_url,
                 })
         return video_data
 
