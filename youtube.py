@@ -11,14 +11,16 @@ from selenium.webdriver.chrome.service import Service
 #from webdriver_manager.chrome import ChromeDriverManager
 from flask import Blueprint
 from selenium.webdriver.chrome.options import Options
-
-
+import os
 
 youtube_bp = Blueprint('youtube', __name__)
 
 def youtube_search(query="快訊", max_results=2):
     """使用 Selenium 爬取 YouTube 新聞影片標題、連結與縮圖"""
-
+    
+    search_url = f"https://www.youtube.com/results?search_query={query}"
+    
+    
     # 設定 Chrome 瀏覽器為無頭模式
     chrome_options = Options()
     chrome_options.add_argument("--headless")  # 啟用無頭模式
@@ -28,14 +30,17 @@ def youtube_search(query="快訊", max_results=2):
     chrome_options.add_argument("--no-sandbox")  # 避免沙盒環境限制（部分系統需要）
     chrome_options.add_argument("--disable-dev-shm-usage")  # 避免共享內存空間問題
     
-    # 指定 Chrome binary 的位置
-    chrome_options.binary_location = '/usr/bin/google-chrome'
+    # 啟動 WebDriver，傳入選項
+    # 使用相對路徑取得 chromedriver 的位置，假設 chromedriver 放在專案中的 drivers 資料夾內
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    chromedriver_path = os.path.join(basedir, 'drivers', 'chromedriver.exe')
+    service = Service(executable_path=chromedriver_path)
     
-    # 初始化 WebDriver
-    driver = webdriver.Chrome(service=Service('/usr/local/bin/chromedriver'), options=chrome_options)
+    driver = webdriver.Chrome(service=service, options=chrome_options)
+    
+    
     
     # 打開 YouTube 搜尋結果頁面
-    search_url = f"https://www.youtube.com/results?search_query={query}"
     driver.get(search_url)
 
     # 等待頁面載入

@@ -66,7 +66,7 @@ def fetch_nownews_news():
     # 抓取新聞區塊：尋找所有具有 class "blk" 的元素
     articles = driver.find_elements(By.CLASS_NAME, "blk")                   # 取得新聞區塊列表
     inserted_news = []  # 用於存儲成功插入的新聞
-    
+    # print(inserted_news)
     # 檢查是否抓取到新聞
     if articles:
         for article in articles:                                            # 逐一處理每一篇新聞
@@ -99,8 +99,10 @@ def fetch_nownews_news():
                     db.session.add(news_article)
                     db.session.commit()
                     inserted_news.append({"title": title, "link": link})
+            
             except Exception as e:
                print(f"❌ 無法處理新聞: {e}")
+    print(inserted_news)
     return inserted_news
 
 
@@ -108,7 +110,11 @@ def fetch_nownews_news():
 def fetch_news_api():
     """ 提供 API，手動觸發新聞爬取 """
     news = fetch_nownews_news()
+    print(news)
     return jsonify({"message": f"成功存入 {len(news)} 篇新聞"}), 200
+nownews_news = fetch_nownews_news()
+print(nownews_news)
+
 
 """
 程式原理總結：
