@@ -8,10 +8,18 @@ Created on Sat Apr  5 17:06:59 2025
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
-#from webdriver_manager.chrome import ChromeDriverManager
-from flask import Blueprint
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+from flask import Blueprint
 import os
+
+def install_chrome():
+    os.system("apt-get update")
+    os.system("apt-get install -y wget unzip")
+    os.system("wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb")
+    os.system("apt-get install -y ./google-chrome-stable_current_amd64.deb")
+
+install_chrome()
 
 youtube_bp = Blueprint('youtube', __name__)
 
@@ -30,12 +38,10 @@ def youtube_search(query="快訊", max_results=2):
     chrome_options.add_argument("--no-sandbox")  # 避免沙盒環境限制（部分系統需要）
     chrome_options.add_argument("--disable-dev-shm-usage")  # 避免共享內存空間問題
     
-    # 啟動 WebDriver，傳入選項
-    # 使用相對路徑取得 chromedriver 的位置，假設 chromedriver 放在專案中的 drivers 資料夾內
-    basedir = os.path.abspath(os.path.dirname(__file__))
-    chromedriver_path = os.path.join(basedir, 'drivers', 'chromedriver.exe')
-    service = Service(executable_path=chromedriver_path)
-    
+    # 使用 webdriver_manager 自動下載並管理 ChromeDriver
+    service = Service(ChromeDriverManager().install())
+
+    # 初始化 WebDriver
     driver = webdriver.Chrome(service=service, options=chrome_options)
     
     
