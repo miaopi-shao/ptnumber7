@@ -12,7 +12,7 @@ import random
 import requests
 from flask import Blueprint
 
-CACHE_FILE = "youtube_cache.json"  # 快取檔案名稱
+CACHE_FILE = "/static/tmp/youtube_cache.json"  # 快取檔案名稱
 CACHE_EXPIRY = 86400  # 24 小時 (每天只爬一次)
 RETRY_DELAY = 10800  # 3 小時 (秒) 如果 API 被鎖則延遲爬取
 RETRY_DELAY2 = 11800  # 3 小時 (秒) 如果 API 被鎖則延遲爬取
