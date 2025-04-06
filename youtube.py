@@ -101,123 +101,123 @@ news_videos = youtube_search()
 print(news_videos)
 
 
-def youtube2_1_search(query="藝人", max_results=2):
-    sleep_time = random.uniform(5, 10)  # 🔥 加入隨機延遲，降低 API 被鎖風險
-    time.sleep(sleep_time)
-    """使用 yt-dlp 爬取 YouTube 影片標題、連結與縮圖"""
-    ydl_opts = {
-        'quiet': True,
-        'noplaylist': True,
-        'age_limit': 18,
-        'format': 'best',
-        'outtmpl': '/dev/null',
-        'sleep_interval': 5,
-    }
-    try:
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            result = ydl.extract_info(f'ytsearch{max_results}:{query}', download=False)
-            video_data = []
-            if 'entries' in result:
-                for video in result['entries']:
-                    if not video.get('id'):  #  影片沒有 ID，直接跳過
-                        continue  
+# def youtube2_1_search(query="藝人", max_results=2):
+#     sleep_time = random.uniform(5, 10)  # 🔥 加入隨機延遲，降低 API 被鎖風險
+#     time.sleep(sleep_time)
+#     """使用 yt-dlp 爬取 YouTube 影片標題、連結與縮圖"""
+#     ydl_opts = {
+#         'quiet': True,
+#         'noplaylist': True,
+#         'age_limit': 18,
+#         'format': 'best',
+#         'outtmpl': '/dev/null',
+#         'sleep_interval': 5,
+#     }
+#     try:
+#         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+#             result = ydl.extract_info(f'ytsearch{max_results}:{query}', download=False)
+#             video_data = []
+#             if 'entries' in result:
+#                 for video in result['entries']:
+#                     if not video.get('id'):  #  影片沒有 ID，直接跳過
+#                         continue  
                     
-                    thumbnail_url = video.get('thumbnail')
-                    if not thumbnail_url or thumbnail_url == "undefined":
-                        continue  # 直接跳過該影片
+#                     thumbnail_url = video.get('thumbnail')
+#                     if not thumbnail_url or thumbnail_url == "undefined":
+#                         continue  # 直接跳過該影片
     
-                    #  檢查縮圖是否失效，避免使用假的 `maxresdefault.jpg`
-                    if "maxresdefault.jpg" in thumbnail_url and requests.get(thumbnail_url).status_code == 404:
-                        continue  # **直接跳過該影片**
+#                     #  檢查縮圖是否失效，避免使用假的 `maxresdefault.jpg`
+#                     if "maxresdefault.jpg" in thumbnail_url and requests.get(thumbnail_url).status_code == 404:
+#                         continue  # **直接跳過該影片**
                     
-                    video_data.append({
-                        'title': video.get('title'),
-                        'url': video.get('webpage_url'),  # **使用正確的 YouTube 網頁連結**
-                        'image_link': thumbnail_url,
-                        'id': video.get('id')  # **明確提供 ID，前端解析更安全**
-                    })
-            return video_data
-    except yt_dlp.utils.DownloadError as e:
-        if "429" in str(e):  # 🔥 API 被鎖，延遲 3 小時再爬
-            print("API 被鎖定，等待 3 小時後再嘗試...")
-            time.sleep(RETRY_DELAY)
-            return fetch_youtube(query, max_results)
-        else:
-            print(f"爬取時發生錯誤：{e}")
-            return []
+#                     video_data.append({
+#                         'title': video.get('title'),
+#                         'url': video.get('webpage_url'),  # **使用正確的 YouTube 網頁連結**
+#                         'image_link': thumbnail_url,
+#                         'id': video.get('id')  # **明確提供 ID，前端解析更安全**
+#                     })
+#             return video_data
+#     except yt_dlp.utils.DownloadError as e:
+#         if "429" in str(e):  # 🔥 API 被鎖，延遲 3 小時再爬
+#             print("API 被鎖定，等待 3 小時後再嘗試...")
+#             time.sleep(RETRY_DELAY)
+#             return fetch_youtube(query, max_results)
+#         else:
+#             print(f"爬取時發生錯誤：{e}")
+#             return []
 
-def youtube2_2_search(query="演藝圈", max_results=2):
-    sleep_time = random.uniform(5, 10)  # 🔥 加入隨機延遲，降低 API 被鎖風險
-    time.sleep(sleep_time)
-    """使用 yt-dlp 爬取 YouTube 影片標題、連結與縮圖"""
-    try:
-        ydl_opts = {
-            'quiet': True,
-            'noplaylist': True,
-            'age_limit': 18,
-            'format': 'best',
-            'outtmpl': '/dev/null',
-            'sleep_interval': 6,
-        }
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            result = ydl.extract_info(f'ytsearch{max_results}:{query}', download=False)
-            video_data = []
-            if 'entries' in result:
-                for video in result['entries']:
-                    if not video.get('id'):  #  影片沒有 ID，直接跳過
-                        continue  
+# def youtube2_2_search(query="演藝圈", max_results=2):
+#     sleep_time = random.uniform(5, 10)  # 🔥 加入隨機延遲，降低 API 被鎖風險
+#     time.sleep(sleep_time)
+#     """使用 yt-dlp 爬取 YouTube 影片標題、連結與縮圖"""
+#     try:
+#         ydl_opts = {
+#             'quiet': True,
+#             'noplaylist': True,
+#             'age_limit': 18,
+#             'format': 'best',
+#             'outtmpl': '/dev/null',
+#             'sleep_interval': 6,
+#         }
+#         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+#             result = ydl.extract_info(f'ytsearch{max_results}:{query}', download=False)
+#             video_data = []
+#             if 'entries' in result:
+#                 for video in result['entries']:
+#                     if not video.get('id'):  #  影片沒有 ID，直接跳過
+#                         continue  
                     
-                    thumbnail_url = video.get('thumbnail')
-                    if not thumbnail_url or thumbnail_url == "undefined":
-                        continue  # 直接跳過該影片
+#                     thumbnail_url = video.get('thumbnail')
+#                     if not thumbnail_url or thumbnail_url == "undefined":
+#                         continue  # 直接跳過該影片
     
-                    #  檢查縮圖是否失效，避免使用假的 `maxresdefault.jpg`
-                    if "maxresdefault.jpg" in thumbnail_url and requests.get(thumbnail_url).status_code == 404:
-                        continue  # **直接跳過該影片**
+#                     #  檢查縮圖是否失效，避免使用假的 `maxresdefault.jpg`
+#                     if "maxresdefault.jpg" in thumbnail_url and requests.get(thumbnail_url).status_code == 404:
+#                         continue  # **直接跳過該影片**
                     
-                    video_data.append({
-                        'title': video.get('title'),
-                        'url': video.get('webpage_url'),  # **使用正確的 YouTube 網頁連結**
-                        'image_link': thumbnail_url,
-                        'id': video.get('id')  # **明確提供 ID，前端解析更安全**
-                    })
-            return video_data
-    except yt_dlp.utils.DownloadError as e:
-        if "429" in str(e):  # 🔥 API 被鎖，延遲 3 小時再爬
-            print("API 被鎖定，等待 3 小時後再嘗試...")
-            time.sleep(RETRY_DELAY3)
-            return fetch_youtube(query, max_results)
-        else:
-            print(f"爬取時發生錯誤：{e}")
-            return []
+#                     video_data.append({
+#                         'title': video.get('title'),
+#                         'url': video.get('webpage_url'),  # **使用正確的 YouTube 網頁連結**
+#                         'image_link': thumbnail_url,
+#                         'id': video.get('id')  # **明確提供 ID，前端解析更安全**
+#                     })
+#             return video_data
+#     except yt_dlp.utils.DownloadError as e:
+#         if "429" in str(e):  # 🔥 API 被鎖，延遲 3 小時再爬
+#             print("API 被鎖定，等待 3 小時後再嘗試...")
+#             time.sleep(RETRY_DELAY3)
+#             return fetch_youtube(query, max_results)
+#         else:
+#             print(f"爬取時發生錯誤：{e}")
+#             return []
 
-def youtube2_search():
-    """合併 youtube2_1_search 和 youtube2_2_search 的結果"""
-    try:
-        video_data = []
-        video_data.extend(youtube2_1_search())  # 直接調用，使用預設參數
-        video_data.extend(youtube2_2_search())  # 直接調用，使用預設參數
-        return video_data if video_data else  [
-                    {
-                        "title": "API遭鎖，導向youtube首頁",
-                        "url": "https://www.youtube.com/",  # 🔥 這裡可以指向一個替代資訊頁面
-                        "image_link": "https://pngimg.com/download/20645",  # 🔥 替代圖片，不會顯示錯誤
-                        "id": "N/A"  # 🔥 ID 直接設為 "N/A"，避免解析錯誤
-                    }
-                ]  # 返回合併後的結果
-    except Exception as e:
-        print(f"錯誤：{e}")  
-        return [
-            {
-                "title": "API遭鎖，導向youtube首頁",
-                "url": "https://www.youtube.com/",  # 🔥 這裡可以指向一個替代資訊頁面
-                "image_link": "https://pngimg.com/download/20645",  # 🔥 替代圖片，不會顯示錯誤
-                "id": "N/A"  # 🔥 ID 直接設為 "N/A"，避免解析錯誤
-            }
-        ]
+# def youtube2_search():
+#     """合併 youtube2_1_search 和 youtube2_2_search 的結果"""
+#     try:
+#         video_data = []
+#         video_data.extend(youtube2_1_search())  # 直接調用，使用預設參數
+#         video_data.extend(youtube2_2_search())  # 直接調用，使用預設參數
+#         return video_data if video_data else  [
+#                     {
+#                         "title": "API遭鎖，導向youtube首頁",
+#                         "url": "https://www.youtube.com/",  # 🔥 這裡可以指向一個替代資訊頁面
+#                         "image_link": "https://pngimg.com/download/20645",  # 🔥 替代圖片，不會顯示錯誤
+#                         "id": "N/A"  # 🔥 ID 直接設為 "N/A"，避免解析錯誤
+#                     }
+#                 ]  # 返回合併後的結果
+#     except Exception as e:
+#         print(f"錯誤：{e}")  
+#         return [
+#             {
+#                 "title": "API遭鎖，導向youtube首頁",
+#                 "url": "https://www.youtube.com/",  # 🔥 這裡可以指向一個替代資訊頁面
+#                 "image_link": "https://pngimg.com/download/20645",  # 🔥 替代圖片，不會顯示錯誤
+#                 "id": "N/A"  # 🔥 ID 直接設為 "N/A"，避免解析錯誤
+#             }
+#         ]
 
 
-#  測試爬取 YouTube 新聞影片標題、連結與縮圖
-news2_videos = youtube2_search()
-print("-----------------------------")
-print(news2_videos)
+# #  測試爬取 YouTube 新聞影片標題、連結與縮圖
+# news2_videos = youtube2_search()
+# print("-----------------------------")
+# print(news2_videos)

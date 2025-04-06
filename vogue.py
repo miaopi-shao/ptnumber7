@@ -69,8 +69,8 @@ def vogue_news():
                     })
 
     # 如果爬取到的新聞超過 3 筆，隨機選出 3 筆返回
-    if len(news_list) > 3:
-        news_list = random.sample(news_list, 3)
+    if len(news_list) > 9:
+        news_list = random.sample(news_list, 9)
     
     return news_list
 
