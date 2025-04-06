@@ -51,6 +51,7 @@ def vogue_news():
                         author_tag = article_soup.find("span", class_="BylineName-kwmrLn cYaBcc byline__name")  
                     
                     author = author_tag.get_text().strip() if author_tag else "未知作者"
+                    author = author.replace("By", "").strip()  # 🔥 移除 "BY"
                     
                     summary = "請點選內容前往察看\n原文提供更多內容"
 
