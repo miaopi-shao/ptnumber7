@@ -31,6 +31,7 @@ def youtube_search(query="快訊", max_results=6):
         'age_limit': 18,
         'format': 'best',
         'outtmpl': '/dev/null',  # 不儲存影片檔案
+        'sleep_interval': 8,
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         result = ydl.extract_info(f'ytsearch{max_results}:{query}', download=False)
@@ -57,6 +58,7 @@ def youtube2_1_search(query="藝人", max_results=2):
         'age_limit': 18,
         'format': 'best',
         'outtmpl': '/dev/null',
+        'sleep_interval': 5,
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         result = ydl.extract_info(f'ytsearch{max_results}:{query}', download=False)
@@ -90,6 +92,7 @@ def youtube2_2_search(query="演藝圈", max_results=2):
         'age_limit': 18,
         'format': 'best',
         'outtmpl': '/dev/null',
+        'sleep_interval': 6,
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         result = ydl.extract_info(f'ytsearch{max_results}:{query}', download=False)
