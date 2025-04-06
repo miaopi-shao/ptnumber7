@@ -3,7 +3,7 @@
 ========================================= */
 @import "../css/reset.css";       /* 重置預設樣式 */
 @import "../css/skeleton.css";    /* Skeleton 框架樣式 */
-@import url('style.css');         /* 自訂樣式 */
+/* @import url('style.css');        自訂樣式 */
 
 /* =========================================
    全局樣式設定
@@ -53,7 +53,7 @@ h1, h2, h3, h4, h5, h6, .title-1 {
     font-weight: bold;
     color: #4c4c4c;
 }
-title-1 {
+.title-1 {
     display: flex;
     align-items: center; /* 垂直置中 */
 }

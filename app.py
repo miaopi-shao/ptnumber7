@@ -53,9 +53,13 @@ from database import mail
 from scrape_news import scrape_news_bp                     # 負責運行定時任務    
 from datetime import timedelta
 from youtube import youtube_search
+from youtube import youtube2_search
+from vogue import vogue_news
+
 
 import Page_Noiser                                         # 三網站爬蟲混合展示
 import udn2                                                # 聯合新聞網爬蟲
+
 
 
 from game import save_score_bp
@@ -85,7 +89,7 @@ else:
     print("⚠️ 無法加載 .env 文件，請檢查路徑或文件格式")
 
 # 配置多類型資料庫綁定
-FLASK_ENV = os.environ.get("FLASK_ENV", "production")#-----------------------------------------------------注意替換-------------------------------
+FLASK_ENV = os.environ.get("FLASK_ENV", "local_mysql")#-----------------------------------------------------注意替換-------------------------------
 print("*********************************")
 print(f"FLASK_ENV 設定為: {FLASK_ENV}")
 print("*********************************")
@@ -387,7 +391,9 @@ def index3():  # 程式庫邏輯，定義氣象新聞路由
 @app.route('/index-4.html')
 def index4():  # 程式庫邏輯，定義娛樂新聞 HTML 文件
     print("創建資料表加載中")
-    return render_template('index-4.html')  # 專案邏輯，渲染娛樂新聞 HTML 文件
+    vogue = vogue_news()
+    youtube = youtube2_search()
+    return render_template('index-4.html', vogue=vogue, youtube=youtube, video=youtube)  # 專案邏輯，渲染娛樂新聞 HTML 文件
 
 @app.route('/index-5.html')
 def index5():# 程式庫邏輯，定義運動新聞 HTML 文件
