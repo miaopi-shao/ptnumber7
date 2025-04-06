@@ -53,7 +53,7 @@ from database import mail
 from scrape_news import scrape_news_bp                     # 負責運行定時任務    
 from datetime import timedelta
 from youtube import youtube_search
-from youtube import youtube2_search
+# from youtube import youtube2_search
 from vogue import vogue_news
 
 
@@ -392,8 +392,8 @@ def index3():  # 程式庫邏輯，定義氣象新聞路由
 def index4():  # 程式庫邏輯，定義娛樂新聞 HTML 文件
     print("創建資料表加載中")
     vogue = vogue_news()
-    youtube = youtube2_search()
-    return render_template('index-4.html', vogue=vogue, youtube=youtube, video=youtube)  # 專案邏輯，渲染娛樂新聞 HTML 文件
+    # youtube = youtube2_search()
+    return render_template('index-4.html', vogue=vogue)  # 專案邏輯，渲染娛樂新聞 HTML 文件
 
 @app.route('/index-5.html')
 def index5():# 程式庫邏輯，定義運動新聞 HTML 文件
