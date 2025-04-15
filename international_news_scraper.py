@@ -7,54 +7,54 @@ from flask import Blueprint, jsonify
 international_news_bp = Blueprint("international_news", __name__)
 
 # 爬取 BBC 新聞
-import requests
-from bs4 import BeautifulSoup
-import random
-
 def fetch_bbc_news():
     url = "https://www.bbc.com/news"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
     response = requests.get(url, headers=headers)
     soup = BeautifulSoup(response.text, 'html.parser')
 
-    # 找到父元素
+    # 🔍 找到所有新聞區塊
     articles = soup.find_all("div", class_="sc-c6f6255e-0 eGcloy")
 
-    # **🔥 先篩選出有圖片的新聞**
     filtered_articles = []
     for article in articles:
-        image_tag = article.find("img", class_="sc-a34861b-0 efFcac")
-        image_link = image_tag["src"] if image_tag and image_tag.get("src") else None
-
-        if image_link:  # 只有有圖片的新聞才加入
-            filtered_articles.append(article)
-
-    # **🔥 再從有圖片的新聞隨機選擇兩則**
-    selected_articles = random.sample(filtered_articles, min(2, len(filtered_articles))) if filtered_articles else []
-
-    # 組合結果
-    results = []
-    for article in selected_articles:
-        title_tag = article.find("h2")
+        # 🔍 提取標題
+        title_tag = article.find("h2", class_="sc-87075214-3 eywmDE")
         title = title_tag.text.strip() if title_tag else "無標題"
 
-        summary_tag = article.find("p")
+        # 🔍 提取摘要
+        summary_tag = article.find("p", class_="sc-530fb3d6-0 gJqLcg")
         summary = summary_tag.text.strip() if summary_tag else "Maybe you should check it out ?"
 
-        link_tag = article.find("a")
+        # 🔍 提取新聞連結
+        link_tag = article.find("a", class_="sc-2e6baa30-0 gILusN")
         link = "https://www.bbc.com" + link_tag["href"] if link_tag and link_tag.get("href") else "#"
 
-        results.append({
-            "title": title,
-            "link": link,
-            "summary": summary,
-            "image_link": image_link,  # 🔥 確保圖片已存在
-            "source": "BBC",
-        })
+        # 🔍 提取圖片
+        image_tag = article.find("img", class_="sc-a34861b-0 efFcac")
+        image_link = None
+        if image_tag:
+            if "srcset" in image_tag.attrs:
+                image_urls = image_tag["srcset"].split(", ")
+                highest_res = image_urls[-1].split(" ")[0]  # 取最高解析度圖片
+                image_link = highest_res
+            else:
+                image_link = image_tag["src"] if image_tag.get("src") else None
 
-    return results if results else [{"title": "無法獲取 BBC 新聞", "link": "#", "summary": "請稍後再試", "image_link": "https://via.placeholder.com/150", "source": "BBC"}]
+        # ✅ 確保新聞有圖片
+        if image_link:
+            filtered_articles.append({
+                "title": title,
+                "link": link,
+                "summary": summary,
+                "image_link": image_link,
+                "source": "BBC",
+            })
+
+    # 🔍 隨機選擇 2 則新聞
+    selected_articles = random.sample(filtered_articles, min(3, len(filtered_articles))) if filtered_articles else []
+
+    return selected_articles if selected_articles else [{"title": "無法獲取 BBC 新聞", "link": "#", "summary": "請稍後再試", "image_link": "https://via.placeholder.com/150", "source": "BBC"}]
 
 # 爬取 Al Jazeera 新聞
 def fetch_aljazeera_news():
@@ -143,15 +143,15 @@ def fetch_news_api():
     except Exception as e:
         return jsonify({"error": f"抓取新聞失敗: {str(e)}"}), 500
 
-# # 運行程式並打印結果
-# if __name__ == '__main__':
-#     news = fetch_international_news()
-#     print("=== 隨機抓取各兩則新聞 ===")
-#     for idx, article in enumerate(news, start=1):
-#         print(f"新聞 {idx}:")
-#         print(f"標題: {article['title']}")
-#         print(f"連結: {article['link']}")
-#         print(f"摘要: {article['summary']}")
-#         print(f"圖片: {article['image_link']}")
-#         print(f"圖片: {article['source']}")
-#         print("==============================")
+# 運行程式並打印結果
+if __name__ == '__main__':
+    news = fetch_international_news()
+    print("=== 隨機抓取各兩則新聞 ===")
+    for idx, article in enumerate(news, start=1):
+        print(f"新聞 {idx}:")
+        print(f"標題: {article['title']}")
+        print(f"連結: {article['link']}")
+        print(f"摘要: {article['summary']}")
+        print(f"圖片: {article['image_link']}")
+        print(f"圖片: {article['source']}")
+        print("==============================")

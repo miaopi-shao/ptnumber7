@@ -262,6 +262,7 @@ with app.app_context():
     else:
         print("跳過雲端資料表創建邏輯")
 
+
 Page_Noiser_news = Page_Noiser.fetch_news()
 udn2_news = udn2.fetch_udn2_news()
 
@@ -288,10 +289,17 @@ try:
 except Exception as e:
     print(f"⚠️ 錯誤: {e}")
     international_news = []  # 當爬取失敗時返回空資料
+    
+    
 try:
     # 匯入 fetch_international_news 函數
-    from taiwan_news import fetch_taiwan_news  # 確保檔案名稱正確
-    taiwan_news = fetch_taiwan_news()  # 調用函數獲取新聞資料
+    from cts2 import fetch_cts2_news
+    from ara import fetch_ara_news
+    from ttv import fetch_ttv_news
+    
+    taiwan_news = (fetch_cts2_news() or []) + (fetch_ara_news() or []) + (fetch_ttv_news() or [])
+    # 調用函數獲取新聞資料
+
 except Exception as e:
     print(f"⚠️ 錯誤: {e}")
     taiwan_news = []  # 當爬取失敗時返回空資料
