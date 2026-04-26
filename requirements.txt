@@ -7,7 +7,7 @@ Flask-SQLAlchemy==3.1.1
 SQLAlchemy==2.0.38
 PyMySQL==1.1.1
 bcrypt==4.2.1
-cryptography==44.0.1
+cryptography==46.0.7
 PyJWT==2.10.1
 jwcrypto==1.5.6
 python-jwt==4.1.0
